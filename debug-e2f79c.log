@@ -1,0 +1,5 @@
+{"sessionId":"e2f79c","runId":"post-fix","hypothesisId":"A","location":"WaterMeterApplication.main","message":"spring boot starting","data":{"javaVersion":"21.0.12"},"timestamp":1785739613094}
+{"sessionId":"e2f79c","runId":"post-fix","hypothesisId":"A","location":"WaterMeterApplication.main","message":"spring boot starting","data":{"javaVersion":"21.0.12"},"timestamp":1785739654982}
+{"sessionId":"e2f79c","runId":"post-fix","hypothesisId":"B","location":"WaterMeterApplication.main","message":"spring boot started","data":{"ok":true},"timestamp":1785739659673}
+{"sessionId":"e2f79c","runId":"post-fix","hypothesisId":"A","location":"WaterMeterApplication.main","message":"spring boot starting","data":{"javaVersion":"21.0.12"},"timestamp":1785739818449}
+{"sessionId":"e2f79c","runId":"post-fix","hypothesisId":"B","location":"WaterMeterApplication.main","message":"spring boot started","data":{"ok":true},"timestamp":1785739822477}

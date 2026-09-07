@@ -1,0 +1,129 @@
+2026-07-17 14:06:58.766 | INFO     | __main__:initialize_system:42 - ============================================================
+2026-07-17 14:06:58.768 | INFO     | __main__:initialize_system:43 - 初始化基于AI的水表抄表收费管理智能体系统
+2026-07-17 14:06:58.769 | INFO     | __main__:initialize_system:44 - ============================================================
+2026-07-17 14:06:58.769 | INFO     | __main__:initialize_system:54 - 注册智能体...
+2026-07-17 14:06:58.769 | INFO     | agents.meter_reading_agent:_load_model:36 - OCR模型: 加载中...
+2026-07-17 14:06:58.769 | INFO     | agents.meter_reading_agent:_load_model:38 - OCR模型: 加载完成
+2026-07-17 14:06:58.769 | INFO     | core.orchestrator:register_agent:176 - 协调器: 注册智能体 [抄表智能体], ID: meter_reading_agent, 能力: ['perceive', 'decide', 'execute', 'learn']
+2026-07-17 14:06:58.769 | INFO     | core.orchestrator:register_agent:176 - 协调器: 注册智能体 [计费智能体], ID: billing_agent, 能力: ['perceive', 'decide', 'execute', 'learn']
+2026-07-17 14:06:58.769 | INFO     | core.orchestrator:register_agent:176 - 协调器: 注册智能体 [异常检测智能体], ID: anomaly_agent, 能力: ['perceive', 'decide', 'execute', 'learn', 'collaborate']
+2026-07-17 14:06:58.769 | INFO     | core.orchestrator:register_agent:176 - 协调器: 注册智能体 [催缴智能体], ID: collection_agent, 能力: ['perceive', 'decide', 'execute', 'learn']
+2026-07-17 14:06:58.769 | INFO     | agents.analysis_agent:_load_model:37 - 分析智能体: 时序预测模型加载完成
+2026-07-17 14:06:58.770 | INFO     | core.orchestrator:register_agent:176 - 协调器: 注册智能体 [分析智能体], ID: analysis_agent, 能力: ['perceive', 'decide', 'execute', 'learn']
+2026-07-17 14:06:58.770 | INFO     | __main__:initialize_system:71 - 已注册 5 个智能体
+2026-07-17 14:06:58.770 | INFO     | __main__:initialize_system:74 - 启动智能体系统...
+2026-07-17 14:06:58.770 | INFO     | core.base_agent:start:166 - 智能体 [抄表智能体] 启动成功, 能力: ['perceive', 'decide', 'execute', 'learn']
+2026-07-17 14:06:58.770 | INFO     | agents.meter_reading_agent:_on_start:132 - 抄表智能体: 初始化完成，OCR模型已就绪
+2026-07-17 14:06:58.770 | INFO     | core.base_agent:start:166 - 智能体 [计费智能体] 启动成功, 能力: ['perceive', 'decide', 'execute', 'learn']
+2026-07-17 14:06:58.770 | INFO     | agents.billing_agent:_on_start:62 - 计费智能体: 初始化完成，费率规则已加载
+2026-07-17 14:06:58.770 | INFO     | core.base_agent:start:166 - 智能体 [异常检测智能体] 启动成功, 能力: ['perceive', 'decide', 'execute', 'learn', 'collaborate']
+2026-07-17 14:06:58.770 | INFO     | agents.anomaly_agent:_on_start:284 - 异常检测智能体: 初始化完成，检测引擎已就绪
+2026-07-17 14:06:58.770 | INFO     | core.base_agent:start:166 - 智能体 [催缴智能体] 启动成功, 能力: ['perceive', 'decide', 'execute', 'learn']
+2026-07-17 14:06:58.770 | INFO     | agents.collection_agent:_on_start:192 - 催缴智能体: 初始化完成，策略引擎已就绪
+2026-07-17 14:06:58.770 | INFO     | core.base_agent:start:166 - 智能体 [分析智能体] 启动成功, 能力: ['perceive', 'decide', 'execute', 'learn']
+2026-07-17 14:06:58.770 | INFO     | agents.analysis_agent:_on_start:287 - 分析智能体: 初始化完成，分析引擎已就绪
+2026-07-17 14:06:58.771 | INFO     | core.orchestrator:start:437 - 协调器: 启动完成，所有智能体已就绪
+2026-07-17 14:06:58.771 | INFO     | core.event_bus:start:125 - 事件总线: 启动完成
+2026-07-17 14:06:58.771 | INFO     | __main__:initialize_system:78 - 系统初始化完成!
+2026-07-17 14:06:58.771 | INFO     | __main__:run_demo:85 - 
+============================================================
+2026-07-17 14:06:58.771 | INFO     | __main__:run_demo:86 - 开始运行智能体系统演示
+2026-07-17 14:06:58.771 | INFO     | __main__:run_demo:87 - ============================================================
+2026-07-17 14:06:58.771 | INFO     | __main__:run_demo:90 - 
+--- 演示1: 抄表智能体 ---
+2026-07-17 14:06:58.771 | INFO     | core.base_agent:run_cycle:245 - 智能体 [抄表智能体] 开始执行周期
+2026-07-17 14:06:58.771 | INFO     | agents.meter_reading_agent:_perceive_image:164 - 抄表智能体: 图像抄表, 水表ID: WM-A001-0001
+2026-07-17 14:06:58.772 | DEBUG    | core.base_agent:perceive:191 - 智能体 [抄表智能体] 感知完成, 置信度: 0.97
+2026-07-17 14:06:58.772 | DEBUG    | core.base_agent:decide:210 - 智能体 [抄表智能体] 决策完成, 动作: auto_accept, 置信度: 0.97
+2026-07-17 14:06:58.772 | DEBUG    | core.knowledge_base:set_fact:157 - 知识库: 更新事实 [meter_last_reading:WM-A001-0001], 来源: [meter_reading_agent]
+2026-07-17 14:06:58.772 | INFO     | agents.meter_reading_agent:_execute_auto_accept:381 - 抄表智能体: 自动录入水表 [WM-A001-0001] 读数: 74679.7
+2026-07-17 14:06:58.772 | DEBUG    | core.base_agent:execute:231 - 智能体 [抄表智能体] 执行完成, 成功: True
+2026-07-17 14:06:58.772 | INFO     | __main__:run_demo:99 - 图像抄表结果: 水表WM-A001-0001读数74679.7已自动录入
+2026-07-17 14:06:58.772 | INFO     | core.base_agent:run_cycle:245 - 智能体 [抄表智能体] 开始执行周期
+2026-07-17 14:06:58.772 | INFO     | agents.meter_reading_agent:_perceive_schedule:225 - 抄表智能体: 定时抄表, 区域: A001, 预计水表数: 5
+2026-07-17 14:06:58.772 | DEBUG    | core.base_agent:perceive:191 - 智能体 [抄表智能体] 感知完成, 置信度: 0.95
+2026-07-17 14:06:58.772 | DEBUG    | core.base_agent:decide:210 - 智能体 [抄表智能体] 决策完成, 动作: batch_process, 置信度: 0.95
+2026-07-17 14:06:58.772 | INFO     | agents.meter_reading_agent:_execute_batch_process:463 - 抄表智能体: 批量处理完成, 接受: 3, 复核: 2
+2026-07-17 14:06:58.772 | DEBUG    | core.base_agent:execute:231 - 智能体 [抄表智能体] 执行完成, 成功: True
+2026-07-17 14:06:58.772 | INFO     | __main__:run_demo:107 - 批量抄表结果: 批量抄表处理完成: 接受3个, 复核2个
+2026-07-17 14:06:58.772 | INFO     | __main__:run_demo:110 - 
+--- 演示2: 计费智能体 ---
+2026-07-17 14:06:58.772 | INFO     | core.base_agent:run_cycle:245 - 智能体 [计费智能体] 开始执行周期
+2026-07-17 14:06:58.772 | DEBUG    | core.base_agent:perceive:191 - 智能体 [计费智能体] 感知完成, 置信度: 0.99
+2026-07-17 14:06:58.772 | DEBUG    | core.base_agent:decide:210 - 智能体 [计费智能体] 决策完成, 动作: generate_bill, 置信度: 0.99
+2026-07-17 14:06:58.772 | DEBUG    | core.knowledge_base:set_fact:157 - 知识库: 更新事实 [bill:BILL-20260717-1918], 来源: [billing_agent]
+2026-07-17 14:06:58.772 | INFO     | agents.billing_agent:_execute_generate_bill:298 - 计费智能体: 生成账单 [BILL-20260717-1918], 金额: 104.22元
+2026-07-17 14:06:58.772 | DEBUG    | core.base_agent:execute:231 - 智能体 [计费智能体] 执行完成, 成功: True
+2026-07-17 14:06:58.772 | INFO     | __main__:run_demo:120 - 计费结果: 账单BILL-20260717-1918已生成，应缴104.22元
+2026-07-17 14:06:58.772 | INFO     | __main__:run_demo:123 - 
+--- 演示3: 异常检测智能体 ---
+2026-07-17 14:06:58.772 | INFO     | core.base_agent:run_cycle:245 - 智能体 [异常检测智能体] 开始执行周期
+2026-07-17 14:06:58.773 | DEBUG    | core.base_agent:perceive:191 - 智能体 [异常检测智能体] 感知完成, 置信度: 0.95
+2026-07-17 14:06:58.774 | DEBUG    | core.base_agent:decide:210 - 智能体 [异常检测智能体] 决策完成, 动作: high_priority_alert, 置信度: 0.90
+2026-07-17 14:06:58.774 | DEBUG    | core.knowledge_base:set_fact:157 - 知识库: 更新事实 [work_order:WO-20260717140658], 来源: [anomaly_agent]
+2026-07-17 14:06:58.774 | INFO     | agents.anomaly_agent:_create_work_order:657 - 异常检测智能体: 创建工单 [WO-20260717140658]
+2026-07-17 14:06:58.774 | WARNING  | agents.anomaly_agent:_execute_high_alert:578 - 异常检测智能体: 高优先级异常 [WM-A001-0001]
+2026-07-17 14:06:58.774 | DEBUG    | core.base_agent:execute:231 - 智能体 [异常检测智能体] 执行完成, 成功: True
+2026-07-17 14:06:58.774 | INFO     | __main__:run_demo:133 - 异常检测结果: 高优先级异常已处理: WM-A001-0001
+2026-07-17 14:06:58.774 | INFO     | __main__:run_demo:136 - 
+--- 演示4: 催缴智能体 ---
+2026-07-17 14:06:58.774 | INFO     | core.base_agent:run_cycle:245 - 智能体 [催缴智能体] 开始执行周期
+2026-07-17 14:06:58.774 | DEBUG    | core.base_agent:perceive:191 - 智能体 [催缴智能体] 感知完成, 置信度: 0.95
+2026-07-17 14:06:58.774 | DEBUG    | core.base_agent:decide:210 - 智能体 [催缴智能体] 决策完成, 动作: execute_collection, 置信度: 0.90
+2026-07-17 14:06:58.774 | INFO     | agents.collection_agent:_execute_collection:410 - 催缴智能体: 执行催缴 [COLL-20260717140658] → 用户U001, 策略: 强化催缴
+2026-07-17 14:06:58.774 | DEBUG    | core.base_agent:execute:231 - 智能体 [催缴智能体] 执行完成, 成功: True
+2026-07-17 14:06:58.774 | INFO     | __main__:run_demo:146 - 催缴结果: 催缴通知已发送: 用户U001, 渠道: ['wechat']
+2026-07-17 14:06:58.774 | INFO     | __main__:run_demo:149 - 
+--- 演示5: 分析智能体 ---
+2026-07-17 14:06:58.774 | INFO     | core.base_agent:run_cycle:245 - 智能体 [分析智能体] 开始执行周期
+2026-07-17 14:06:58.775 | DEBUG    | core.base_agent:perceive:191 - 智能体 [分析智能体] 感知完成, 置信度: 0.95
+2026-07-17 14:06:58.775 | DEBUG    | core.base_agent:decide:210 - 智能体 [分析智能体] 决策完成, 动作: generate_meter_report, 置信度: 0.90
+2026-07-17 14:06:58.775 | INFO     | agents.analysis_agent:_execute_meter_report:574 - 分析智能体: 生成水表报告 [RPT-MTR-20260717140658] → WM-A001-0001
+2026-07-17 14:06:58.775 | DEBUG    | core.base_agent:execute:231 - 智能体 [分析智能体] 执行完成, 成功: True
+2026-07-17 14:06:58.775 | INFO     | __main__:run_demo:157 - 分析结果: 水表WM-A001-0001分析报告已生成
+2026-07-17 14:06:58.775 | INFO     | __main__:run_demo:160 - 
+--- 演示6: 工作流执行 ---
+2026-07-17 14:06:58.775 | INFO     | core.orchestrator:create_workflow:331 - 协调器: 创建工作流 [抄表计费工作流], ID: wf_1784268418775
+2026-07-17 14:06:58.775 | INFO     | core.orchestrator:execute_workflow:340 - 协调器: 开始执行工作流 [抄表计费工作流]
+2026-07-17 14:06:58.775 | INFO     | core.orchestrator:execute_workflow:356 - 协调器: 工作流步骤 [read] → 智能体 [抄表智能体]
+2026-07-17 14:06:58.775 | INFO     | core.base_agent:run_cycle:245 - 智能体 [抄表智能体] 开始执行周期
+2026-07-17 14:06:58.775 | INFO     | agents.meter_reading_agent:_perceive_image:164 - 抄表智能体: 图像抄表, 水表ID: WM-A001-0002
+2026-07-17 14:06:58.776 | DEBUG    | core.base_agent:perceive:191 - 智能体 [抄表智能体] 感知完成, 置信度: 0.73
+2026-07-17 14:06:58.776 | DEBUG    | core.base_agent:decide:210 - 智能体 [抄表智能体] 决策完成, 动作: reject_low_confidence, 置信度: 0.73
+2026-07-17 14:06:58.776 | WARNING  | agents.meter_reading_agent:_execute_reject:422 - 抄表智能体: 水表 [WM-A001-0002] 读数被拒绝, 原因: 置信度过低
+2026-07-17 14:06:58.776 | DEBUG    | core.base_agent:execute:231 - 智能体 [抄表智能体] 执行完成, 成功: False
+2026-07-17 14:06:58.776 | WARNING  | core.orchestrator:execute_workflow:372 - 协调器: 工作流步骤 [read] 执行失败: 水表WM-A001-0002读数被拒绝: 置信度过低
+2026-07-17 14:06:58.776 | INFO     | core.orchestrator:execute_workflow:391 - 协调器: 工作流 [抄表计费工作流] 执行完成, 状态: failed
+2026-07-17 14:06:58.776 | INFO     | __main__:run_demo:165 - 工作流执行完成: failed
+2026-07-17 14:06:58.776 | INFO     | __main__:run_demo:168 - 
+--- 系统状态 ---
+2026-07-17 14:06:58.776 | INFO     | __main__:run_demo:170 - 运行时间: 0.0秒
+2026-07-17 14:06:58.776 | INFO     | __main__:run_demo:171 - 任务统计: 创建0, 完成0
+2026-07-17 14:06:58.776 | INFO     | __main__:run_demo:172 - 消息路由: 0条
+2026-07-17 14:06:58.776 | INFO     | __main__:run_demo:174 - 
+============================================================
+2026-07-17 14:06:58.776 | INFO     | __main__:run_demo:175 - 演示完成!
+2026-07-17 14:06:58.776 | INFO     | __main__:run_demo:176 - ============================================================
+2026-07-17 14:06:58.800 | INFO     | __main__:main:201 - 
+启动API服务: http://0.0.0.0:8087
+2026-07-17 14:06:58.800 | INFO     | __main__:main:202 - API文档:
+2026-07-17 14:06:58.800 | INFO     | __main__:main:203 -   GET  /api/health         - 健康检查
+2026-07-17 14:06:58.800 | INFO     | __main__:main:204 -   GET  /api/status         - 系统状态
+2026-07-17 14:06:58.800 | INFO     | __main__:main:205 -   GET  /api/agents         - 智能体列表
+2026-07-17 14:06:58.800 | INFO     | __main__:main:206 -   POST /api/meter-reading  - 执行抄表
+2026-07-17 14:06:58.800 | INFO     | __main__:main:207 -   POST /api/billing        - 生成账单
+2026-07-17 14:06:58.800 | INFO     | __main__:main:208 -   POST /api/anomaly/detect - 异常检测
+2026-07-17 14:06:58.801 | INFO     | __main__:main:209 -   POST /api/collection/execute - 执行催缴
+2026-07-17 14:06:58.801 | INFO     | __main__:main:210 -   POST /api/analysis/forecast  - 用水预测
+2026-07-17 14:06:58.801 | INFO     | __main__:main:211 -   POST /api/workflow/create    - 创建工作流
+2026-07-17 14:15:48.461 | INFO     | core.base_agent:run_cycle:245 - 智能体 [抄表智能体] 开始执行周期
+2026-07-17 14:15:48.461 | INFO     | agents.meter_reading_agent:_perceive_image:164 - 抄表智能体: 图像抄表, 水表ID: WM-TEST-001
+2026-07-17 14:15:48.461 | DEBUG    | core.base_agent:perceive:191 - 智能体 [抄表智能体] 感知完成, 置信度: 0.64
+2026-07-17 14:15:48.461 | DEBUG    | core.base_agent:decide:210 - 智能体 [抄表智能体] 决策完成, 动作: reject_low_confidence, 置信度: 0.64
+2026-07-17 14:15:48.461 | WARNING  | agents.meter_reading_agent:_execute_reject:422 - 抄表智能体: 水表 [WM-TEST-001] 读数被拒绝, 原因: 置信度过低
+2026-07-17 14:15:48.462 | DEBUG    | core.base_agent:execute:231 - 智能体 [抄表智能体] 执行完成, 成功: False
+2026-07-17 14:15:57.304 | INFO     | core.base_agent:run_cycle:245 - 智能体 [异常检测智能体] 开始执行周期
+2026-07-17 14:15:57.305 | DEBUG    | core.base_agent:perceive:191 - 智能体 [异常检测智能体] 感知完成, 置信度: 0.95
+2026-07-17 14:15:57.305 | DEBUG    | core.base_agent:decide:210 - 智能体 [异常检测智能体] 决策完成, 动作: medium_alert, 置信度: 0.85
+2026-07-17 14:15:57.305 | INFO     | agents.anomaly_agent:_execute_medium_alert:593 - 异常检测智能体: 中等异常预警 [WM-TEST-001]
+2026-07-17 14:15:57.305 | DEBUG    | core.base_agent:execute:231 - 智能体 [异常检测智能体] 执行完成, 成功: True

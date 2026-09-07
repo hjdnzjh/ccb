@@ -1,0 +1,169 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: water-meter-service
+
+  # 数据源配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 与 docker-compose 中 water-mysql 宿主机映射 3308:3306 对齐
+    url: jdbc:mysql://localhost:3308/water_meter_db?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+    username: root
+    password: 123456
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      idle-timeout: 30000
+      pool-name: WaterMeterHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+
+  # Redis配置（与 docker-compose water-redis 无密码一致；勿写空 password，否则 Redisson 会误发 AUTH）
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+      lettuce:
+        pool:
+          max-active: 20
+          max-idle: 10
+          min-idle: 5
+          max-wait: -1ms
+
+  # Elasticsearch配置
+  elasticsearch:
+    uris: ${ES_URIS:http://localhost:9200}
+    username: ${ES_USER:}
+    password: ${ES_PASSWORD:}
+
+  # Kafka配置
+  kafka:
+    bootstrap-servers: ${KAFKA_SERVERS:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all
+    consumer:
+      group-id: water-meter-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: earliest
+
+  # Nacos配置（本地默认关闭发现，避免 water-nacos 因缺 nacos 库 Restarting 拖垮启动）
+  cloud:
+    nacos:
+      discovery:
+        enabled: ${NACOS_DISCOVERY_ENABLED:false}
+        server-addr: ${NACOS_SERVER:localhost:8848}
+        namespace: ${NACOS_NAMESPACE:}
+        group: DEFAULT_GROUP
+        fail-fast: false
+
+# MyBatis Plus配置
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.water.ai.meter.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+# InfluxDB配置
+influxdb:
+  url: ${INFLUXDB_URL:http://localhost:8086}
+  token: ${INFLUXDB_TOKEN:water-meter-token}
+  org: ${INFLUXDB_ORG:water-org}
+  bucket: ${INFLUXDB_BUCKET:water_usage}
+
+# MinIO配置
+minio:
+  endpoint: ${MINIO_ENDPOINT:http://localhost:9000}
+  access-key: ${MINIO_ACCESS_KEY:minioadmin}
+  secret-key: ${MINIO_SECRET_KEY:minioadmin}
+  bucket-name: ${MINIO_BUCKET:water-meter-images}
+
+# 智能体引擎配置
+agent-engine:
+  url: ${AGENT_ENGINE_URL:http://localhost:8087}
+  timeout: 30000
+
+# JWT配置
+jwt:
+  secret: ${JWT_SECRET:water-meter-jwt-secret-key-2024-very-long-secret}
+  expiration: 86400000  # 24小时
+
+# Knife4j API文档
+knife4j:
+  enable: true
+  openapi:
+    title: 水表抄表收费管理系统API
+    description: 基于AI的水表抄表收费管理系统接口文档
+    version: 1.0.0
+    contact:
+      name: AI Water Meter
+      email: support@water-ai.com
+    group:
+      default:
+        group-name: 默认分组
+        api-rule: package
+        api-rule-resources:
+          - com.water.ai.meter.controller
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    com.water.ai.meter: DEBUG
+    org.springframework.web: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/water-meter-service.log
+    max-size: 10MB
+    max-history: 7
+
+# Actuator监控
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+
+# 自定义业务配置
+water-meter:
+  # 费率配置
+  pricing:
+    residential:
+      ladder1: 180    # 第一阶梯上限(吨)
+      price1: 2.07    # 第一阶梯价格
+      ladder2: 260    # 第二阶梯上限
+      price2: 3.10
+      price3: 4.65    # 第三阶梯价格
+    commercial: 4.50
+    industrial: 5.80
+  
+  # 污水处理费率
+  sewage-rate: 0.9   # 污水处理费为水费的90%
+  
+  # 催缴配置
+  collection:
+    gentle-days: 7      # 温和催缴天数
+    formal-days: 30     # 正式催缴天数
+    intensive-days: 60  # 强化催缴天数
+  
+  # 异常检测阈值
+  anomaly:
+    sudden-increase-ratio: 3.0  # 突增倍数
+    zero-usage-days: 30         # 零用量天数
+    night-usage-ratio: 0.5      # 夜间用水比例

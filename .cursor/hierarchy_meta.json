@@ -1,0 +1,225 @@
+{
+  "totalMeters": 1000,
+  "totalAlarms": 50,
+  "metric": "alarmRate",
+  "districts": [
+    {
+      "name": "临安区",
+      "hasData": false,
+      "meters": 0,
+      "zones": []
+    },
+    {
+      "name": "余杭区",
+      "hasData": true,
+      "meters": 125,
+      "zones": [
+        {
+          "name": "一号片区",
+          "communities": [
+            "仓前家园"
+          ]
+        },
+        {
+          "name": "三号片区",
+          "communities": [
+            "闲林山水",
+            "未来科技城社区",
+            "良渚文化村"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "临平区",
+      "hasData": true,
+      "meters": 125,
+      "zones": [
+        {
+          "name": "一号片区",
+          "communities": [
+            "塘栖人家",
+            "星桥社区",
+            "南苑小区"
+          ]
+        },
+        {
+          "name": "三号片区",
+          "communities": [
+            "乔司家园"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "钱塘区",
+      "hasData": true,
+      "meters": 125,
+      "zones": [
+        {
+          "name": "三号片区",
+          "communities": [
+            "江东家园",
+            "河庄新苑"
+          ]
+        },
+        {
+          "name": "四号片区",
+          "communities": [
+            "下沙社区",
+            "大学城北社区"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "拱墅区",
+      "hasData": true,
+      "meters": 125,
+      "zones": [
+        {
+          "name": "一号片区",
+          "communities": [
+            "半山家园"
+          ]
+        },
+        {
+          "name": "三号片区",
+          "communities": [
+            "湖墅家园"
+          ]
+        },
+        {
+          "name": "四号片区",
+          "communities": [
+            "运河新城社区",
+            "大关小区"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "西湖区",
+      "hasData": true,
+      "meters": 125,
+      "zones": [
+        {
+          "name": "三号片区",
+          "communities": [
+            "转塘家园"
+          ]
+        },
+        {
+          "name": "二号片区",
+          "communities": [
+            "三墩新天地"
+          ]
+        },
+        {
+          "name": "四号片区",
+          "communities": [
+            "文新社区",
+            "翠苑小区"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "上城区",
+      "hasData": true,
+      "meters": 125,
+      "zones": [
+        {
+          "name": "一号片区",
+          "communities": [
+            "采荷小区"
+          ]
+        },
+        {
+          "name": "三号片区",
+          "communities": [
+            "丁兰社区",
+            "近江家园"
+          ]
+        },
+        {
+          "name": "四号片区",
+          "communities": [
+            "望江新园"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "滨江区",
+      "hasData": true,
+      "meters": 125,
+      "zones": [
+        {
+          "name": "一号片区",
+          "communities": [
+            "钱塘春晓",
+            "滨康小区"
+          ]
+        },
+        {
+          "name": "二号片区",
+          "communities": [
+            "江南花园",
+            "白马湖社区"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "萧山区",
+      "hasData": true,
+      "meters": 125,
+      "zones": [
+        {
+          "name": "一号片区",
+          "communities": [
+            "钱江世纪城社区",
+            "北干社区"
+          ]
+        },
+        {
+          "name": "二号片区",
+          "communities": [
+            "宁围佳境"
+          ]
+        },
+        {
+          "name": "四号片区",
+          "communities": [
+            "湘湖家园"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "富阳区",
+      "hasData": false,
+      "meters": 0,
+      "zones": []
+    },
+    {
+      "name": "桐庐县",
+      "hasData": false,
+      "meters": 0,
+      "zones": []
+    },
+    {
+      "name": "淳安县",
+      "hasData": false,
+      "meters": 0,
+      "zones": []
+    },
+    {
+      "name": "建德市",
+      "hasData": false,
+      "meters": 0,
+      "zones": []
+    }
+  ]
+}

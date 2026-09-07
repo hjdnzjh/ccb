@@ -1,0 +1,323 @@
+// 水务 AI 智能运营决策平台 — Design Tokens
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Primitive */
+  --ink-950: #06141b;
+  --ink-900: #0b2430;
+  --ink-800: #123445;
+  --teal-700: #0a4d68;
+  --teal-600: #088395;
+  --cyan-500: #05bfdb;
+  --cyan-300: #7ce7f4;
+  --foam-100: #e8f7f8;
+  --foam-50: #f3fbfc;
+  --sand-200: #d7e3e6;
+  --gold-500: #c4a35a;
+  --coral-500: #e07a5f;
+  --ok-500: #2a9d8f;
+  --warn-500: #e9c46a;
+
+  /* Semantic */
+  --color-primary: var(--teal-600);
+  --color-primary-deep: var(--teal-700);
+  --color-accent: var(--cyan-500);
+  --color-surface: #ffffff;
+  --color-bg: var(--foam-50);
+  --color-ink: var(--ink-900);
+  --color-muted: #5a7380;
+  --color-border: rgba(8, 131, 149, 0.16);
+  --color-danger: var(--coral-500);
+  --color-ok: var(--ok-500);
+  --color-warn: var(--warn-500);
+
+  --font-display: 'Syne', 'Noto Sans SC', sans-serif;
+  --font-body: 'Noto Sans SC', 'PingFang SC', sans-serif;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --shadow-soft: 0 12px 40px rgba(6, 20, 27, 0.08);
+  --shadow-glow: 0 0 0 1px rgba(5, 191, 219, 0.18), 0 18px 50px rgba(8, 131, 149, 0.12);
+
+  /* Element Plus bridge */
+  --el-color-primary: #088395;
+  --el-color-primary-light-3: #3ba9b8;
+  --el-color-primary-light-5: #6fc0cb;
+  --el-color-primary-light-7: #a3d7de;
+  --el-color-primary-light-9: #e6f5f7;
+  --el-color-primary-dark-2: #0a4d68;
+  --el-color-success: #2a9d8f;
+  --el-color-warning: #c4a35a;
+  --el-color-danger: #e07a5f;
+}
+
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  background: var(--color-bg);
+}
+
+h1,
+h2,
+h3,
+.brand-title {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+
+  h3 {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .sub {
+    font-size: 12px;
+    color: var(--color-muted);
+  }
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.pill-ok {
+  background: rgba(42, 157, 143, 0.12);
+  color: var(--color-ok);
+}
+.pill-warn {
+  background: rgba(233, 196, 106, 0.22);
+  color: #9a6b00;
+}
+.pill-danger {
+  background: rgba(224, 122, 95, 0.14);
+  color: var(--color-danger);
+}
+.pill-info {
+  background: rgba(5, 191, 219, 0.14);
+  color: var(--teal-700);
+}
+
+.btn-ai {
+  background: linear-gradient(120deg, var(--teal-700), var(--cyan-500));
+  border: none;
+  color: #fff;
+}
+
+/* Layout */
+.layout-container {
+  display: flex;
+  height: 100vh;
+  background:
+    radial-gradient(1000px 480px at 90% -10%, rgba(5, 191, 219, 0.12), transparent 60%),
+    radial-gradient(800px 400px at -10% 100%, rgba(8, 131, 149, 0.1), transparent 55%),
+    var(--color-bg);
+
+  .sidebar {
+    width: 248px;
+    height: 100%;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background:
+      linear-gradient(165deg, rgba(5, 191, 219, 0.12), transparent 42%),
+      linear-gradient(180deg, var(--ink-900) 0%, var(--ink-950) 100%);
+    color: #e8f7f8;
+    transition: width 0.28s ease;
+    border-right: 1px solid rgba(125, 231, 244, 0.08);
+
+    &.collapsed {
+      width: 72px;
+    }
+
+    .logo {
+      height: 72px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+      .logo-mark {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(145deg, var(--cyan-500), var(--teal-700));
+        box-shadow: 0 8px 20px rgba(5, 191, 219, 0.35);
+        flex-shrink: 0;
+      }
+
+      .logo-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.15;
+        overflow: hidden;
+
+        strong {
+          font-family: var(--font-display);
+          font-size: 15px;
+          white-space: nowrap;
+        }
+
+        span {
+          font-size: 11px;
+          color: rgba(232, 247, 248, 0.55);
+          white-space: nowrap;
+        }
+      }
+    }
+
+    .el-menu {
+      border: none;
+      background: transparent;
+      padding: 12px 8px;
+      flex: 1;
+      min-height: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: rgba(125, 231, 244, 0.28);
+        border-radius: 999px;
+      }
+
+      .el-menu-item,
+      .el-sub-menu__title {
+        color: rgba(232, 247, 248, 0.72);
+        border-radius: 10px;
+        margin: 2px 0;
+
+        &:hover {
+          background: rgba(5, 191, 219, 0.1);
+          color: #fff;
+        }
+      }
+
+      .el-menu-item.is-active {
+        background: linear-gradient(90deg, rgba(5, 191, 219, 0.28), rgba(5, 191, 219, 0.02));
+        color: #fff;
+        box-shadow: inset 3px 0 0 var(--cyan-500);
+      }
+
+      .el-sub-menu .el-menu {
+        background: transparent;
+        overflow: visible;
+      }
+    }
+  }
+
+  .main-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-width: 0;
+
+    .header {
+      height: 64px;
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 22px;
+
+      .left {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .right {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .header-chip {
+        display: none;
+        @media (min-width: 960px) {
+          display: inline-flex;
+        }
+      }
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 20px 22px 28px;
+      overflow: auto;
+    }
+  }
+}
+
+.table-page {
+  .search-bar,
+  .table-container {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 18px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow-soft);
+  }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+@media (max-width: 960px) {
+  .layout-container .sidebar {
+    position: fixed;
+    z-index: 1000;
+    height: 100%;
+  }
+}

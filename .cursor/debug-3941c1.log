@@ -1,0 +1,2 @@
+{"sessionId":"3941c1","runId":"post-fix","hypothesisId":"A","location":"WaterMeterApplication.java:main:pre","message":"tcp probes before Spring start","data":{"redis6379":true,"mysql3308":true,"dockerEngineHint":"pipe-present"},"timestamp":1787299944553}
+{"sessionId":"3941c1","runId":"post-fix","hypothesisId":"E","location":"WaterMeterApplication.java:main:ok","message":"SpringApplication.run returned","data":{"started":true},"timestamp":1787299949703}

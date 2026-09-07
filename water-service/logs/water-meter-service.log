@@ -1,0 +1,583 @@
+2026-09-07T16:55:37.318+08:00  INFO 5732 --- [water-meter-service] [main] c.water.ai.meter.WaterMeterApplication   : Starting WaterMeterApplication using Java 21.0.12 with PID 5732 (D:\ccb\water-service\target\classes started by 34254 in D:\ccb\water-service)
+2026-09-07T16:55:37.318+08:00 DEBUG 5732 --- [water-meter-service] [main] c.water.ai.meter.WaterMeterApplication   : Running with Spring Boot v3.2.0, Spring v6.1.1
+2026-09-07T16:55:37.318+08:00  INFO 5732 --- [water-meter-service] [main] c.water.ai.meter.WaterMeterApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-09-07T16:55:38.119+08:00  INFO 5732 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-09-07T16:55:38.119+08:00  INFO 5732 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Elasticsearch repositories in DEFAULT mode.
+2026-09-07T16:55:38.137+08:00  INFO 5732 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 Elasticsearch repository interfaces.
+2026-09-07T16:55:38.140+08:00  INFO 5732 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-09-07T16:55:38.141+08:00  INFO 5732 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Reactive Elasticsearch repositories in DEFAULT mode.
+2026-09-07T16:55:38.141+08:00  INFO 5732 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 Reactive Elasticsearch repository interfaces.
+2026-09-07T16:55:38.147+08:00  INFO 5732 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-09-07T16:55:38.147+08:00  INFO 5732 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-09-07T16:55:38.157+08:00  INFO 5732 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 Redis repository interfaces.
+2026-09-07T16:55:38.333+08:00  INFO 5732 --- [water-meter-service] [main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=615e8034-24d2-3571-b659-f0f08ed2d884
+2026-09-07T16:55:39.007+08:00  INFO 5732 --- [water-meter-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-09-07T16:55:39.013+08:00  INFO 5732 --- [water-meter-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-07T16:55:39.013+08:00  INFO 5732 --- [water-meter-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-09-07T16:55:39.070+08:00  INFO 5732 --- [water-meter-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-09-07T16:55:39.070+08:00  INFO 5732 --- [water-meter-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1708 ms
+2026-09-07T16:55:39.187+08:00 DEBUG 5732 --- [water-meter-service] [main] o.s.w.f.ServerHttpObservationFilter      : Filter 'webMvcObservationFilter' configured for use
+2026-09-07T16:55:39.763+08:00  INFO 5732 --- [water-meter-service] [main] org.redisson.Version                     : Redisson 3.25.0
+2026-09-07T16:55:44.537+08:00  WARN 5732 --- [water-meter-service] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'redisTemplate' defined in class path resource [com/water/ai/meter/config/RedisConfig.class]: Unsatisfied dependency expressed through method 'redisTemplate' parameter 0: Error creating bean with name 'redissonConnectionFactory' defined in class path resource [org/redisson/spring/starter/RedissonAutoConfigurationV2.class]: Unsatisfied dependency expressed through method 'redissonConnectionFactory' parameter 0: Error creating bean with name 'redisson' defined in class path resource [org/redisson/spring/starter/RedissonAutoConfigurationV2.class]: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redisson' threw exception with message: java.util.concurrent.ExecutionException: org.redisson.client.RedisConnectionException: Unable to connect to Redis server: localhost/127.0.0.1:6379
+2026-09-07T16:55:44.540+08:00  INFO 5732 --- [water-meter-service] [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-09-07T16:55:44.556+08:00  INFO 5732 --- [water-meter-service] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-09-07T16:55:44.567+08:00 ERROR 5732 --- [water-meter-service] [main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'redisTemplate' defined in class path resource [com/water/ai/meter/config/RedisConfig.class]: Unsatisfied dependency expressed through method 'redisTemplate' parameter 0: Error creating bean with name 'redissonConnectionFactory' defined in class path resource [org/redisson/spring/starter/RedissonAutoConfigurationV2.class]: Unsatisfied dependency expressed through method 'redissonConnectionFactory' parameter 0: Error creating bean with name 'redisson' defined in class path resource [org/redisson/spring/starter/RedissonAutoConfigurationV2.class]: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redisson' threw exception with message: java.util.concurrent.ExecutionException: org.redisson.client.RedisConnectionException: Unable to connect to Redis server: localhost/127.0.0.1:6379
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:802) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:546) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1336) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1166) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:973) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:946) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:753) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:455) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:323) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1342) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1331) ~[spring-boot-3.2.0.jar:3.2.0]
+	at com.water.ai.meter.WaterMeterApplication.main(WaterMeterApplication.java:24) ~[classes/:na]
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'redissonConnectionFactory' defined in class path resource [org/redisson/spring/starter/RedissonAutoConfigurationV2.class]: Unsatisfied dependency expressed through method 'redissonConnectionFactory' parameter 0: Error creating bean with name 'redisson' defined in class path resource [org/redisson/spring/starter/RedissonAutoConfigurationV2.class]: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redisson' threw exception with message: java.util.concurrent.ExecutionException: org.redisson.client.RedisConnectionException: Unable to connect to Redis server: localhost/127.0.0.1:6379
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:802) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:546) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1336) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1166) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1441) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1348) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:911) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:789) ~[spring-beans-6.1.1.jar:6.1.1]
+	... 19 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'redisson' defined in class path resource [org/redisson/spring/starter/RedissonAutoConfigurationV2.class]: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redisson' threw exception with message: java.util.concurrent.ExecutionException: org.redisson.client.RedisConnectionException: Unable to connect to Redis server: localhost/127.0.0.1:6379
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:655) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:489) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1336) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1166) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1441) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1348) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:911) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:789) ~[spring-beans-6.1.1.jar:6.1.1]
+	... 33 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redisson' threw exception with message: java.util.concurrent.ExecutionException: org.redisson.client.RedisConnectionException: Unable to connect to Redis server: localhost/127.0.0.1:6379
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:178) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:651) ~[spring-beans-6.1.1.jar:6.1.1]
+	... 47 common frames omitted
+Caused by: org.redisson.client.RedisConnectionException: java.util.concurrent.ExecutionException: org.redisson.client.RedisConnectionException: Unable to connect to Redis server: localhost/127.0.0.1:6379
+	at org.redisson.connection.MasterSlaveConnectionManager.doConnect(MasterSlaveConnectionManager.java:221) ~[redisson-3.25.0.jar:3.25.0]
+	at org.redisson.connection.MasterSlaveConnectionManager.connect(MasterSlaveConnectionManager.java:191) ~[redisson-3.25.0.jar:3.25.0]
+	at org.redisson.config.ConfigSupport.createConnectionManager(ConfigSupport.java:220) ~[redisson-3.25.0.jar:3.25.0]
+	at org.redisson.Redisson.<init>(Redisson.java:69) ~[redisson-3.25.0.jar:3.25.0]
+	at org.redisson.Redisson.create(Redisson.java:114) ~[redisson-3.25.0.jar:3.25.0]
+	at org.redisson.spring.starter.RedissonAutoConfiguration.redisson(RedissonAutoConfiguration.java:330) ~[redisson-spring-boot-starter-3.25.0.jar:3.25.0]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:140) ~[spring-beans-6.1.1.jar:6.1.1]
+	... 48 common frames omitted
+Caused by: java.util.concurrent.ExecutionException: org.redisson.client.RedisConnectionException: Unable to connect to Redis server: localhost/127.0.0.1:6379
+	at java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:396) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:2096) ~[na:na]
+	at org.redisson.connection.MasterSlaveConnectionManager.doConnect(MasterSlaveConnectionManager.java:217) ~[redisson-3.25.0.jar:3.25.0]
+	... 56 common frames omitted
+Caused by: org.redisson.client.RedisConnectionException: Unable to connect to Redis server: localhost/127.0.0.1:6379
+	at org.redisson.connection.pool.ConnectionPool.lambda$createConnection$0(ConnectionPool.java:129) ~[redisson-3.25.0.jar:3.25.0]
+	at java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:863) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:841) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:510) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2194) ~[na:na]
+	at org.redisson.connection.pool.ConnectionPool.promiseFailure(ConnectionPool.java:281) ~[redisson-3.25.0.jar:3.25.0]
+	at org.redisson.connection.pool.ConnectionPool.lambda$createConnection$6(ConnectionPool.java:245) ~[redisson-3.25.0.jar:3.25.0]
+	at java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:863) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:841) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:510) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2194) ~[na:na]
+	at org.redisson.client.RedisClient$1$2.run(RedisClient.java:306) ~[redisson-3.25.0.jar:3.25.0]
+	at io.netty.util.concurrent.AbstractEventExecutor.runTask(AbstractEventExecutor.java:173) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:166) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:470) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:569) ~[netty-transport-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+Caused by: java.util.concurrent.CompletionException: io.netty.channel.AbstractChannel$AnnotatedConnectException: Connection refused: getsockopt: localhost/127.0.0.1:6379
+	at java.base/java.util.concurrent.CompletableFuture.encodeRelay(CompletableFuture.java:368) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture.completeRelay(CompletableFuture.java:377) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture$UniRelay.tryFire(CompletableFuture.java:1097) ~[na:na]
+	... 11 common frames omitted
+Caused by: io.netty.channel.AbstractChannel$AnnotatedConnectException: Connection refused: getsockopt: localhost/127.0.0.1:6379
+Caused by: java.net.ConnectException: Connection refused: getsockopt
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method) ~[na:na]
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:690) ~[na:na]
+	at java.base/sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:973) ~[na:na]
+	at io.netty.channel.socket.nio.NioSocketChannel.doFinishConnect(NioSocketChannel.java:337) ~[netty-transport-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.finishConnect(AbstractNioChannel.java:334) ~[netty-transport-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:776) ~[netty-transport-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724) ~[netty-transport-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650) ~[netty-transport-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562) ~[netty-transport-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2026-09-07T16:57:12.296+08:00  INFO 32900 --- [water-meter-service] [main] c.water.ai.meter.WaterMeterApplication   : Starting WaterMeterApplication using Java 21.0.12 with PID 32900 (D:\ccb\water-service\target\classes started by 34254 in D:\ccb\water-service)
+2026-09-07T16:57:12.297+08:00 DEBUG 32900 --- [water-meter-service] [main] c.water.ai.meter.WaterMeterApplication   : Running with Spring Boot v3.2.0, Spring v6.1.1
+2026-09-07T16:57:12.297+08:00  INFO 32900 --- [water-meter-service] [main] c.water.ai.meter.WaterMeterApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-09-07T16:57:12.970+08:00  INFO 32900 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-09-07T16:57:12.970+08:00  INFO 32900 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Elasticsearch repositories in DEFAULT mode.
+2026-09-07T16:57:12.979+08:00  INFO 32900 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 8 ms. Found 0 Elasticsearch repository interfaces.
+2026-09-07T16:57:12.988+08:00  INFO 32900 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-09-07T16:57:12.988+08:00  INFO 32900 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Reactive Elasticsearch repositories in DEFAULT mode.
+2026-09-07T16:57:12.988+08:00  INFO 32900 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 Reactive Elasticsearch repository interfaces.
+2026-09-07T16:57:12.988+08:00  INFO 32900 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-09-07T16:57:12.995+08:00  INFO 32900 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-09-07T16:57:12.998+08:00  INFO 32900 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 Redis repository interfaces.
+2026-09-07T16:57:13.149+08:00  INFO 32900 --- [water-meter-service] [main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=615e8034-24d2-3571-b659-f0f08ed2d884
+2026-09-07T16:57:13.648+08:00  INFO 32900 --- [water-meter-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-09-07T16:57:13.658+08:00  INFO 32900 --- [water-meter-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-07T16:57:13.658+08:00  INFO 32900 --- [water-meter-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-09-07T16:57:13.707+08:00  INFO 32900 --- [water-meter-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-09-07T16:57:13.708+08:00  INFO 32900 --- [water-meter-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1379 ms
+2026-09-07T16:57:13.799+08:00 DEBUG 32900 --- [water-meter-service] [main] o.s.w.f.ServerHttpObservationFilter      : Filter 'webMvcObservationFilter' configured for use
+2026-09-07T16:57:14.245+08:00  INFO 32900 --- [water-meter-service] [main] org.redisson.Version                     : Redisson 3.25.0
+2026-09-07T16:57:18.949+08:00  WARN 32900 --- [water-meter-service] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'redisTemplate' defined in class path resource [com/water/ai/meter/config/RedisConfig.class]: Unsatisfied dependency expressed through method 'redisTemplate' parameter 0: Error creating bean with name 'redissonConnectionFactory' defined in class path resource [org/redisson/spring/starter/RedissonAutoConfigurationV2.class]: Unsatisfied dependency expressed through method 'redissonConnectionFactory' parameter 0: Error creating bean with name 'redisson' defined in class path resource [org/redisson/spring/starter/RedissonAutoConfigurationV2.class]: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redisson' threw exception with message: java.util.concurrent.ExecutionException: org.redisson.client.RedisConnectionException: Unable to connect to Redis server: localhost/127.0.0.1:6379
+2026-09-07T16:57:18.953+08:00  INFO 32900 --- [water-meter-service] [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-09-07T16:57:18.959+08:00  INFO 32900 --- [water-meter-service] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-09-07T16:57:18.974+08:00 ERROR 32900 --- [water-meter-service] [main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'redisTemplate' defined in class path resource [com/water/ai/meter/config/RedisConfig.class]: Unsatisfied dependency expressed through method 'redisTemplate' parameter 0: Error creating bean with name 'redissonConnectionFactory' defined in class path resource [org/redisson/spring/starter/RedissonAutoConfigurationV2.class]: Unsatisfied dependency expressed through method 'redissonConnectionFactory' parameter 0: Error creating bean with name 'redisson' defined in class path resource [org/redisson/spring/starter/RedissonAutoConfigurationV2.class]: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redisson' threw exception with message: java.util.concurrent.ExecutionException: org.redisson.client.RedisConnectionException: Unable to connect to Redis server: localhost/127.0.0.1:6379
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:802) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:546) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1336) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1166) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:973) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:946) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:753) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:455) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:323) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1342) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1331) ~[spring-boot-3.2.0.jar:3.2.0]
+	at com.water.ai.meter.WaterMeterApplication.main(WaterMeterApplication.java:24) ~[classes/:na]
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'redissonConnectionFactory' defined in class path resource [org/redisson/spring/starter/RedissonAutoConfigurationV2.class]: Unsatisfied dependency expressed through method 'redissonConnectionFactory' parameter 0: Error creating bean with name 'redisson' defined in class path resource [org/redisson/spring/starter/RedissonAutoConfigurationV2.class]: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redisson' threw exception with message: java.util.concurrent.ExecutionException: org.redisson.client.RedisConnectionException: Unable to connect to Redis server: localhost/127.0.0.1:6379
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:802) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:546) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1336) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1166) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1441) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1348) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:911) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:789) ~[spring-beans-6.1.1.jar:6.1.1]
+	... 19 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'redisson' defined in class path resource [org/redisson/spring/starter/RedissonAutoConfigurationV2.class]: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redisson' threw exception with message: java.util.concurrent.ExecutionException: org.redisson.client.RedisConnectionException: Unable to connect to Redis server: localhost/127.0.0.1:6379
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:655) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:489) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1336) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1166) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1441) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1348) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:911) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:789) ~[spring-beans-6.1.1.jar:6.1.1]
+	... 33 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redisson' threw exception with message: java.util.concurrent.ExecutionException: org.redisson.client.RedisConnectionException: Unable to connect to Redis server: localhost/127.0.0.1:6379
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:178) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:651) ~[spring-beans-6.1.1.jar:6.1.1]
+	... 47 common frames omitted
+Caused by: org.redisson.client.RedisConnectionException: java.util.concurrent.ExecutionException: org.redisson.client.RedisConnectionException: Unable to connect to Redis server: localhost/127.0.0.1:6379
+	at org.redisson.connection.MasterSlaveConnectionManager.doConnect(MasterSlaveConnectionManager.java:221) ~[redisson-3.25.0.jar:3.25.0]
+	at org.redisson.connection.MasterSlaveConnectionManager.connect(MasterSlaveConnectionManager.java:191) ~[redisson-3.25.0.jar:3.25.0]
+	at org.redisson.config.ConfigSupport.createConnectionManager(ConfigSupport.java:220) ~[redisson-3.25.0.jar:3.25.0]
+	at org.redisson.Redisson.<init>(Redisson.java:69) ~[redisson-3.25.0.jar:3.25.0]
+	at org.redisson.Redisson.create(Redisson.java:114) ~[redisson-3.25.0.jar:3.25.0]
+	at org.redisson.spring.starter.RedissonAutoConfiguration.redisson(RedissonAutoConfiguration.java:330) ~[redisson-spring-boot-starter-3.25.0.jar:3.25.0]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:140) ~[spring-beans-6.1.1.jar:6.1.1]
+	... 48 common frames omitted
+Caused by: java.util.concurrent.ExecutionException: org.redisson.client.RedisConnectionException: Unable to connect to Redis server: localhost/127.0.0.1:6379
+	at java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:396) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:2096) ~[na:na]
+	at org.redisson.connection.MasterSlaveConnectionManager.doConnect(MasterSlaveConnectionManager.java:217) ~[redisson-3.25.0.jar:3.25.0]
+	... 56 common frames omitted
+Caused by: org.redisson.client.RedisConnectionException: Unable to connect to Redis server: localhost/127.0.0.1:6379
+	at org.redisson.connection.pool.ConnectionPool.lambda$createConnection$0(ConnectionPool.java:129) ~[redisson-3.25.0.jar:3.25.0]
+	at java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:863) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:841) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:510) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2194) ~[na:na]
+	at org.redisson.connection.pool.ConnectionPool.promiseFailure(ConnectionPool.java:281) ~[redisson-3.25.0.jar:3.25.0]
+	at org.redisson.connection.pool.ConnectionPool.lambda$createConnection$6(ConnectionPool.java:245) ~[redisson-3.25.0.jar:3.25.0]
+	at java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:863) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:841) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:510) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2194) ~[na:na]
+	at org.redisson.client.RedisClient$1$2.run(RedisClient.java:306) ~[redisson-3.25.0.jar:3.25.0]
+	at io.netty.util.concurrent.AbstractEventExecutor.runTask(AbstractEventExecutor.java:173) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:166) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:470) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:569) ~[netty-transport-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+Caused by: java.util.concurrent.CompletionException: io.netty.channel.AbstractChannel$AnnotatedConnectException: Connection refused: getsockopt: localhost/127.0.0.1:6379
+	at java.base/java.util.concurrent.CompletableFuture.encodeRelay(CompletableFuture.java:368) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture.completeRelay(CompletableFuture.java:377) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture$UniRelay.tryFire(CompletableFuture.java:1097) ~[na:na]
+	... 11 common frames omitted
+Caused by: io.netty.channel.AbstractChannel$AnnotatedConnectException: Connection refused: getsockopt: localhost/127.0.0.1:6379
+Caused by: java.net.ConnectException: Connection refused: getsockopt
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method) ~[na:na]
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:690) ~[na:na]
+	at java.base/sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:973) ~[na:na]
+	at io.netty.channel.socket.nio.NioSocketChannel.doFinishConnect(NioSocketChannel.java:337) ~[netty-transport-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.finishConnect(AbstractNioChannel.java:334) ~[netty-transport-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:776) ~[netty-transport-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724) ~[netty-transport-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650) ~[netty-transport-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562) ~[netty-transport-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2026-09-07T16:58:50.511+08:00  INFO 17584 --- [water-meter-service] [main] c.water.ai.meter.WaterMeterApplication   : Starting WaterMeterApplication using Java 21.0.12 with PID 17584 (D:\ccb\water-service\target\classes started by 34254 in D:\ccb\water-service)
+2026-09-07T16:58:50.511+08:00 DEBUG 17584 --- [water-meter-service] [main] c.water.ai.meter.WaterMeterApplication   : Running with Spring Boot v3.2.0, Spring v6.1.1
+2026-09-07T16:58:50.511+08:00  INFO 17584 --- [water-meter-service] [main] c.water.ai.meter.WaterMeterApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-09-07T16:58:51.150+08:00  INFO 17584 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-09-07T16:58:51.150+08:00  INFO 17584 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Elasticsearch repositories in DEFAULT mode.
+2026-09-07T16:58:51.166+08:00  INFO 17584 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 8 ms. Found 0 Elasticsearch repository interfaces.
+2026-09-07T16:58:51.170+08:00  INFO 17584 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-09-07T16:58:51.170+08:00  INFO 17584 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Reactive Elasticsearch repositories in DEFAULT mode.
+2026-09-07T16:58:51.170+08:00  INFO 17584 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 Reactive Elasticsearch repository interfaces.
+2026-09-07T16:58:51.174+08:00  INFO 17584 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-09-07T16:58:51.174+08:00  INFO 17584 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-09-07T16:58:51.180+08:00  INFO 17584 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 Redis repository interfaces.
+2026-09-07T16:58:51.306+08:00  INFO 17584 --- [water-meter-service] [main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=615e8034-24d2-3571-b659-f0f08ed2d884
+2026-09-07T16:58:51.778+08:00  INFO 17584 --- [water-meter-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-09-07T16:58:51.784+08:00  INFO 17584 --- [water-meter-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-07T16:58:51.784+08:00  INFO 17584 --- [water-meter-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-09-07T16:58:51.832+08:00  INFO 17584 --- [water-meter-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-09-07T16:58:51.832+08:00  INFO 17584 --- [water-meter-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1283 ms
+2026-09-07T16:58:51.922+08:00 DEBUG 17584 --- [water-meter-service] [main] o.s.w.f.ServerHttpObservationFilter      : Filter 'webMvcObservationFilter' configured for use
+2026-09-07T16:58:52.348+08:00  INFO 17584 --- [water-meter-service] [main] org.redisson.Version                     : Redisson 3.25.0
+2026-09-07T16:58:57.067+08:00  WARN 17584 --- [water-meter-service] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'redisTemplate' defined in class path resource [com/water/ai/meter/config/RedisConfig.class]: Unsatisfied dependency expressed through method 'redisTemplate' parameter 0: Error creating bean with name 'redissonConnectionFactory' defined in class path resource [org/redisson/spring/starter/RedissonAutoConfigurationV2.class]: Unsatisfied dependency expressed through method 'redissonConnectionFactory' parameter 0: Error creating bean with name 'redisson' defined in class path resource [org/redisson/spring/starter/RedissonAutoConfigurationV2.class]: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redisson' threw exception with message: java.util.concurrent.ExecutionException: org.redisson.client.RedisConnectionException: Unable to connect to Redis server: localhost/127.0.0.1:6379
+2026-09-07T16:58:57.070+08:00  INFO 17584 --- [water-meter-service] [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-09-07T16:58:57.080+08:00  INFO 17584 --- [water-meter-service] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-09-07T16:58:57.090+08:00 ERROR 17584 --- [water-meter-service] [main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'redisTemplate' defined in class path resource [com/water/ai/meter/config/RedisConfig.class]: Unsatisfied dependency expressed through method 'redisTemplate' parameter 0: Error creating bean with name 'redissonConnectionFactory' defined in class path resource [org/redisson/spring/starter/RedissonAutoConfigurationV2.class]: Unsatisfied dependency expressed through method 'redissonConnectionFactory' parameter 0: Error creating bean with name 'redisson' defined in class path resource [org/redisson/spring/starter/RedissonAutoConfigurationV2.class]: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redisson' threw exception with message: java.util.concurrent.ExecutionException: org.redisson.client.RedisConnectionException: Unable to connect to Redis server: localhost/127.0.0.1:6379
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:802) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:546) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1336) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1166) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:973) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:946) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:753) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:455) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:323) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1342) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1331) ~[spring-boot-3.2.0.jar:3.2.0]
+	at com.water.ai.meter.WaterMeterApplication.main(WaterMeterApplication.java:44) ~[classes/:na]
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'redissonConnectionFactory' defined in class path resource [org/redisson/spring/starter/RedissonAutoConfigurationV2.class]: Unsatisfied dependency expressed through method 'redissonConnectionFactory' parameter 0: Error creating bean with name 'redisson' defined in class path resource [org/redisson/spring/starter/RedissonAutoConfigurationV2.class]: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redisson' threw exception with message: java.util.concurrent.ExecutionException: org.redisson.client.RedisConnectionException: Unable to connect to Redis server: localhost/127.0.0.1:6379
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:802) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:546) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1336) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1166) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1441) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1348) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:911) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:789) ~[spring-beans-6.1.1.jar:6.1.1]
+	... 19 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'redisson' defined in class path resource [org/redisson/spring/starter/RedissonAutoConfigurationV2.class]: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redisson' threw exception with message: java.util.concurrent.ExecutionException: org.redisson.client.RedisConnectionException: Unable to connect to Redis server: localhost/127.0.0.1:6379
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:655) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:489) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1336) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1166) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1441) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1348) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:911) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:789) ~[spring-beans-6.1.1.jar:6.1.1]
+	... 33 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.redisson.api.RedissonClient]: Factory method 'redisson' threw exception with message: java.util.concurrent.ExecutionException: org.redisson.client.RedisConnectionException: Unable to connect to Redis server: localhost/127.0.0.1:6379
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:178) ~[spring-beans-6.1.1.jar:6.1.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:651) ~[spring-beans-6.1.1.jar:6.1.1]
+	... 47 common frames omitted
+Caused by: org.redisson.client.RedisConnectionException: java.util.concurrent.ExecutionException: org.redisson.client.RedisConnectionException: Unable to connect to Redis server: localhost/127.0.0.1:6379
+	at org.redisson.connection.MasterSlaveConnectionManager.doConnect(MasterSlaveConnectionManager.java:221) ~[redisson-3.25.0.jar:3.25.0]
+	at org.redisson.connection.MasterSlaveConnectionManager.connect(MasterSlaveConnectionManager.java:191) ~[redisson-3.25.0.jar:3.25.0]
+	at org.redisson.config.ConfigSupport.createConnectionManager(ConfigSupport.java:220) ~[redisson-3.25.0.jar:3.25.0]
+	at org.redisson.Redisson.<init>(Redisson.java:69) ~[redisson-3.25.0.jar:3.25.0]
+	at org.redisson.Redisson.create(Redisson.java:114) ~[redisson-3.25.0.jar:3.25.0]
+	at org.redisson.spring.starter.RedissonAutoConfiguration.redisson(RedissonAutoConfiguration.java:330) ~[redisson-spring-boot-starter-3.25.0.jar:3.25.0]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:140) ~[spring-beans-6.1.1.jar:6.1.1]
+	... 48 common frames omitted
+Caused by: java.util.concurrent.ExecutionException: org.redisson.client.RedisConnectionException: Unable to connect to Redis server: localhost/127.0.0.1:6379
+	at java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:396) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:2096) ~[na:na]
+	at org.redisson.connection.MasterSlaveConnectionManager.doConnect(MasterSlaveConnectionManager.java:217) ~[redisson-3.25.0.jar:3.25.0]
+	... 56 common frames omitted
+Caused by: org.redisson.client.RedisConnectionException: Unable to connect to Redis server: localhost/127.0.0.1:6379
+	at org.redisson.connection.pool.ConnectionPool.lambda$createConnection$0(ConnectionPool.java:129) ~[redisson-3.25.0.jar:3.25.0]
+	at java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:863) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:841) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:510) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2194) ~[na:na]
+	at org.redisson.connection.pool.ConnectionPool.promiseFailure(ConnectionPool.java:281) ~[redisson-3.25.0.jar:3.25.0]
+	at org.redisson.connection.pool.ConnectionPool.lambda$createConnection$6(ConnectionPool.java:245) ~[redisson-3.25.0.jar:3.25.0]
+	at java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:863) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:841) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:510) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2194) ~[na:na]
+	at org.redisson.client.RedisClient$1$2.run(RedisClient.java:306) ~[redisson-3.25.0.jar:3.25.0]
+	at io.netty.util.concurrent.AbstractEventExecutor.runTask(AbstractEventExecutor.java:173) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:166) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:470) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:569) ~[netty-transport-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+Caused by: java.util.concurrent.CompletionException: io.netty.channel.AbstractChannel$AnnotatedConnectException: Connection refused: getsockopt: localhost/127.0.0.1:6379
+	at java.base/java.util.concurrent.CompletableFuture.encodeRelay(CompletableFuture.java:368) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture.completeRelay(CompletableFuture.java:377) ~[na:na]
+	at java.base/java.util.concurrent.CompletableFuture$UniRelay.tryFire(CompletableFuture.java:1097) ~[na:na]
+	... 11 common frames omitted
+Caused by: io.netty.channel.AbstractChannel$AnnotatedConnectException: Connection refused: getsockopt: localhost/127.0.0.1:6379
+Caused by: java.net.ConnectException: Connection refused: getsockopt
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method) ~[na:na]
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:690) ~[na:na]
+	at java.base/sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:973) ~[na:na]
+	at io.netty.channel.socket.nio.NioSocketChannel.doFinishConnect(NioSocketChannel.java:337) ~[netty-transport-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.finishConnect(AbstractNioChannel.java:334) ~[netty-transport-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:776) ~[netty-transport-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724) ~[netty-transport-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650) ~[netty-transport-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562) ~[netty-transport-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2026-09-07T17:02:54.651+08:00  INFO 42552 --- [water-meter-service] [main] c.water.ai.meter.WaterMeterApplication   : Starting WaterMeterApplication using Java 21.0.12 with PID 42552 (D:\ccb\water-service\target\classes started by 34254 in D:\ccb\water-service)
+2026-09-07T17:02:54.652+08:00 DEBUG 42552 --- [water-meter-service] [main] c.water.ai.meter.WaterMeterApplication   : Running with Spring Boot v3.2.0, Spring v6.1.1
+2026-09-07T17:02:54.652+08:00  INFO 42552 --- [water-meter-service] [main] c.water.ai.meter.WaterMeterApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-09-07T17:02:55.451+08:00  INFO 42552 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-09-07T17:02:55.453+08:00  INFO 42552 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Elasticsearch repositories in DEFAULT mode.
+2026-09-07T17:02:55.467+08:00  INFO 42552 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 Elasticsearch repository interfaces.
+2026-09-07T17:02:55.470+08:00  INFO 42552 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-09-07T17:02:55.471+08:00  INFO 42552 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Reactive Elasticsearch repositories in DEFAULT mode.
+2026-09-07T17:02:55.472+08:00  INFO 42552 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 Reactive Elasticsearch repository interfaces.
+2026-09-07T17:02:55.477+08:00  INFO 42552 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-09-07T17:02:55.478+08:00  INFO 42552 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-09-07T17:02:55.486+08:00  INFO 42552 --- [water-meter-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 Redis repository interfaces.
+2026-09-07T17:02:55.667+08:00  INFO 42552 --- [water-meter-service] [main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=615e8034-24d2-3571-b659-f0f08ed2d884
+2026-09-07T17:02:56.373+08:00  INFO 42552 --- [water-meter-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-09-07T17:02:56.383+08:00  INFO 42552 --- [water-meter-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-07T17:02:56.383+08:00  INFO 42552 --- [water-meter-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-09-07T17:02:56.462+08:00  INFO 42552 --- [water-meter-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-09-07T17:02:56.463+08:00  INFO 42552 --- [water-meter-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1773 ms
+2026-09-07T17:02:56.586+08:00 DEBUG 42552 --- [water-meter-service] [main] o.s.w.f.ServerHttpObservationFilter      : Filter 'webMvcObservationFilter' configured for use
+2026-09-07T17:02:57.135+08:00  INFO 42552 --- [water-meter-service] [main] org.redisson.Version                     : Redisson 3.25.0
+2026-09-07T17:02:57.384+08:00  INFO 42552 --- [water-meter-service] [redisson-netty-2-5] o.r.c.pool.MasterPubSubConnectionPool    : 1 connections initialized for localhost/127.0.0.1:6379
+2026-09-07T17:02:57.448+08:00  INFO 42552 --- [water-meter-service] [redisson-netty-2-20] o.r.c.pool.MasterConnectionPool          : 24 connections initialized for localhost/127.0.0.1:6379
+2026-09-07T17:02:57.799+08:00 DEBUG 42552 --- [water-meter-service] [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 49 mappings in 'requestMappingHandlerMapping'
+2026-09-07T17:02:57.891+08:00 DEBUG 42552 --- [water-meter-service] [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+2026-09-07T17:02:57.931+08:00 DEBUG 42552 --- [water-meter-service] [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-09-07T17:02:57.965+08:00 DEBUG 42552 --- [water-meter-service] [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-09-07T17:02:58.938+08:00  INFO 42552 --- [water-meter-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoint(s) beneath base path '/actuator'
+2026-09-07T17:02:58.994+08:00  INFO 42552 --- [water-meter-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2026-09-07T17:02:59.006+08:00  INFO 42552 --- [water-meter-service] [main] c.water.ai.meter.WaterMeterApplication   : Started WaterMeterApplication in 4.743 seconds (process running for 5.091)
+2026-09-07T17:03:03.589+08:00  INFO 42552 --- [water-meter-service] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-07T17:03:03.590+08:00  INFO 42552 --- [water-meter-service] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-07T17:03:03.590+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2026-09-07T17:03:03.590+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2026-09-07T17:03:03.590+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2026-09-07T17:03:03.591+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@23243bc0
+2026-09-07T17:03:03.592+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@951461a
+2026-09-07T17:03:03.593+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2026-09-07T17:03:03.593+08:00  INFO 42552 --- [water-meter-service] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2026-09-07T17:03:03.608+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/ops/cockpit", parameters={}
+2026-09-07T17:03:03.613+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.water.ai.meter.controller.OpsController#cockpit()
+2026-09-07T17:03:03.636+08:00  INFO 42552 --- [water-meter-service] [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : WaterMeterHikariCP - Starting...
+2026-09-07T17:03:03.762+08:00  INFO 42552 --- [water-meter-service] [http-nio-8080-exec-1] com.zaxxer.hikari.pool.HikariPool        : WaterMeterHikariCP - Added connection com.mysql.cj.jdbc.ConnectionImpl@29b42eed
+2026-09-07T17:03:03.765+08:00  INFO 42552 --- [water-meter-service] [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : WaterMeterHikariCP - Start completed.
+2026-09-07T17:03:03.971+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-09-07T17:03:03.974+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Writing [ApiResult(success=true, message=ok, data={kpis=[{key=usage, label=今日用水量, value=1013.0, unit=吨, hint= (truncated)...]
+2026-09-07T17:03:04.001+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-09-07T17:03:04.006+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/ops/cockpit", parameters={}
+2026-09-07T17:03:04.007+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.water.ai.meter.controller.OpsController#cockpit()
+2026-09-07T17:03:04.091+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-09-07T17:03:04.091+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Writing [ApiResult(success=true, message=ok, data={kpis=[{key=usage, label=今日用水量, value=1013.0, unit=吨, hint= (truncated)...]
+2026-09-07T17:03:04.093+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-09-07T17:03:07.227+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/ops/cockpit", parameters={}
+2026-09-07T17:03:07.228+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.water.ai.meter.controller.OpsController#cockpit()
+2026-09-07T17:03:07.292+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-09-07T17:03:07.293+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Writing [ApiResult(success=true, message=ok, data={kpis=[{key=usage, label=今日用水量, value=1013.0, unit=吨, hint= (truncated)...]
+2026-09-07T17:03:07.293+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-09-07T17:03:23.302+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/ops/meter-health", parameters={}
+2026-09-07T17:03:23.303+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.water.ai.meter.controller.OpsController#meterHealth()
+2026-09-07T17:03:23.910+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-10] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-09-07T17:03:23.928+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-10] m.m.a.RequestResponseBodyMethodProcessor : Writing [ApiResult(success=true, message=ok, data=[{meterNo=WM-A001-0315, area=西湖区(示范A), health=24, fault30d= (truncated)...]
+2026-09-07T17:03:23.959+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-09-07T17:04:28.433+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/ops/meter-health", parameters={}
+2026-09-07T17:04:28.434+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.water.ai.meter.controller.OpsController#meterHealth()
+2026-09-07T17:04:29.153+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-09-07T17:04:29.161+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Writing [ApiResult(success=true, message=ok, data=[{meterNo=WM-A001-0315, area=西湖区(示范A), health=24, fault30d= (truncated)...]
+2026-09-07T17:04:29.182+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-09-07T17:04:29.857+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/ops/meter-health", parameters={}
+2026-09-07T17:04:29.858+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.water.ai.meter.controller.OpsController#meterHealth()
+2026-09-07T17:04:30.457+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-6] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-09-07T17:04:30.468+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-6] m.m.a.RequestResponseBodyMethodProcessor : Writing [ApiResult(success=true, message=ok, data=[{meterNo=WM-A001-0315, area=西湖区(示范A), health=24, fault30d= (truncated)...]
+2026-09-07T17:04:30.483+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-09-07T17:10:21.042+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/ops/cockpit", parameters={}
+2026-09-07T17:10:21.043+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.water.ai.meter.controller.OpsController#cockpit()
+2026-09-07T17:10:21.109+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-7] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-09-07T17:10:21.110+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-7] m.m.a.RequestResponseBodyMethodProcessor : Writing [ApiResult(success=true, message=ok, data={kpis=[{key=usage, label=今日用水量, value=1013.0, unit=吨, hint= (truncated)...]
+2026-09-07T17:10:21.111+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-09-07T17:10:22.847+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/ops/meter-health", parameters={}
+2026-09-07T17:10:22.848+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.water.ai.meter.controller.OpsController#meterHealth()
+2026-09-07T17:10:23.420+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-9] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-09-07T17:10:23.432+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-9] m.m.a.RequestResponseBodyMethodProcessor : Writing [ApiResult(success=true, message=ok, data=[{meterNo=WM-A001-0315, area=西湖区(示范A), health=24, fault30d= (truncated)...]
+2026-09-07T17:10:23.449+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-09-07T17:10:28.126+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/ops/ocr-trust?limit=20", parameters={masked}
+2026-09-07T17:10:28.126+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/ops/readings/recent?limit=50", parameters={masked}
+2026-09-07T17:10:28.127+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.water.ai.meter.controller.OpsController#recentReadings(int)
+2026-09-07T17:10:28.128+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.water.ai.meter.controller.OpsController#ocrTrust(int)
+2026-09-07T17:10:28.144+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-4] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-09-07T17:10:28.145+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-4] m.m.a.RequestResponseBodyMethodProcessor : Writing [ApiResult(success=true, message=ok, data=[{reading_time=2026-08-03T15:39, ai_result={"risk": "低", "f (truncated)...]
+2026-09-07T17:10:28.147+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-09-07T17:10:28.155+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-8] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-09-07T17:10:28.156+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-8] m.m.a.RequestResponseBodyMethodProcessor : Writing [ApiResult(success=true, message=ok, data=[{id=2183, meterNo=WM-D001-0017, userName=吴桐, reading=699.4 (truncated)...]
+2026-09-07T17:10:28.157+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-09-07T17:10:31.462+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/ops/billing-insights", parameters={}
+2026-09-07T17:10:31.463+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.water.ai.meter.controller.OpsController#billingInsights()
+2026-09-07T17:10:31.467+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-09-07T17:10:31.467+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Writing [ApiResult(success=true, message=ok, data=[])]
+2026-09-07T17:10:31.468+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-09-07T17:10:32.424+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/bill/list?pageNum=1&pageSize=10", parameters={masked}
+2026-09-07T17:10:32.425+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.water.ai.meter.controller.BillingController#list(int, int, String, String, Integer, String)
+2026-09-07T17:10:32.468+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-09-07T17:10:32.468+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Writing [ApiResult(success=true, message=ok, data={total=171, records=[{usageAmount=25.00, dueDate=2026-07-30 (truncated)...]
+2026-09-07T17:10:32.469+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-09-07T17:10:33.378+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/ops/billing-insights", parameters={}
+2026-09-07T17:10:33.379+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.water.ai.meter.controller.OpsController#billingInsights()
+2026-09-07T17:10:33.383+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-09-07T17:10:33.383+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Writing [ApiResult(success=true, message=ok, data=[])]
+2026-09-07T17:10:33.383+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-09-07T17:10:39.879+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/work-order/list?pageNum=1&pageSize=10", parameters={masked}
+2026-09-07T17:10:39.879+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/work-order/stats", parameters={}
+2026-09-07T17:10:39.879+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.water.ai.meter.controller.WorkOrderController#list(int, int, String, String, Integer, Integer, String, String)
+2026-09-07T17:10:39.881+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.water.ai.meter.controller.WorkOrderController#stats()
+2026-09-07T17:10:39.884+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-09-07T17:10:39.884+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Writing [ApiResult(success=true, message=ok, data={total=18, pending=18, processing=0, done=0})]
+2026-09-07T17:10:39.885+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-09-07T17:10:39.890+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-10] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-09-07T17:10:39.890+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-10] m.m.a.RequestResponseBodyMethodProcessor : Writing [ApiResult(success=true, message=ok, data={total=18, records=[{severity=critical, orderType=emergency (truncated)...]
+2026-09-07T17:10:39.891+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-09-07T17:10:40.656+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/user/list?pageNum=1&pageSize=10", parameters={masked}
+2026-09-07T17:10:40.656+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.water.ai.meter.controller.UserController#list(int, int, String, String, String, String, String, Integer)
+2026-09-07T17:10:40.762+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-6] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-09-07T17:10:40.767+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-6] m.m.a.RequestResponseBodyMethodProcessor : Writing [ApiResult(success=true, message=ok, data={total=10056, records=[SysUser(id=8665, username=HZ008609,  (truncated)...]
+2026-09-07T17:10:40.769+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-09-07T17:10:48.187+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/user/list?pageNum=1&pageSize=10", parameters={masked}
+2026-09-07T17:10:48.188+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.water.ai.meter.controller.UserController#list(int, int, String, String, String, String, String, Integer)
+2026-09-07T17:10:48.206+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-7] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-09-07T17:10:48.206+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-7] m.m.a.RequestResponseBodyMethodProcessor : Writing [ApiResult(success=true, message=ok, data={total=10056, records=[SysUser(id=8665, username=HZ008609,  (truncated)...]
+2026-09-07T17:10:48.208+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-09-07T17:10:51.707+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/user/list?pageNum=1&pageSize=10", parameters={masked}
+2026-09-07T17:10:51.708+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.water.ai.meter.controller.UserController#list(int, int, String, String, String, String, String, Integer)
+2026-09-07T17:10:51.726+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-9] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-09-07T17:10:51.727+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-9] m.m.a.RequestResponseBodyMethodProcessor : Writing [ApiResult(success=true, message=ok, data={total=10056, records=[SysUser(id=8665, username=HZ008609,  (truncated)...]
+2026-09-07T17:10:51.728+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-09-07T17:10:55.124+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/user/list?pageNum=1&pageSize=10", parameters={masked}
+2026-09-07T17:10:55.125+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.water.ai.meter.controller.UserController#list(int, int, String, String, String, String, String, Integer)
+2026-09-07T17:10:55.140+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-4] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-09-07T17:10:55.140+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-4] m.m.a.RequestResponseBodyMethodProcessor : Writing [ApiResult(success=true, message=ok, data={total=10056, records=[SysUser(id=8665, username=HZ008609,  (truncated)...]
+2026-09-07T17:10:55.141+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-09-07T17:10:55.701+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/work-order/list?pageNum=1&pageSize=10", parameters={masked}
+2026-09-07T17:10:55.702+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.water.ai.meter.controller.WorkOrderController#list(int, int, String, String, Integer, Integer, String, String)
+2026-09-07T17:10:55.713+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-8] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-09-07T17:10:55.713+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-8] m.m.a.RequestResponseBodyMethodProcessor : Writing [ApiResult(success=true, message=ok, data={total=18, records=[{severity=critical, orderType=emergency (truncated)...]
+2026-09-07T17:10:55.714+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-09-07T17:10:55.923+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/work-order/stats", parameters={}
+2026-09-07T17:10:55.924+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.water.ai.meter.controller.WorkOrderController#stats()
+2026-09-07T17:10:55.928+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-09-07T17:10:55.928+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Writing [ApiResult(success=true, message=ok, data={total=18, pending=18, processing=0, done=0})]
+2026-09-07T17:10:55.928+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-09-07T17:10:56.605+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/v1/user/list?pageNum=1&pageSize=10", parameters={masked}
+2026-09-07T17:10:56.605+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.water.ai.meter.controller.UserController#list(int, int, String, String, String, String, String, Integer)
+2026-09-07T17:10:56.620+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-09-07T17:10:56.620+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Writing [ApiResult(success=true, message=ok, data={total=10056, records=[SysUser(id=8665, username=HZ008609,  (truncated)...]
+2026-09-07T17:10:56.621+08:00 DEBUG 42552 --- [water-meter-service] [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK

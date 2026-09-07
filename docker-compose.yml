@@ -1,0 +1,99 @@
+version: '3.8'
+
+services:
+  # ==================== 基础设施 ====================
+
+  # MySQL数据库
+  mysql:
+    image: mysql:8.0
+    container_name: water-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: water_meter_db
+      MYSQL_CHARACTER_SET_SERVER: utf8mb4
+      MYSQL_COLLATION_SERVER: utf8mb4_unicode_ci
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    networks:
+      - water-network
+
+  # Redis缓存
+  redis:
+    image: redis:7-alpine
+    container_name: water-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - water-network
+
+  # InfluxDB时序数据库
+  influxdb:
+    image: influxdb:2.7
+    container_name: water-influxdb
+    restart: always
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: admin
+      DOCKER_INFLUXDB_INIT_PASSWORD: admin123
+      DOCKER_INFLUXDB_INIT_ORG: water-org
+      DOCKER_INFLUXDB_INIT_BUCKET: water_usage
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: water-meter-token
+    ports:
+      - "8086:8086"
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+    networks:
+      - water-network
+
+  # MinIO对象存储
+  minio:
+    image: minio/minio:latest
+    container_name: water-minio
+    restart: always
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+    networks:
+      - water-network
+
+  # Nacos注册中心
+  nacos:
+    image: nacos/nacos-server:v2.3.0
+    container_name: water-nacos
+    restart: always
+    environment:
+      # 单机嵌入式存储，避免依赖不存在的 nacos 库导致 Restarting
+      MODE: standalone
+      PREFER_HOST_MODE: hostname
+      JVM_XMS: 256m
+      JVM_XMX: 256m
+    ports:
+      - "8848:8848"
+      - "9848:9848"
+    networks:
+      - water-network
+
+volumes:
+  mysql_data:
+  redis_data:
+  influxdb_data:
+  minio_data:
+
+networks:
+  water-network:
+    driver: bridge

@@ -1,0 +1,145 @@
+2026-08-21 15:52:03.971 | INFO     | __main__:initialize_system:42 - ============================================================
+2026-08-21 15:52:03.971 | INFO     | __main__:initialize_system:43 - 初始化基于AI的水表抄表收费管理智能体系统
+2026-08-21 15:52:03.971 | INFO     | __main__:initialize_system:44 - ============================================================
+2026-08-21 15:52:03.972 | INFO     | __main__:initialize_system:54 - 注册智能体...
+2026-08-21 15:52:03.972 | INFO     | agents.meter_reading_agent:__init__:30 - OCR模型: 未启用（当前使用 CSV 传感抄表）
+2026-08-21 15:52:04.033 | INFO     | core.orchestrator:register_agent:176 - 协调器: 注册智能体 [抄表智能体], ID: meter_reading_agent, 能力: ['perceive', 'decide', 'execute', 'learn']
+2026-08-21 15:52:04.034 | INFO     | core.orchestrator:register_agent:176 - 协调器: 注册智能体 [计费智能体], ID: billing_agent, 能力: ['perceive', 'decide', 'execute', 'learn']
+2026-08-21 15:52:04.035 | INFO     | core.orchestrator:register_agent:176 - 协调器: 注册智能体 [异常检测智能体], ID: anomaly_agent, 能力: ['perceive', 'decide', 'execute', 'learn', 'collaborate']
+2026-08-21 15:52:04.035 | INFO     | core.orchestrator:register_agent:176 - 协调器: 注册智能体 [催缴智能体], ID: collection_agent, 能力: ['perceive', 'decide', 'execute', 'learn']
+2026-08-21 15:52:04.035 | INFO     | agents.analysis_agent:_load_model:37 - 分析智能体: 时序预测模型加载完成
+2026-08-21 15:52:04.035 | INFO     | core.orchestrator:register_agent:176 - 协调器: 注册智能体 [分析智能体], ID: analysis_agent, 能力: ['perceive', 'decide', 'execute', 'learn']
+2026-08-21 15:52:04.035 | INFO     | __main__:initialize_system:71 - 已注册 5 个智能体
+2026-08-21 15:52:04.036 | INFO     | __main__:initialize_system:74 - 启动智能体系统...
+2026-08-21 15:52:04.036 | INFO     | core.base_agent:start:166 - 智能体 [抄表智能体] 启动成功, 能力: ['perceive', 'decide', 'execute', 'learn']
+2026-08-21 15:52:04.037 | INFO     | agents.meter_reading_agent:_on_start:80 - 抄表智能体: 已加载 CSV 传感数据 10000 条, 异常 500 条, 区县 8 个
+2026-08-21 15:52:04.037 | INFO     | core.base_agent:start:166 - 智能体 [计费智能体] 启动成功, 能力: ['perceive', 'decide', 'execute', 'learn']
+2026-08-21 15:52:04.037 | INFO     | agents.billing_agent:_on_start:62 - 计费智能体: 初始化完成，费率规则已加载
+2026-08-21 15:52:04.037 | INFO     | core.base_agent:start:166 - 智能体 [异常检测智能体] 启动成功, 能力: ['perceive', 'decide', 'execute', 'learn', 'collaborate']
+2026-08-21 15:52:04.037 | INFO     | agents.anomaly_agent:_on_start:284 - 异常检测智能体: 初始化完成，检测引擎已就绪
+2026-08-21 15:52:04.037 | INFO     | core.base_agent:start:166 - 智能体 [催缴智能体] 启动成功, 能力: ['perceive', 'decide', 'execute', 'learn']
+2026-08-21 15:52:04.038 | INFO     | agents.collection_agent:_on_start:192 - 催缴智能体: 初始化完成，策略引擎已就绪
+2026-08-21 15:52:04.038 | INFO     | core.base_agent:start:166 - 智能体 [分析智能体] 启动成功, 能力: ['perceive', 'decide', 'execute', 'learn']
+2026-08-21 15:52:04.038 | INFO     | agents.analysis_agent:_on_start:287 - 分析智能体: 初始化完成，分析引擎已就绪
+2026-08-21 15:52:04.039 | INFO     | core.orchestrator:start:437 - 协调器: 启动完成，所有智能体已就绪
+2026-08-21 15:52:04.039 | INFO     | core.event_bus:start:125 - 事件总线: 启动完成
+2026-08-21 15:52:04.039 | INFO     | __main__:initialize_system:78 - 系统初始化完成!
+2026-08-21 15:52:04.039 | INFO     | __main__:run_demo:85 - 
+============================================================
+2026-08-21 15:52:04.039 | INFO     | __main__:run_demo:86 - 开始运行智能体系统演示
+2026-08-21 15:52:04.039 | INFO     | __main__:run_demo:87 - ============================================================
+2026-08-21 15:52:04.039 | INFO     | __main__:run_demo:90 - 
+--- 演示1: 抄表智能体 (CSV) ---
+2026-08-21 15:52:04.039 | INFO     | core.base_agent:run_cycle:245 - 智能体 [抄表智能体] 开始执行周期
+2026-08-21 15:52:04.039 | INFO     | agents.meter_reading_agent:_perceive_remote:157 - 抄表智能体: CSV传感抄表, 水表ID: HZ000001, 读数: 7993.5, 用量: 0.024, 区: 西湖区
+2026-08-21 15:52:04.039 | DEBUG    | core.base_agent:perceive:191 - 智能体 [抄表智能体] 感知完成, 置信度: 0.98
+2026-08-21 15:52:04.039 | DEBUG    | core.base_agent:decide:210 - 智能体 [抄表智能体] 决策完成, 动作: auto_accept, 置信度: 0.98
+2026-08-21 15:52:04.039 | DEBUG    | core.knowledge_base:set_fact:157 - 知识库: 更新事实 [meter_last_reading:HZ000001], 来源: [meter_reading_agent]
+2026-08-21 15:52:04.039 | INFO     | agents.meter_reading_agent:_execute_auto_accept:371 - 抄表智能体: 自动录入水表 [HZ000001] 读数: 7993.5
+2026-08-21 15:52:04.040 | DEBUG    | core.base_agent:execute:231 - 智能体 [抄表智能体] 执行完成, 成功: True
+2026-08-21 15:52:04.040 | INFO     | __main__:run_demo:98 - CSV传感抄表结果: 水表HZ000001读数7993.5已自动录入
+2026-08-21 15:52:04.040 | INFO     | core.base_agent:run_cycle:245 - 智能体 [抄表智能体] 开始执行周期
+2026-08-21 15:52:04.041 | INFO     | agents.meter_reading_agent:_perceive_schedule:208 - 抄表智能体: CSV批量抄表, 区域: 西湖区, 水表数: 5
+2026-08-21 15:52:04.041 | DEBUG    | core.base_agent:perceive:191 - 智能体 [抄表智能体] 感知完成, 置信度: 0.95
+2026-08-21 15:52:04.041 | DEBUG    | core.base_agent:decide:210 - 智能体 [抄表智能体] 决策完成, 动作: batch_process, 置信度: 0.95
+2026-08-21 15:52:04.041 | INFO     | agents.meter_reading_agent:_execute_batch_process:455 - 抄表智能体: 批量处理完成, 接受: 5, 复核: 0
+2026-08-21 15:52:04.041 | DEBUG    | core.base_agent:execute:231 - 智能体 [抄表智能体] 执行完成, 成功: True
+2026-08-21 15:52:04.041 | INFO     | __main__:run_demo:106 - 批量抄表结果: 批量抄表处理完成: 接受5个, 复核0个
+2026-08-21 15:52:04.041 | INFO     | core.base_agent:run_cycle:245 - 智能体 [抄表智能体] 开始执行周期
+2026-08-21 15:52:04.041 | INFO     | agents.meter_reading_agent:_perceive_remote:157 - 抄表智能体: CSV传感抄表, 水表ID: HZ000021, 读数: 4830.1, 用量: 0.35, 区: 上城区
+2026-08-21 15:52:04.041 | DEBUG    | core.base_agent:perceive:191 - 智能体 [抄表智能体] 感知完成, 置信度: 0.78
+2026-08-21 15:52:04.041 | DEBUG    | core.base_agent:decide:210 - 智能体 [抄表智能体] 决策完成, 动作: human_review, 置信度: 0.78
+2026-08-21 15:52:04.041 | INFO     | agents.meter_reading_agent:_execute_human_review:396 - 抄表智能体: 水表 [HZ000021] 读数转人工复核
+2026-08-21 15:52:04.041 | DEBUG    | core.base_agent:execute:231 - 智能体 [抄表智能体] 执行完成, 成功: True
+2026-08-21 15:52:04.041 | INFO     | __main__:run_demo:113 - 告警表抄表结果: 水表HZ000021读数已转人工复核队列
+2026-08-21 15:52:04.041 | INFO     | __main__:run_demo:116 - 
+--- 演示2: 计费智能体 ---
+2026-08-21 15:52:04.041 | INFO     | core.base_agent:run_cycle:245 - 智能体 [计费智能体] 开始执行周期
+2026-08-21 15:52:04.042 | DEBUG    | core.base_agent:perceive:191 - 智能体 [计费智能体] 感知完成, 置信度: 0.99
+2026-08-21 15:52:04.042 | DEBUG    | core.base_agent:decide:210 - 智能体 [计费智能体] 决策完成, 动作: generate_bill, 置信度: 0.99
+2026-08-21 15:52:04.042 | DEBUG    | core.knowledge_base:set_fact:157 - 知识库: 更新事实 [bill:BILL-20260821-8440], 来源: [billing_agent]
+2026-08-21 15:52:04.042 | INFO     | agents.billing_agent:_execute_generate_bill:298 - 计费智能体: 生成账单 [BILL-20260821-8440], 金额: 70.79元
+2026-08-21 15:52:04.042 | DEBUG    | core.base_agent:execute:231 - 智能体 [计费智能体] 执行完成, 成功: True
+2026-08-21 15:52:04.042 | INFO     | __main__:run_demo:128 - 计费结果: 账单BILL-20260821-8440已生成，应缴70.79元
+2026-08-21 15:52:04.042 | INFO     | __main__:run_demo:131 - 
+--- 演示3: 异常检测智能体 ---
+2026-08-21 15:52:04.042 | INFO     | core.base_agent:run_cycle:245 - 智能体 [异常检测智能体] 开始执行周期
+2026-08-21 15:52:04.042 | DEBUG    | core.base_agent:perceive:191 - 智能体 [异常检测智能体] 感知完成, 置信度: 0.95
+2026-08-21 15:52:04.042 | DEBUG    | core.base_agent:decide:210 - 智能体 [异常检测智能体] 决策完成, 动作: high_priority_alert, 置信度: 0.90
+2026-08-21 15:52:04.042 | DEBUG    | core.knowledge_base:set_fact:157 - 知识库: 更新事实 [work_order:WO-20260821155204], 来源: [anomaly_agent]
+2026-08-21 15:52:04.042 | INFO     | agents.anomaly_agent:_create_work_order:657 - 异常检测智能体: 创建工单 [WO-20260821155204]
+2026-08-21 15:52:04.042 | WARNING  | agents.anomaly_agent:_execute_high_alert:578 - 异常检测智能体: 高优先级异常 [WM-A001-0001]
+2026-08-21 15:52:04.042 | DEBUG    | core.base_agent:execute:231 - 智能体 [异常检测智能体] 执行完成, 成功: True
+2026-08-21 15:52:04.042 | INFO     | __main__:run_demo:141 - 异常检测结果: 高优先级异常已处理: WM-A001-0001
+2026-08-21 15:52:04.042 | INFO     | __main__:run_demo:144 - 
+--- 演示4: 催缴智能体 ---
+2026-08-21 15:52:04.042 | INFO     | core.base_agent:run_cycle:245 - 智能体 [催缴智能体] 开始执行周期
+2026-08-21 15:52:04.042 | DEBUG    | core.base_agent:perceive:191 - 智能体 [催缴智能体] 感知完成, 置信度: 0.95
+2026-08-21 15:52:04.044 | DEBUG    | core.base_agent:decide:210 - 智能体 [催缴智能体] 决策完成, 动作: execute_collection, 置信度: 0.90
+2026-08-21 15:52:04.044 | INFO     | agents.collection_agent:_execute_collection:410 - 催缴智能体: 执行催缴 [COLL-20260821155204] → 用户U001, 策略: 强化催缴
+2026-08-21 15:52:04.044 | DEBUG    | core.base_agent:execute:231 - 智能体 [催缴智能体] 执行完成, 成功: True
+2026-08-21 15:52:04.044 | INFO     | __main__:run_demo:154 - 催缴结果: 催缴通知已发送: 用户U001, 渠道: ['sms']
+2026-08-21 15:52:04.044 | INFO     | __main__:run_demo:157 - 
+--- 演示5: 分析智能体 ---
+2026-08-21 15:52:04.044 | INFO     | core.base_agent:run_cycle:245 - 智能体 [分析智能体] 开始执行周期
+2026-08-21 15:52:04.044 | DEBUG    | core.base_agent:perceive:191 - 智能体 [分析智能体] 感知完成, 置信度: 0.95
+2026-08-21 15:52:04.044 | DEBUG    | core.base_agent:decide:210 - 智能体 [分析智能体] 决策完成, 动作: generate_meter_report, 置信度: 0.90
+2026-08-21 15:52:04.044 | INFO     | agents.analysis_agent:_execute_meter_report:574 - 分析智能体: 生成水表报告 [RPT-MTR-20260821155204] → WM-A001-0001
+2026-08-21 15:52:04.044 | DEBUG    | core.base_agent:execute:231 - 智能体 [分析智能体] 执行完成, 成功: True
+2026-08-21 15:52:04.044 | INFO     | __main__:run_demo:165 - 分析结果: 水表WM-A001-0001分析报告已生成
+2026-08-21 15:52:04.044 | INFO     | __main__:run_demo:168 - 
+--- 演示6: 工作流执行 ---
+2026-08-21 15:52:04.044 | INFO     | core.orchestrator:create_workflow:331 - 协调器: 创建工作流 [抄表计费工作流], ID: wf_1787298724044
+2026-08-21 15:52:04.045 | INFO     | core.orchestrator:execute_workflow:340 - 协调器: 开始执行工作流 [抄表计费工作流]
+2026-08-21 15:52:04.045 | INFO     | core.orchestrator:execute_workflow:356 - 协调器: 工作流步骤 [read] → 智能体 [抄表智能体]
+2026-08-21 15:52:04.045 | INFO     | core.base_agent:run_cycle:245 - 智能体 [抄表智能体] 开始执行周期
+2026-08-21 15:52:04.045 | INFO     | agents.meter_reading_agent:_perceive_remote:157 - 抄表智能体: CSV传感抄表, 水表ID: HZ000001, 读数: 7993.5, 用量: 0.024, 区: 西湖区
+2026-08-21 15:52:04.045 | DEBUG    | core.base_agent:perceive:191 - 智能体 [抄表智能体] 感知完成, 置信度: 0.98
+2026-08-21 15:52:04.045 | DEBUG    | core.base_agent:decide:210 - 智能体 [抄表智能体] 决策完成, 动作: auto_accept, 置信度: 0.98
+2026-08-21 15:52:04.045 | DEBUG    | core.knowledge_base:set_fact:157 - 知识库: 更新事实 [meter_last_reading:HZ000001], 来源: [meter_reading_agent]
+2026-08-21 15:52:04.045 | INFO     | agents.meter_reading_agent:_execute_auto_accept:371 - 抄表智能体: 自动录入水表 [HZ000001] 读数: 7993.5
+2026-08-21 15:52:04.045 | DEBUG    | core.base_agent:execute:231 - 智能体 [抄表智能体] 执行完成, 成功: True
+2026-08-21 15:52:04.045 | INFO     | core.orchestrator:execute_workflow:356 - 协调器: 工作流步骤 [validate] → 智能体 [抄表智能体]
+2026-08-21 15:52:04.045 | INFO     | core.base_agent:run_cycle:245 - 智能体 [抄表智能体] 开始执行周期
+2026-08-21 15:52:04.045 | INFO     | agents.meter_reading_agent:_perceive_remote:157 - 抄表智能体: CSV传感抄表, 水表ID: HZ000001, 读数: 7993.5, 用量: 0.024, 区: 西湖区
+2026-08-21 15:52:04.045 | DEBUG    | core.base_agent:perceive:191 - 智能体 [抄表智能体] 感知完成, 置信度: 0.98
+2026-08-21 15:52:04.045 | DEBUG    | core.base_agent:decide:210 - 智能体 [抄表智能体] 决策完成, 动作: auto_accept, 置信度: 0.98
+2026-08-21 15:52:04.045 | DEBUG    | core.knowledge_base:set_fact:157 - 知识库: 更新事实 [meter_last_reading:HZ000001], 来源: [meter_reading_agent]
+2026-08-21 15:52:04.045 | INFO     | agents.meter_reading_agent:_execute_auto_accept:371 - 抄表智能体: 自动录入水表 [HZ000001] 读数: 7993.5
+2026-08-21 15:52:04.045 | DEBUG    | core.base_agent:execute:231 - 智能体 [抄表智能体] 执行完成, 成功: True
+2026-08-21 15:52:04.045 | INFO     | core.orchestrator:execute_workflow:356 - 协调器: 工作流步骤 [bill] → 智能体 [计费智能体]
+2026-08-21 15:52:04.046 | INFO     | core.base_agent:run_cycle:245 - 智能体 [计费智能体] 开始执行周期
+2026-08-21 15:52:04.046 | DEBUG    | core.base_agent:perceive:191 - 智能体 [计费智能体] 感知完成, 置信度: 0.99
+2026-08-21 15:52:04.046 | DEBUG    | core.base_agent:decide:210 - 智能体 [计费智能体] 决策完成, 动作: generate_bill, 置信度: 0.99
+2026-08-21 15:52:04.046 | DEBUG    | core.knowledge_base:set_fact:157 - 知识库: 更新事实 [bill:BILL-20260821-4330], 来源: [billing_agent]
+2026-08-21 15:52:04.046 | INFO     | agents.billing_agent:_execute_generate_bill:298 - 计费智能体: 生成账单 [BILL-20260821-4330], 金额: 0.0元
+2026-08-21 15:52:04.046 | DEBUG    | core.base_agent:execute:231 - 智能体 [计费智能体] 执行完成, 成功: True
+2026-08-21 15:52:04.046 | INFO     | core.orchestrator:execute_workflow:356 - 协调器: 工作流步骤 [notify] → 智能体 [催缴智能体]
+2026-08-21 15:52:04.046 | INFO     | core.base_agent:run_cycle:245 - 智能体 [催缴智能体] 开始执行周期
+2026-08-21 15:52:04.047 | DEBUG    | core.base_agent:perceive:191 - 智能体 [催缴智能体] 感知完成, 置信度: 0.95
+2026-08-21 15:52:04.047 | DEBUG    | core.base_agent:decide:210 - 智能体 [催缴智能体] 决策完成, 动作: execute_collection, 置信度: 0.90
+2026-08-21 15:52:04.047 | INFO     | agents.collection_agent:_execute_collection:410 - 催缴智能体: 执行催缴 [COLL-20260821155204] → 用户unknown, 策略: 温和提醒
+2026-08-21 15:52:04.047 | DEBUG    | core.base_agent:execute:231 - 智能体 [催缴智能体] 执行完成, 成功: True
+2026-08-21 15:52:04.047 | INFO     | core.orchestrator:execute_workflow:391 - 协调器: 工作流 [抄表计费工作流] 执行完成, 状态: completed
+2026-08-21 15:52:04.047 | INFO     | __main__:run_demo:173 - 工作流执行完成: completed
+2026-08-21 15:52:04.047 | INFO     | __main__:run_demo:176 - 
+--- 系统状态 ---
+2026-08-21 15:52:04.047 | INFO     | __main__:run_demo:178 - 运行时间: 0.0秒
+2026-08-21 15:52:04.047 | INFO     | __main__:run_demo:179 - 任务统计: 创建0, 完成0
+2026-08-21 15:52:04.047 | INFO     | __main__:run_demo:180 - 消息路由: 0条
+2026-08-21 15:52:04.047 | INFO     | __main__:run_demo:182 - 
+============================================================
+2026-08-21 15:52:04.047 | INFO     | __main__:run_demo:183 - 演示完成!
+2026-08-21 15:52:04.047 | INFO     | __main__:run_demo:184 - ============================================================
+2026-08-21 15:52:04.051 | INFO     | __main__:main:209 - 
+启动API服务: http://0.0.0.0:8087
+2026-08-21 15:52:04.052 | INFO     | __main__:main:210 - API文档:
+2026-08-21 15:52:04.052 | INFO     | __main__:main:211 -   GET  /api/health         - 健康检查
+2026-08-21 15:52:04.052 | INFO     | __main__:main:212 -   GET  /api/status         - 系统状态
+2026-08-21 15:52:04.052 | INFO     | __main__:main:213 -   GET  /api/agents         - 智能体列表
+2026-08-21 15:52:04.052 | INFO     | __main__:main:214 -   POST /api/meter-reading  - 执行抄表
+2026-08-21 15:52:04.052 | INFO     | __main__:main:215 -   POST /api/billing        - 生成账单
+2026-08-21 15:52:04.052 | INFO     | __main__:main:216 -   POST /api/anomaly/detect - 异常检测
+2026-08-21 15:52:04.052 | INFO     | __main__:main:217 -   POST /api/collection/execute - 执行催缴
+2026-08-21 15:52:04.052 | INFO     | __main__:main:218 -   POST /api/analysis/forecast  - 用水预测
+2026-08-21 15:52:04.052 | INFO     | __main__:main:219 -   POST /api/workflow/create    - 创建工作流

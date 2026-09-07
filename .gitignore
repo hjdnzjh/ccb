@@ -1,0 +1,12 @@
+# Downloaded dependencies and local environments
+node_modules/
+/.m2repository/
+.venv/
+
+# Build outputs
+target/
+/web-admin/dist/
+
+# Python bytecode caches
+__pycache__/
+*.py[cod]

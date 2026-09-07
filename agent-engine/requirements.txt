@@ -1,0 +1,17 @@
+# Agent Engine - runtime deps (Python 3.10–3.12)
+# OCR/ML heavy stacks are optional; default meter reading uses CSV sensor samples.
+
+flask>=3.0.0,<4
+flask-cors>=4.0.0
+numpy>=1.26.0
+loguru>=0.7.2
+python-dotenv>=1.0.0
+requests>=2.31.0
+
+# Optional (not required to start API / demo):
+# pandas>=2.1.0
+# scikit-learn>=1.3.0
+# redis>=5.0.0
+# pydantic>=2.5.0
+# apscheduler>=3.10.0
+# paddleocr / paddlepaddle / opencv-python — install separately if enabling real OCR

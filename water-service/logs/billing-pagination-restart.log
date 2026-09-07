@@ -1,0 +1,816 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------< com.water.ai:water-meter-service >------------------
+[INFO] Building water-meter-service 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.2.0:run (default-cli) > test-compile @ water-meter-service >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ water-meter-service ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ water-meter-service ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ water-meter-service ---
+[INFO] skip non existing resourceDirectory D:\ccb\water-service\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ water-meter-service ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] <<< spring-boot:3.2.0:run (default-cli) < test-compile @ water-meter-service <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.2.0:run (default-cli) @ water-meter-service ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.0)
+
+2026-08-21 17:04:22.468 [main] INFO  c.w.ai.meter.WaterMeterApplication - Starting WaterMeterApplication using Java 21.0.12 with PID 9256 (D:\ccb\water-service\target\classes started by 34254 in D:\ccb\water-service)
+2026-08-21 17:04:22.469 [main] DEBUG c.w.ai.meter.WaterMeterApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
+2026-08-21 17:04:22.470 [main] INFO  c.w.ai.meter.WaterMeterApplication - No active profile set, falling back to 1 default profile: "default"
+2026-08-21 17:04:23.186 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-08-21 17:04:23.188 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Elasticsearch repositories in DEFAULT mode.
+2026-08-21 17:04:23.200 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 9 ms. Found 0 Elasticsearch repository interfaces.
+2026-08-21 17:04:23.204 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-08-21 17:04:23.205 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Reactive Elasticsearch repositories in DEFAULT mode.
+2026-08-21 17:04:23.207 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 1 ms. Found 0 Reactive Elasticsearch repository interfaces.
+2026-08-21 17:04:23.213 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-08-21 17:04:23.214 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-08-21 17:04:23.220 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 1 ms. Found 0 Redis repository interfaces.
+2026-08-21 17:04:23.367 [main] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=615e8034-24d2-3571-b659-f0f08ed2d884
+2026-08-21 17:04:23.929 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-08-21 17:04:23.936 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-08-21 17:04:23.937 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-08-21 17:04:23.989 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-08-21 17:04:23.990 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1486 ms
+2026-08-21 17:04:24.096 [main] DEBUG o.s.w.f.ServerHttpObservationFilter - Filter 'webMvcObservationFilter' configured for use
+Logging initialized using 'class org.apache.ibatis.logging.stdout.StdOutImpl' adapter.
+Initialization Sequence datacenterId:0 workerId:10
+ _ _   |_  _ _|_. ___ _ |    _ 
+| | |\/|_)(_| | |_\  |_)||_|_\ 
+     /               |         
+                        3.5.5 
+2026-08-21 17:04:24.581 [main] INFO  org.redisson.Version - Redisson 3.25.0
+2026-08-21 17:04:24.774 [redisson-netty-2-5] INFO  o.r.c.p.MasterPubSubConnectionPool - 1 connections initialized for localhost/127.0.0.1:6379
+2026-08-21 17:04:24.839 [redisson-netty-2-20] INFO  o.r.c.pool.MasterConnectionPool - 24 connections initialized for localhost/127.0.0.1:6379
+2026-08-21 17:04:25.182 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 49 mappings in 'requestMappingHandlerMapping'
+2026-08-21 17:04:25.291 [main] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+2026-08-21 17:04:25.328 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-08-21 17:04:25.357 [main] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-08-21 17:04:26.209 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoint(s) beneath base path '/actuator'
+2026-08-21 17:04:26.269 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-08-21 17:04:26.284 [main] INFO  c.w.ai.meter.WaterMeterApplication - Started WaterMeterApplication in 4.175 seconds (process running for 4.501)
+========================================
+   水表抄表收费管理系统启动成功!        
+   API文档: http://localhost:8080/doc   
+========================================
+2026-08-21 17:04:26.469 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-21 17:04:26.471 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-08-21 17:04:26.471 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2026-08-21 17:04:26.471 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2026-08-21 17:04:26.471 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2026-08-21 17:04:26.473 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@20a7ce0
+2026-08-21 17:04:26.474 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@5c8e7687
+2026-08-21 17:04:26.474 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2026-08-21 17:04:26.474 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2026-08-21 17:04:26.485 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/bill/list?pageNum=1&pageSize=10", parameters={masked}
+2026-08-21 17:04:26.492 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.water.ai.meter.controller.BillingController#list(int, int, String, String, Integer, String)
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@23764482] was not registered for synchronization because synchronization is not active
+2026-08-21 17:04:26.541 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - WaterMeterHikariCP - Starting...
+2026-08-21 17:04:26.662 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.pool.HikariPool - WaterMeterHikariCP - Added connection com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7
+2026-08-21 17:04:26.666 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - WaterMeterHikariCP - Start completed.
+JDBC Connection [HikariProxyConnection@686194964 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT b.id, b.bill_no AS billNo, b.user_id AS userId, b.meter_id AS meterId, b.bill_period AS billPeriod, b.usage_amount AS usageAmount, b.water_fee AS waterFee, b.sewage_fee AS sewageFee, b.total_amount AS totalAmount, b.paid_amount AS paidAmount, b.status, b.due_date AS dueDate, b.paid_time AS paidTime, b.pay_method AS payMethod, COALESCE(NULLIF(u.real_name, ''), u.username) AS userName, u.phone FROM bill b LEFT JOIN sys_user u ON u.id = b.user_id AND u.deleted = 0 WHERE b.deleted = 0 ORDER BY b.create_time DESC, b.id DESC LIMIT ?, ?
+==> Parameters: 0(Long), 10(Integer)
+<==    Columns: id, billNo, userId, meterId, billPeriod, usageAmount, waterFee, sewageFee, totalAmount, paidAmount, status, dueDate, paidTime, payMethod, userName, phone
+<==        Row: 457, DEMO-BILL-202608-57, 53, 57, 2026-08, 25.00, 47.00, 38.00, 83.00, 0.00, 0, 2026-07-30 07:36:15, null, null, 黄海, 13900000612
+<==        Row: 456, DEMO-BILL-202607-57, 53, 57, 2026-07, 25.00, 47.00, 38.00, 83.00, 83.00, 1, 2026-08-15 07:36:15, 2026-07-12 07:36:15, wechat, 黄海, 13900000612
+<==        Row: 455, DEMO-BILL-202606-57, 53, 57, 2026-06, 25.00, 47.00, 38.00, 83.00, 83.00, 1, 2026-08-15 07:36:15, 2026-06-22 07:36:15, wechat, 黄海, 13900000612
+<==        Row: 454, DEMO-BILL-202608-56, 49, 56, 2026-08, 24.00, 46.00, 37.00, 82.00, 32.80, 1, 2026-07-31 07:36:15, 2026-08-02 07:36:15, bank, 林岚, 13900000611
+<==        Row: 453, DEMO-BILL-202607-56, 49, 56, 2026-07, 24.00, 46.00, 37.00, 82.00, 82.00, 1, 2026-08-15 07:36:15, 2026-07-13 07:36:15, bank, 林岚, 13900000611
+<==        Row: 452, DEMO-BILL-202606-56, 49, 56, 2026-06, 24.00, 46.00, 37.00, 82.00, 82.00, 1, 2026-08-15 07:36:15, 2026-06-23 07:36:15, bank, 林岚, 13900000611
+<==        Row: 451, DEMO-BILL-202608-55, 45, 55, 2026-08, 23.00, 45.00, 36.00, 81.00, 32.40, 2, 2026-07-24 07:36:15, 2026-08-03 07:36:15, alipay, 陈晨, 13900000610
+<==        Row: 450, DEMO-BILL-202607-55, 45, 55, 2026-07, 23.00, 45.00, 36.00, 81.00, 81.00, 1, 2026-08-15 07:36:15, 2026-07-14 07:36:15, alipay, 陈晨, 13900000610
+<==        Row: 449, DEMO-BILL-202606-55, 45, 55, 2026-06, 23.00, 45.00, 36.00, 81.00, 81.00, 1, 2026-08-15 07:36:15, 2026-06-24 07:36:15, alipay, 陈晨, 13900000610
+<==        Row: 448, DEMO-BILL-202608-54, 41, 54, 2026-08, 22.00, 44.00, 35.00, 80.00, 0.00, 0, 2026-07-25 07:36:15, null, null, 宋宇, 13900000609
+<==      Total: 10
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@23764482]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@785c0268] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@505098944 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT COUNT(*) FROM bill b LEFT JOIN sys_user u ON u.id = b.user_id AND u.deleted = 0 WHERE b.deleted = 0
+==> Parameters: 
+<==    Columns: COUNT(*)
+<==        Row: 171
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@785c0268]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@3670dcc6] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@782751522 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT COALESCE(SUM(b.total_amount), 0) AS totalAmount, COALESCE(SUM(b.paid_amount), 0) AS paidAmount, COALESCE(SUM(CASE WHEN b.status IN (0,2,3) THEN b.total_amount - COALESCE(b.paid_amount,0) ELSE 0 END), 0) AS overdueAmount, CASE WHEN COALESCE(SUM(b.total_amount),0) = 0 THEN 0 ELSE ROUND(COALESCE(SUM(b.paid_amount),0) / SUM(b.total_amount) * 100, 1) END AS collectionRate FROM bill b LEFT JOIN sys_user u ON u.id = b.user_id AND u.deleted = 0 WHERE b.deleted = 0
+==> Parameters: 
+<==    Columns: totalAmount, paidAmount, overdueAmount, collectionRate
+<==        Row: 14237.00, 9730.40, 2482.80, 68.3
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@3670dcc6]
+2026-08-21 17:04:26.761 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2026-08-21 17:04:26.764 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [ApiResult(success=true, message=ok, data={total=171, records=[{usageAmount=25.00, dueDate=2026-07-30 (truncated)...]
+2026-08-21 17:04:26.787 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-08-21 17:04:35.166 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/bill/list?pageNum=1&pageSize=10", parameters={masked}
+2026-08-21 17:04:35.174 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.water.ai.meter.controller.BillingController#list(int, int, String, String, Integer, String)
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7959bb43] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@2103845040 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT b.id, b.bill_no AS billNo, b.user_id AS userId, b.meter_id AS meterId, b.bill_period AS billPeriod, b.usage_amount AS usageAmount, b.water_fee AS waterFee, b.sewage_fee AS sewageFee, b.total_amount AS totalAmount, b.paid_amount AS paidAmount, b.status, b.due_date AS dueDate, b.paid_time AS paidTime, b.pay_method AS payMethod, COALESCE(NULLIF(u.real_name, ''), u.username) AS userName, u.phone FROM bill b LEFT JOIN sys_user u ON u.id = b.user_id AND u.deleted = 0 WHERE b.deleted = 0 ORDER BY b.create_time DESC, b.id DESC LIMIT ?, ?
+==> Parameters: 0(Long), 10(Integer)
+<==    Columns: id, billNo, userId, meterId, billPeriod, usageAmount, waterFee, sewageFee, totalAmount, paidAmount, status, dueDate, paidTime, payMethod, userName, phone
+<==        Row: 457, DEMO-BILL-202608-57, 53, 57, 2026-08, 25.00, 47.00, 38.00, 83.00, 0.00, 0, 2026-07-30 07:36:15, null, null, 黄海, 13900000612
+<==        Row: 456, DEMO-BILL-202607-57, 53, 57, 2026-07, 25.00, 47.00, 38.00, 83.00, 83.00, 1, 2026-08-15 07:36:15, 2026-07-12 07:36:15, wechat, 黄海, 13900000612
+<==        Row: 455, DEMO-BILL-202606-57, 53, 57, 2026-06, 25.00, 47.00, 38.00, 83.00, 83.00, 1, 2026-08-15 07:36:15, 2026-06-22 07:36:15, wechat, 黄海, 13900000612
+<==        Row: 454, DEMO-BILL-202608-56, 49, 56, 2026-08, 24.00, 46.00, 37.00, 82.00, 32.80, 1, 2026-07-31 07:36:15, 2026-08-02 07:36:15, bank, 林岚, 13900000611
+<==        Row: 453, DEMO-BILL-202607-56, 49, 56, 2026-07, 24.00, 46.00, 37.00, 82.00, 82.00, 1, 2026-08-15 07:36:15, 2026-07-13 07:36:15, bank, 林岚, 13900000611
+<==        Row: 452, DEMO-BILL-202606-56, 49, 56, 2026-06, 24.00, 46.00, 37.00, 82.00, 82.00, 1, 2026-08-15 07:36:15, 2026-06-23 07:36:15, bank, 林岚, 13900000611
+<==        Row: 451, DEMO-BILL-202608-55, 45, 55, 2026-08, 23.00, 45.00, 36.00, 81.00, 32.40, 2, 2026-07-24 07:36:15, 2026-08-03 07:36:15, alipay, 陈晨, 13900000610
+<==        Row: 450, DEMO-BILL-202607-55, 45, 55, 2026-07, 23.00, 45.00, 36.00, 81.00, 81.00, 1, 2026-08-15 07:36:15, 2026-07-14 07:36:15, alipay, 陈晨, 13900000610
+<==        Row: 449, DEMO-BILL-202606-55, 45, 55, 2026-06, 23.00, 45.00, 36.00, 81.00, 81.00, 1, 2026-08-15 07:36:15, 2026-06-24 07:36:15, alipay, 陈晨, 13900000610
+<==        Row: 448, DEMO-BILL-202608-54, 41, 54, 2026-08, 22.00, 44.00, 35.00, 80.00, 0.00, 0, 2026-07-25 07:36:15, null, null, 宋宇, 13900000609
+<==      Total: 10
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7959bb43]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@3d212dff] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@160828091 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT COUNT(*) FROM bill b LEFT JOIN sys_user u ON u.id = b.user_id AND u.deleted = 0 WHERE b.deleted = 0
+==> Parameters: 
+<==    Columns: COUNT(*)
+<==        Row: 171
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@3d212dff]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@584b4e37] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1815207444 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT COALESCE(SUM(b.total_amount), 0) AS totalAmount, COALESCE(SUM(b.paid_amount), 0) AS paidAmount, COALESCE(SUM(CASE WHEN b.status IN (0,2,3) THEN b.total_amount - COALESCE(b.paid_amount,0) ELSE 0 END), 0) AS overdueAmount, CASE WHEN COALESCE(SUM(b.total_amount),0) = 0 THEN 0 ELSE ROUND(COALESCE(SUM(b.paid_amount),0) / SUM(b.total_amount) * 100, 1) END AS collectionRate FROM bill b LEFT JOIN sys_user u ON u.id = b.user_id AND u.deleted = 0 WHERE b.deleted = 0
+==> Parameters: 
+<==    Columns: totalAmount, paidAmount, overdueAmount, collectionRate
+<==        Row: 14237.00, 9730.40, 2482.80, 68.3
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@584b4e37]
+2026-08-21 17:04:35.192 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2026-08-21 17:04:35.192 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [ApiResult(success=true, message=ok, data={total=171, records=[{usageAmount=25.00, dueDate=2026-07-30 (truncated)...]
+2026-08-21 17:04:35.193 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-08-21 17:04:35.238 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/bill/list?pageNum=2&pageSize=10", parameters={masked}
+2026-08-21 17:04:35.240 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.water.ai.meter.controller.BillingController#list(int, int, String, String, Integer, String)
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@763ba92a] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1912873781 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT b.id, b.bill_no AS billNo, b.user_id AS userId, b.meter_id AS meterId, b.bill_period AS billPeriod, b.usage_amount AS usageAmount, b.water_fee AS waterFee, b.sewage_fee AS sewageFee, b.total_amount AS totalAmount, b.paid_amount AS paidAmount, b.status, b.due_date AS dueDate, b.paid_time AS paidTime, b.pay_method AS payMethod, COALESCE(NULLIF(u.real_name, ''), u.username) AS userName, u.phone FROM bill b LEFT JOIN sys_user u ON u.id = b.user_id AND u.deleted = 0 WHERE b.deleted = 0 ORDER BY b.create_time DESC, b.id DESC LIMIT ?, ?
+==> Parameters: 10(Long), 10(Integer)
+<==    Columns: id, billNo, userId, meterId, billPeriod, usageAmount, waterFee, sewageFee, totalAmount, paidAmount, status, dueDate, paidTime, payMethod, userName, phone
+<==        Row: 447, DEMO-BILL-202607-54, 41, 54, 2026-07, 22.00, 44.00, 35.00, 80.00, 80.00, 1, 2026-08-15 07:36:15, 2026-07-10 07:36:15, wechat, 宋宇, 13900000609
+<==        Row: 446, DEMO-BILL-202606-54, 41, 54, 2026-06, 22.00, 44.00, 35.00, 80.00, 80.00, 1, 2026-08-15 07:36:15, 2026-06-20 07:36:15, wechat, 宋宇, 13900000609
+<==        Row: 445, DEMO-BILL-202608-53, 37, 53, 2026-08, 21.00, 43.00, 34.00, 79.00, 31.60, 1, 2026-07-26 07:36:15, 2026-07-31 07:36:15, bank, 梁静, 13900000608
+<==        Row: 444, DEMO-BILL-202607-53, 37, 53, 2026-07, 21.00, 43.00, 34.00, 79.00, 79.00, 1, 2026-08-15 07:36:15, 2026-07-11 07:36:15, bank, 梁静, 13900000608
+<==        Row: 443, DEMO-BILL-202606-53, 37, 53, 2026-06, 21.00, 43.00, 34.00, 79.00, 79.00, 1, 2026-08-15 07:36:15, 2026-06-21 07:36:15, bank, 梁静, 13900000608
+<==        Row: 442, DEMO-BILL-202608-52, 33, 52, 2026-08, 20.00, 42.00, 33.00, 78.00, 31.20, 1, 2026-07-27 07:36:15, 2026-08-01 07:36:15, alipay, 高翔, 13900000607
+<==        Row: 441, DEMO-BILL-202607-52, 33, 52, 2026-07, 20.00, 42.00, 33.00, 78.00, 78.00, 1, 2026-08-15 07:36:15, 2026-07-12 07:36:15, alipay, 高翔, 13900000607
+<==        Row: 440, DEMO-BILL-202606-52, 33, 52, 2026-06, 20.00, 42.00, 33.00, 78.00, 78.00, 1, 2026-08-15 07:36:15, 2026-06-22 07:36:15, alipay, 高翔, 13900000607
+<==        Row: 439, DEMO-BILL-202608-51, 29, 51, 2026-08, 19.00, 41.00, 32.00, 77.00, 0.00, 0, 2026-07-28 07:36:15, null, null, 罗阳, 13900000606
+<==        Row: 438, DEMO-BILL-202607-51, 29, 51, 2026-07, 19.00, 41.00, 32.00, 77.00, 77.00, 1, 2026-08-15 07:36:15, 2026-07-13 07:36:15, wechat, 罗阳, 13900000606
+<==      Total: 10
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@763ba92a]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@553573c2] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1462328414 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT COUNT(*) FROM bill b LEFT JOIN sys_user u ON u.id = b.user_id AND u.deleted = 0 WHERE b.deleted = 0
+==> Parameters: 
+<==    Columns: COUNT(*)
+<==        Row: 171
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@553573c2]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@30e44747] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1311873530 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT COALESCE(SUM(b.total_amount), 0) AS totalAmount, COALESCE(SUM(b.paid_amount), 0) AS paidAmount, COALESCE(SUM(CASE WHEN b.status IN (0,2,3) THEN b.total_amount - COALESCE(b.paid_amount,0) ELSE 0 END), 0) AS overdueAmount, CASE WHEN COALESCE(SUM(b.total_amount),0) = 0 THEN 0 ELSE ROUND(COALESCE(SUM(b.paid_amount),0) / SUM(b.total_amount) * 100, 1) END AS collectionRate FROM bill b LEFT JOIN sys_user u ON u.id = b.user_id AND u.deleted = 0 WHERE b.deleted = 0
+==> Parameters: 
+<==    Columns: totalAmount, paidAmount, overdueAmount, collectionRate
+<==        Row: 14237.00, 9730.40, 2482.80, 68.3
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@30e44747]
+2026-08-21 17:04:35.257 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2026-08-21 17:04:35.259 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [ApiResult(success=true, message=ok, data={total=171, records=[{usageAmount=22.00, dueDate=2026-08-15 (truncated)...]
+2026-08-21 17:04:35.260 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-08-21 17:04:35.263 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/bill/list?pageNum=1&pageSize=20", parameters={masked}
+2026-08-21 17:04:35.263 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.water.ai.meter.controller.BillingController#list(int, int, String, String, Integer, String)
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2d033f40] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@691842616 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT b.id, b.bill_no AS billNo, b.user_id AS userId, b.meter_id AS meterId, b.bill_period AS billPeriod, b.usage_amount AS usageAmount, b.water_fee AS waterFee, b.sewage_fee AS sewageFee, b.total_amount AS totalAmount, b.paid_amount AS paidAmount, b.status, b.due_date AS dueDate, b.paid_time AS paidTime, b.pay_method AS payMethod, COALESCE(NULLIF(u.real_name, ''), u.username) AS userName, u.phone FROM bill b LEFT JOIN sys_user u ON u.id = b.user_id AND u.deleted = 0 WHERE b.deleted = 0 ORDER BY b.create_time DESC, b.id DESC LIMIT ?, ?
+==> Parameters: 0(Long), 20(Integer)
+<==    Columns: id, billNo, userId, meterId, billPeriod, usageAmount, waterFee, sewageFee, totalAmount, paidAmount, status, dueDate, paidTime, payMethod, userName, phone
+<==        Row: 457, DEMO-BILL-202608-57, 53, 57, 2026-08, 25.00, 47.00, 38.00, 83.00, 0.00, 0, 2026-07-30 07:36:15, null, null, 黄海, 13900000612
+<==        Row: 456, DEMO-BILL-202607-57, 53, 57, 2026-07, 25.00, 47.00, 38.00, 83.00, 83.00, 1, 2026-08-15 07:36:15, 2026-07-12 07:36:15, wechat, 黄海, 13900000612
+<==        Row: 455, DEMO-BILL-202606-57, 53, 57, 2026-06, 25.00, 47.00, 38.00, 83.00, 83.00, 1, 2026-08-15 07:36:15, 2026-06-22 07:36:15, wechat, 黄海, 13900000612
+<==        Row: 454, DEMO-BILL-202608-56, 49, 56, 2026-08, 24.00, 46.00, 37.00, 82.00, 32.80, 1, 2026-07-31 07:36:15, 2026-08-02 07:36:15, bank, 林岚, 13900000611
+<==        Row: 453, DEMO-BILL-202607-56, 49, 56, 2026-07, 24.00, 46.00, 37.00, 82.00, 82.00, 1, 2026-08-15 07:36:15, 2026-07-13 07:36:15, bank, 林岚, 13900000611
+<==        Row: 452, DEMO-BILL-202606-56, 49, 56, 2026-06, 24.00, 46.00, 37.00, 82.00, 82.00, 1, 2026-08-15 07:36:15, 2026-06-23 07:36:15, bank, 林岚, 13900000611
+<==        Row: 451, DEMO-BILL-202608-55, 45, 55, 2026-08, 23.00, 45.00, 36.00, 81.00, 32.40, 2, 2026-07-24 07:36:15, 2026-08-03 07:36:15, alipay, 陈晨, 13900000610
+<==        Row: 450, DEMO-BILL-202607-55, 45, 55, 2026-07, 23.00, 45.00, 36.00, 81.00, 81.00, 1, 2026-08-15 07:36:15, 2026-07-14 07:36:15, alipay, 陈晨, 13900000610
+<==        Row: 449, DEMO-BILL-202606-55, 45, 55, 2026-06, 23.00, 45.00, 36.00, 81.00, 81.00, 1, 2026-08-15 07:36:15, 2026-06-24 07:36:15, alipay, 陈晨, 13900000610
+<==        Row: 448, DEMO-BILL-202608-54, 41, 54, 2026-08, 22.00, 44.00, 35.00, 80.00, 0.00, 0, 2026-07-25 07:36:15, null, null, 宋宇, 13900000609
+<==        Row: 447, DEMO-BILL-202607-54, 41, 54, 2026-07, 22.00, 44.00, 35.00, 80.00, 80.00, 1, 2026-08-15 07:36:15, 2026-07-10 07:36:15, wechat, 宋宇, 13900000609
+<==        Row: 446, DEMO-BILL-202606-54, 41, 54, 2026-06, 22.00, 44.00, 35.00, 80.00, 80.00, 1, 2026-08-15 07:36:15, 2026-06-20 07:36:15, wechat, 宋宇, 13900000609
+<==        Row: 445, DEMO-BILL-202608-53, 37, 53, 2026-08, 21.00, 43.00, 34.00, 79.00, 31.60, 1, 2026-07-26 07:36:15, 2026-07-31 07:36:15, bank, 梁静, 13900000608
+<==        Row: 444, DEMO-BILL-202607-53, 37, 53, 2026-07, 21.00, 43.00, 34.00, 79.00, 79.00, 1, 2026-08-15 07:36:15, 2026-07-11 07:36:15, bank, 梁静, 13900000608
+<==        Row: 443, DEMO-BILL-202606-53, 37, 53, 2026-06, 21.00, 43.00, 34.00, 79.00, 79.00, 1, 2026-08-15 07:36:15, 2026-06-21 07:36:15, bank, 梁静, 13900000608
+<==        Row: 442, DEMO-BILL-202608-52, 33, 52, 2026-08, 20.00, 42.00, 33.00, 78.00, 31.20, 1, 2026-07-27 07:36:15, 2026-08-01 07:36:15, alipay, 高翔, 13900000607
+<==        Row: 441, DEMO-BILL-202607-52, 33, 52, 2026-07, 20.00, 42.00, 33.00, 78.00, 78.00, 1, 2026-08-15 07:36:15, 2026-07-12 07:36:15, alipay, 高翔, 13900000607
+<==        Row: 440, DEMO-BILL-202606-52, 33, 52, 2026-06, 20.00, 42.00, 33.00, 78.00, 78.00, 1, 2026-08-15 07:36:15, 2026-06-22 07:36:15, alipay, 高翔, 13900000607
+<==        Row: 439, DEMO-BILL-202608-51, 29, 51, 2026-08, 19.00, 41.00, 32.00, 77.00, 0.00, 0, 2026-07-28 07:36:15, null, null, 罗阳, 13900000606
+<==        Row: 438, DEMO-BILL-202607-51, 29, 51, 2026-07, 19.00, 41.00, 32.00, 77.00, 77.00, 1, 2026-08-15 07:36:15, 2026-07-13 07:36:15, wechat, 罗阳, 13900000606
+<==      Total: 20
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2d033f40]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5d989874] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@295284881 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT COUNT(*) FROM bill b LEFT JOIN sys_user u ON u.id = b.user_id AND u.deleted = 0 WHERE b.deleted = 0
+==> Parameters: 
+<==    Columns: COUNT(*)
+<==        Row: 171
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5d989874]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4f9ecc4c] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1448912627 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT COALESCE(SUM(b.total_amount), 0) AS totalAmount, COALESCE(SUM(b.paid_amount), 0) AS paidAmount, COALESCE(SUM(CASE WHEN b.status IN (0,2,3) THEN b.total_amount - COALESCE(b.paid_amount,0) ELSE 0 END), 0) AS overdueAmount, CASE WHEN COALESCE(SUM(b.total_amount),0) = 0 THEN 0 ELSE ROUND(COALESCE(SUM(b.paid_amount),0) / SUM(b.total_amount) * 100, 1) END AS collectionRate FROM bill b LEFT JOIN sys_user u ON u.id = b.user_id AND u.deleted = 0 WHERE b.deleted = 0
+==> Parameters: 
+<==    Columns: totalAmount, paidAmount, overdueAmount, collectionRate
+<==        Row: 14237.00, 9730.40, 2482.80, 68.3
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4f9ecc4c]
+2026-08-21 17:04:35.279 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2026-08-21 17:04:35.280 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [ApiResult(success=true, message=ok, data={total=171, records=[{usageAmount=25.00, dueDate=2026-07-30 (truncated)...]
+2026-08-21 17:04:35.281 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-08-21 17:09:20.925 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/user/list?pageNum=1&pageSize=10", parameters={masked}
+2026-08-21 17:09:20.931 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.water.ai.meter.controller.UserController#list(int, int, String, String, String, String, String, Integer)
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@79ade4f9] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@385909817 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT COUNT(*) AS total FROM sys_user WHERE deleted = 0 AND (deleted = ?)
+==> Parameters: 0(Integer)
+<==    Columns: total
+<==        Row: 10056
+<==      Total: 1
+==>  Preparing: SELECT id,username,password,real_name,phone,email,user_type,status,area_id,address,balance,credit_level,last_login_time,create_time,update_time,deleted,remark FROM sys_user WHERE deleted=0 AND (deleted = ?) ORDER BY update_time DESC LIMIT ?
+==> Parameters: 0(Integer), 10(Long)
+<==    Columns: id, username, password, real_name, phone, email, user_type, status, area_id, address, balance, credit_level, last_login_time, create_time, update_time, deleted, remark
+<==        Row: 8665, HZ008609, 123456, 文新社区, 13898538281, null, residential, 0, 13, 杭州市西湖区文新社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8659, HZ008603, 123456, 仓前家园, 13829265512, null, residential, 0, 9, 杭州市余杭区仓前家园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8663, HZ008607, 123456, 江东家园, 13813687643, null, residential, 0, 14, 杭州市钱塘区江东家园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8661, HZ008605, 123456, 采荷小区, 13881040292, null, residential, 0, 7, 杭州市上城区采荷小区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8657, HZ008601, 123456, 文新社区, 13841449454, null, residential, 0, 13, 杭州市西湖区文新社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 10056, HZ010000, 123456, 南苑小区, 13812412656, null, residential, 0, 8, 杭州市临平区南苑小区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8660, HZ008604, 123456, 半山家园, 13843271857, null, residential, 0, 10, 杭州市拱墅区半山家园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8662, HZ008606, 123456, 北干社区, 13865244579, null, residential, 0, 12, 杭州市萧山区北干社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8664, HZ008608, 123456, 星桥社区, 13878144500, null, residential, 0, 8, 杭州市临平区星桥社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8658, HZ008602, 123456, 钱塘春晓, 13874752131, null, residential, 0, 11, 杭州市滨江区钱塘春晓, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==      Total: 10
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@79ade4f9]
+2026-08-21 17:09:21.014 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-08-21 17:09:21.018 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [ApiResult(success=true, message=ok, data={total=10056, records=[SysUser(id=8665, username=HZ008609,  (truncated)...]
+2026-08-21 17:09:21.021 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-08-21 17:09:22.531 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/user/list?pageNum=2&pageSize=10", parameters={masked}
+2026-08-21 17:09:22.532 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.water.ai.meter.controller.UserController#list(int, int, String, String, String, String, String, Integer)
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@11ab76bf] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1628196197 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT COUNT(*) AS total FROM sys_user WHERE deleted = 0 AND (deleted = ?)
+==> Parameters: 0(Integer)
+<==    Columns: total
+<==        Row: 10056
+<==      Total: 1
+==>  Preparing: SELECT id,username,password,real_name,phone,email,user_type,status,area_id,address,balance,credit_level,last_login_time,create_time,update_time,deleted,remark FROM sys_user WHERE deleted=0 AND (deleted = ?) ORDER BY update_time DESC LIMIT ?,?
+==> Parameters: 0(Integer), 10(Long), 10(Long)
+<==    Columns: id, username, password, real_name, phone, email, user_type, status, area_id, address, balance, credit_level, last_login_time, create_time, update_time, deleted, remark
+<==        Row: 8676, HZ008620, 123456, 大关小区, 13896910947, null, residential, 0, 10, 杭州市拱墅区大关小区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8672, HZ008616, 123456, 南苑小区, 13898681167, null, residential, 0, 8, 杭州市临平区南苑小区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8666, HZ008610, 123456, 白马湖社区, 13851270160, null, residential, 0, 11, 杭州市滨江区白马湖社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8668, HZ008612, 123456, 湖墅家园, 13859319176, null, residential, 0, 10, 杭州市拱墅区湖墅家园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8667, HZ008611, 123456, 仓前家园, 13895796032, null, residential, 0, 9, 杭州市余杭区仓前家园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8661, HZ008605, 123456, 采荷小区, 13881040292, null, residential, 0, 7, 杭州市上城区采荷小区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8674, HZ008618, 123456, 江南花园, 13824339269, null, residential, 0, 11, 杭州市滨江区江南花园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8675, HZ008619, 123456, 良渚文化村, 13816651876, null, residential, 0, 9, 杭州市余杭区良渚文化村, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8662, HZ008606, 123456, 北干社区, 13865244579, null, residential, 0, 12, 杭州市萧山区北干社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8664, HZ008608, 123456, 星桥社区, 13878144500, null, residential, 0, 8, 杭州市临平区星桥社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==      Total: 10
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@11ab76bf]
+2026-08-21 17:09:22.552 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-08-21 17:09:22.552 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [ApiResult(success=true, message=ok, data={total=10056, records=[SysUser(id=8676, username=HZ008620,  (truncated)...]
+2026-08-21 17:09:22.553 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-08-21 17:09:23.072 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/user/list?pageNum=3&pageSize=10", parameters={masked}
+2026-08-21 17:09:23.075 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.water.ai.meter.controller.UserController#list(int, int, String, String, String, String, String, Integer)
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@9ec4201] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1137253366 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT COUNT(*) AS total FROM sys_user WHERE deleted = 0 AND (deleted = ?)
+==> Parameters: 0(Integer)
+<==    Columns: total
+<==        Row: 10056
+<==      Total: 1
+==>  Preparing: SELECT id,username,password,real_name,phone,email,user_type,status,area_id,address,balance,credit_level,last_login_time,create_time,update_time,deleted,remark FROM sys_user WHERE deleted=0 AND (deleted = ?) ORDER BY update_time DESC LIMIT ?,?
+==> Parameters: 0(Integer), 20(Long), 10(Long)
+<==    Columns: id, username, password, real_name, phone, email, user_type, status, area_id, address, balance, credit_level, last_login_time, create_time, update_time, deleted, remark
+<==        Row: 8680, HZ008624, 123456, 星桥社区, 13823008700, null, residential, 0, 8, 杭州市临平区星桥社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8658, HZ008602, 123456, 钱塘春晓, 13874752131, null, residential, 0, 11, 杭州市滨江区钱塘春晓, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8672, HZ008616, 123456, 南苑小区, 13898681167, null, residential, 0, 8, 杭州市临平区南苑小区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8668, HZ008612, 123456, 湖墅家园, 13859319176, null, residential, 0, 10, 杭州市拱墅区湖墅家园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8667, HZ008611, 123456, 仓前家园, 13895796032, null, residential, 0, 9, 杭州市余杭区仓前家园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8661, HZ008605, 123456, 采荷小区, 13881040292, null, residential, 0, 7, 杭州市上城区采荷小区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8677, HZ008621, 123456, 近江家园, 13853295323, null, residential, 0, 7, 杭州市上城区近江家园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8682, HZ008626, 123456, 江南花园, 13891208131, null, residential, 0, 11, 杭州市滨江区江南花园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8662, HZ008606, 123456, 北干社区, 13865244579, null, residential, 0, 12, 杭州市萧山区北干社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8664, HZ008608, 123456, 星桥社区, 13878144500, null, residential, 0, 8, 杭州市临平区星桥社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==      Total: 10
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@9ec4201]
+2026-08-21 17:09:23.095 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-08-21 17:09:23.096 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [ApiResult(success=true, message=ok, data={total=10056, records=[SysUser(id=8680, username=HZ008624,  (truncated)...]
+2026-08-21 17:09:23.096 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-08-21 17:09:23.483 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/user/list?pageNum=4&pageSize=10", parameters={masked}
+2026-08-21 17:09:23.486 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.water.ai.meter.controller.UserController#list(int, int, String, String, String, String, String, Integer)
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@628a1477] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@308182496 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT COUNT(*) AS total FROM sys_user WHERE deleted = 0 AND (deleted = ?)
+==> Parameters: 0(Integer)
+<==    Columns: total
+<==        Row: 10056
+<==      Total: 1
+==>  Preparing: SELECT id,username,password,real_name,phone,email,user_type,status,area_id,address,balance,credit_level,last_login_time,create_time,update_time,deleted,remark FROM sys_user WHERE deleted=0 AND (deleted = ?) ORDER BY update_time DESC LIMIT ?,?
+==> Parameters: 0(Integer), 30(Long), 10(Long)
+<==    Columns: id, username, password, real_name, phone, email, user_type, status, area_id, address, balance, credit_level, last_login_time, create_time, update_time, deleted, remark
+<==        Row: 8681, HZ008625, 123456, 三墩新天地, 13899469847, null, residential, 0, 13, 杭州市西湖区三墩新天地, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8685, HZ008629, 123456, 近江家园, 13802362191, null, residential, 0, 7, 杭州市上城区近江家园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8690, HZ008634, 123456, 白马湖社区, 13852359020, null, residential, 0, 11, 杭州市滨江区白马湖社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8693, HZ008637, 123456, 采荷小区, 13847688790, null, residential, 0, 7, 杭州市上城区采荷小区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 10056, HZ010000, 123456, 南苑小区, 13812412656, null, residential, 0, 8, 杭州市临平区南苑小区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8683, HZ008627, 123456, 未来科技城社区, 13821797236, null, residential, 0, 9, 杭州市余杭区未来科技城社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8664, HZ008608, 123456, 星桥社区, 13878144500, null, residential, 0, 8, 杭州市临平区星桥社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8670, HZ008614, 123456, 北干社区, 13899006261, null, residential, 0, 12, 杭州市萧山区北干社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8677, HZ008621, 123456, 近江家园, 13853295323, null, residential, 0, 7, 杭州市上城区近江家园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8667, HZ008611, 123456, 仓前家园, 13895796032, null, residential, 0, 9, 杭州市余杭区仓前家园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==      Total: 10
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@628a1477]
+2026-08-21 17:09:23.507 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-08-21 17:09:23.507 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [ApiResult(success=true, message=ok, data={total=10056, records=[SysUser(id=8681, username=HZ008625,  (truncated)...]
+2026-08-21 17:09:23.508 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-08-21 17:09:23.813 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/user/list?pageNum=5&pageSize=10", parameters={masked}
+2026-08-21 17:09:23.815 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.water.ai.meter.controller.UserController#list(int, int, String, String, String, String, String, Integer)
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5e3da5cb] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@114388874 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT COUNT(*) AS total FROM sys_user WHERE deleted = 0 AND (deleted = ?)
+==> Parameters: 0(Integer)
+<==    Columns: total
+<==        Row: 10056
+<==      Total: 1
+==>  Preparing: SELECT id,username,password,real_name,phone,email,user_type,status,area_id,address,balance,credit_level,last_login_time,create_time,update_time,deleted,remark FROM sys_user WHERE deleted=0 AND (deleted = ?) ORDER BY update_time DESC LIMIT ?,?
+==> Parameters: 0(Integer), 40(Long), 10(Long)
+<==    Columns: id, username, password, real_name, phone, email, user_type, status, area_id, address, balance, credit_level, last_login_time, create_time, update_time, deleted, remark
+<==        Row: 9603, HZ009547, 123456, 良渚文化村, 13885142558, null, residential, 0, 9, 杭州市余杭区良渚文化村, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 9599, HZ009543, 123456, 江东家园, 13817062173, null, residential, 0, 14, 杭州市钱塘区江东家园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 9600, HZ009544, 123456, 乔司家园, 13852363408, null, residential, 0, 8, 杭州市临平区乔司家园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 9601, HZ009545, 123456, 文新社区, 13898240769, null, residential, 0, 13, 杭州市西湖区文新社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 9602, HZ009546, 123456, 钱塘春晓, 13855317591, null, residential, 0, 11, 杭州市滨江区钱塘春晓, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 9605, HZ009549, 123456, 丁兰社区, 13838867656, null, residential, 0, 7, 杭州市上城区丁兰社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 9607, HZ009551, 123456, 河庄新苑, 13884457870, null, residential, 0, 14, 杭州市钱塘区河庄新苑, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 9606, HZ009550, 123456, 湘湖家园, 13813786702, null, residential, 0, 12, 杭州市萧山区湘湖家园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 9598, HZ009542, 123456, 北干社区, 13894842874, null, residential, 0, 12, 杭州市萧山区北干社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 9604, HZ009548, 123456, 半山家园, 13877391881, null, residential, 0, 10, 杭州市拱墅区半山家园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==      Total: 10
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5e3da5cb]
+2026-08-21 17:09:23.832 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-08-21 17:09:23.834 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [ApiResult(success=true, message=ok, data={total=10056, records=[SysUser(id=9603, username=HZ009547,  (truncated)...]
+2026-08-21 17:09:23.834 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-08-21 17:09:25.670 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/work-order/list?pageNum=1&pageSize=10", parameters={masked}
+2026-08-21 17:09:25.671 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.water.ai.meter.controller.WorkOrderController#list(int, int, String, String, Integer, Integer, String, String)
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@20806aad] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1578628464 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT wo.id, wo.order_no AS orderNo, wo.order_type AS orderType, wo.anomaly_id AS anomalyId, wo.meter_id AS meterId, wo.user_id AS userId, wo.area_id AS areaId, wo.title, wo.description, wo.handler_id AS handlerId, wo.handler_name AS handlerName, wo.priority, wo.status, wo.result, wo.rating, wo.feedback, wo.remark, wo.create_time AS createTime, wo.dispatch_time AS dispatchTime, wo.accept_time AS acceptTime, wo.complete_time AS completeTime, m.meter_no AS meterNo, m.install_address AS installAddress, a.area_name AS areaName, a.area_code AS areaCode, u.real_name AS userName, an.anomaly_no AS anomalyNo, an.anomaly_type AS anomalyType, an.severity FROM work_order wo LEFT JOIN water_meter m ON m.id = wo.meter_id LEFT JOIN area a ON a.id = wo.area_id LEFT JOIN sys_user u ON u.id = wo.user_id LEFT JOIN anomaly_record an ON an.id = wo.anomaly_id WHERE wo.deleted = 0 ORDER BY wo.priority ASC, wo.create_time DESC LIMIT ?, ?
+==> Parameters: 0(Long), 10(Long)
+<==    Columns: id, orderNo, orderType, anomalyId, meterId, userId, areaId, title, description, handlerId, handlerName, priority, status, result, rating, feedback, remark, createTime, dispatchTime, acceptTime, completeTime, meterNo, installAddress, areaName, areaCode, userName, anomalyNo, anomalyType, severity
+<==        Row: 32, DEMO-WO-59, emergency, 59, 1, 1, 1, 处置-night_usage, <<BLOB>>, null, 巡检二组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 06:36:15, null, null, null, WM-A001-0001, 杭州市西湖区 WM-A001-0001, 西湖区(示范A), A001, ?????‰, DEMO-AN-LEAK-1, night_usage, critical
+<==        Row: 33, DEMO-WO-60, emergency, 60, 2, 2, 1, 处置-night_usage, <<BLOB>>, null, 巡检一组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 05:36:15, null, null, null, WM-A001-0002, 杭州市西湖区 WM-A001-0002, 西湖区(示范A), A001, ??????, DEMO-AN-LEAK-2, night_usage, critical
+<==        Row: 34, DEMO-WO-61, emergency, 61, 3, 3, 1, 处置-night_usage, <<BLOB>>, null, 巡检二组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 04:36:15, null, null, null, WM-A001-0003, 杭州市西湖区 WM-A001-0003, 西湖区(示范A), A001, ?????”, DEMO-AN-LEAK-3, night_usage, critical
+<==        Row: 35, DEMO-WO-62, emergency, 62, 4, 1, 1, 处置-night_usage, <<BLOB>>, null, 巡检一组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 03:36:15, null, null, null, WM-A001-0312, 杭州市西湖区 WM-A001-0312, 西湖区(示范A), A001, ?????‰, DEMO-AN-LEAK-4, night_usage, critical
+<==        Row: 36, DEMO-WO-63, emergency, 63, 5, 1, 1, 处置-night_usage, <<BLOB>>, null, 巡检二组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 02:36:15, null, null, null, WM-A001-0315, 杭州市西湖区 WM-A001-0315, 西湖区(示范A), A001, ?????‰, DEMO-AN-LEAK-5, night_usage, critical
+<==        Row: 37, DEMO-WO-64, emergency, 64, 6, 2, 1, 处置-night_usage, <<BLOB>>, null, 巡检一组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 01:36:15, null, null, null, WM-A001-0320, 杭州市西湖区 WM-A001-0320, 西湖区(示范A), A001, ??????, DEMO-AN-LEAK-6, night_usage, critical
+<==        Row: 38, DEMO-WO-65, emergency, 65, 10, 12, 1, 处置-night_usage, <<BLOB>>, null, 巡检二组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-02 21:36:15, null, null, null, WM-A001-0012, 杭州市西湖区 WM-A001-0012, 西湖区(示范A), A001, 林岚, DEMO-AN-LEAK-10, night_usage, critical
+<==        Row: 39, DEMO-WO-66, emergency, 66, 11, 16, 1, 处置-night_usage, <<BLOB>>, null, 巡检一组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-02 20:36:15, null, null, null, WM-A001-0016, 杭州市西湖区 WM-A001-0016, 西湖区(示范A), A001, 黄海, DEMO-AN-LEAK-11, night_usage, critical
+<==        Row: 40, DEMO-WO-67, emergency, 67, 12, 20, 1, 处置-night_usage, <<BLOB>>, null, 巡检二组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-02 19:36:15, null, null, null, WM-A001-0020, 杭州市西湖区 WM-A001-0020, 西湖区(示范A), A001, 吴桐, DEMO-AN-LEAK-12, night_usage, critical
+<==        Row: 41, DEMO-WO-68, emergency, 68, 13, 24, 1, 处置-night_usage, <<BLOB>>, null, 巡检一组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-02 18:36:15, null, null, null, WM-A001-0024, 杭州市西湖区 WM-A001-0024, 西湖区(示范A), A001, 徐悦, DEMO-AN-LEAK-13, night_usage, critical
+<==      Total: 10
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@20806aad]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@703ffba0] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@284261605 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT COUNT(*) FROM work_order wo LEFT JOIN water_meter m ON m.id = wo.meter_id WHERE wo.deleted = 0
+==> Parameters: 
+<==    Columns: COUNT(*)
+<==        Row: 18
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@703ffba0]
+2026-08-21 17:09:25.688 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-08-21 17:09:25.689 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [ApiResult(success=true, message=ok, data={total=18, records=[{severity=critical, orderType=emergency (truncated)...]
+2026-08-21 17:09:25.690 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-08-21 17:09:25.745 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/work-order/stats", parameters={}
+2026-08-21 17:09:25.746 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.water.ai.meter.controller.WorkOrderController#stats()
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@65b7ca57] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@2012968921 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT status, COUNT(*) AS cnt FROM work_order WHERE deleted = 0 GROUP BY status
+==> Parameters: 
+<==    Columns: status, cnt
+<==        Row: 0, 18
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@65b7ca57]
+2026-08-21 17:09:25.750 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-08-21 17:09:25.751 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [ApiResult(success=true, message=ok, data={total=18, pending=18, processing=0, done=0})]
+2026-08-21 17:09:25.751 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-08-21 17:09:31.511 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/user/list?pageNum=1&pageSize=10", parameters={masked}
+2026-08-21 17:09:31.517 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.water.ai.meter.controller.UserController#list(int, int, String, String, String, String, String, Integer)
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4a2e6bce] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@978456215 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT COUNT(*) AS total FROM sys_user WHERE deleted = 0 AND (deleted = ?)
+==> Parameters: 0(Integer)
+<==    Columns: total
+<==        Row: 10056
+<==      Total: 1
+==>  Preparing: SELECT id,username,password,real_name,phone,email,user_type,status,area_id,address,balance,credit_level,last_login_time,create_time,update_time,deleted,remark FROM sys_user WHERE deleted=0 AND (deleted = ?) ORDER BY update_time DESC LIMIT ?
+==> Parameters: 0(Integer), 10(Long)
+<==    Columns: id, username, password, real_name, phone, email, user_type, status, area_id, address, balance, credit_level, last_login_time, create_time, update_time, deleted, remark
+<==        Row: 8665, HZ008609, 123456, 文新社区, 13898538281, null, residential, 0, 13, 杭州市西湖区文新社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8659, HZ008603, 123456, 仓前家园, 13829265512, null, residential, 0, 9, 杭州市余杭区仓前家园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8663, HZ008607, 123456, 江东家园, 13813687643, null, residential, 0, 14, 杭州市钱塘区江东家园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8661, HZ008605, 123456, 采荷小区, 13881040292, null, residential, 0, 7, 杭州市上城区采荷小区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8657, HZ008601, 123456, 文新社区, 13841449454, null, residential, 0, 13, 杭州市西湖区文新社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 10056, HZ010000, 123456, 南苑小区, 13812412656, null, residential, 0, 8, 杭州市临平区南苑小区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8660, HZ008604, 123456, 半山家园, 13843271857, null, residential, 0, 10, 杭州市拱墅区半山家园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8662, HZ008606, 123456, 北干社区, 13865244579, null, residential, 0, 12, 杭州市萧山区北干社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8664, HZ008608, 123456, 星桥社区, 13878144500, null, residential, 0, 8, 杭州市临平区星桥社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8658, HZ008602, 123456, 钱塘春晓, 13874752131, null, residential, 0, 11, 杭州市滨江区钱塘春晓, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==      Total: 10
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4a2e6bce]
+2026-08-21 17:09:31.536 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-08-21 17:09:31.536 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [ApiResult(success=true, message=ok, data={total=10056, records=[SysUser(id=8665, username=HZ008609,  (truncated)...]
+2026-08-21 17:09:31.537 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-08-21 17:09:31.918 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/work-order/list?pageNum=1&pageSize=10", parameters={masked}
+2026-08-21 17:09:31.918 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/work-order/stats", parameters={}
+2026-08-21 17:09:31.919 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.water.ai.meter.controller.WorkOrderController#list(int, int, String, String, Integer, Integer, String, String)
+2026-08-21 17:09:31.919 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.water.ai.meter.controller.WorkOrderController#stats()
+Creating a new SqlSession
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2a6b1ddf] was not registered for synchronization because synchronization is not active
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@85fb29c] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1077503329 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT status, COUNT(*) AS cnt FROM work_order WHERE deleted = 0 GROUP BY status
+==> Parameters: 
+JDBC Connection [HikariProxyConnection@823849847 wrapping com.mysql.cj.jdbc.ConnectionImpl@242a099] will not be managed by Spring
+==>  Preparing: SELECT wo.id, wo.order_no AS orderNo, wo.order_type AS orderType, wo.anomaly_id AS anomalyId, wo.meter_id AS meterId, wo.user_id AS userId, wo.area_id AS areaId, wo.title, wo.description, wo.handler_id AS handlerId, wo.handler_name AS handlerName, wo.priority, wo.status, wo.result, wo.rating, wo.feedback, wo.remark, wo.create_time AS createTime, wo.dispatch_time AS dispatchTime, wo.accept_time AS acceptTime, wo.complete_time AS completeTime, m.meter_no AS meterNo, m.install_address AS installAddress, a.area_name AS areaName, a.area_code AS areaCode, u.real_name AS userName, an.anomaly_no AS anomalyNo, an.anomaly_type AS anomalyType, an.severity FROM work_order wo LEFT JOIN water_meter m ON m.id = wo.meter_id LEFT JOIN area a ON a.id = wo.area_id LEFT JOIN sys_user u ON u.id = wo.user_id LEFT JOIN anomaly_record an ON an.id = wo.anomaly_id WHERE wo.deleted = 0 ORDER BY wo.priority ASC, wo.create_time DESC LIMIT ?, ?
+<==    Columns: status, cnt
+<==        Row: 0, 18
+==> Parameters: 0(Long), 10(Long)
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2a6b1ddf]
+2026-08-21 17:09:31.924 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-08-21 17:09:31.925 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [ApiResult(success=true, message=ok, data={total=18, pending=18, processing=0, done=0})]
+2026-08-21 17:09:31.925 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+<==    Columns: id, orderNo, orderType, anomalyId, meterId, userId, areaId, title, description, handlerId, handlerName, priority, status, result, rating, feedback, remark, createTime, dispatchTime, acceptTime, completeTime, meterNo, installAddress, areaName, areaCode, userName, anomalyNo, anomalyType, severity
+<==        Row: 32, DEMO-WO-59, emergency, 59, 1, 1, 1, 处置-night_usage, <<BLOB>>, null, 巡检二组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 06:36:15, null, null, null, WM-A001-0001, 杭州市西湖区 WM-A001-0001, 西湖区(示范A), A001, ?????‰, DEMO-AN-LEAK-1, night_usage, critical
+<==        Row: 33, DEMO-WO-60, emergency, 60, 2, 2, 1, 处置-night_usage, <<BLOB>>, null, 巡检一组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 05:36:15, null, null, null, WM-A001-0002, 杭州市西湖区 WM-A001-0002, 西湖区(示范A), A001, ??????, DEMO-AN-LEAK-2, night_usage, critical
+<==        Row: 34, DEMO-WO-61, emergency, 61, 3, 3, 1, 处置-night_usage, <<BLOB>>, null, 巡检二组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 04:36:15, null, null, null, WM-A001-0003, 杭州市西湖区 WM-A001-0003, 西湖区(示范A), A001, ?????”, DEMO-AN-LEAK-3, night_usage, critical
+<==        Row: 35, DEMO-WO-62, emergency, 62, 4, 1, 1, 处置-night_usage, <<BLOB>>, null, 巡检一组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 03:36:15, null, null, null, WM-A001-0312, 杭州市西湖区 WM-A001-0312, 西湖区(示范A), A001, ?????‰, DEMO-AN-LEAK-4, night_usage, critical
+<==        Row: 36, DEMO-WO-63, emergency, 63, 5, 1, 1, 处置-night_usage, <<BLOB>>, null, 巡检二组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 02:36:15, null, null, null, WM-A001-0315, 杭州市西湖区 WM-A001-0315, 西湖区(示范A), A001, ?????‰, DEMO-AN-LEAK-5, night_usage, critical
+<==        Row: 37, DEMO-WO-64, emergency, 64, 6, 2, 1, 处置-night_usage, <<BLOB>>, null, 巡检一组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 01:36:15, null, null, null, WM-A001-0320, 杭州市西湖区 WM-A001-0320, 西湖区(示范A), A001, ??????, DEMO-AN-LEAK-6, night_usage, critical
+<==        Row: 38, DEMO-WO-65, emergency, 65, 10, 12, 1, 处置-night_usage, <<BLOB>>, null, 巡检二组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-02 21:36:15, null, null, null, WM-A001-0012, 杭州市西湖区 WM-A001-0012, 西湖区(示范A), A001, 林岚, DEMO-AN-LEAK-10, night_usage, critical
+<==        Row: 39, DEMO-WO-66, emergency, 66, 11, 16, 1, 处置-night_usage, <<BLOB>>, null, 巡检一组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-02 20:36:15, null, null, null, WM-A001-0016, 杭州市西湖区 WM-A001-0016, 西湖区(示范A), A001, 黄海, DEMO-AN-LEAK-11, night_usage, critical
+<==        Row: 40, DEMO-WO-67, emergency, 67, 12, 20, 1, 处置-night_usage, <<BLOB>>, null, 巡检二组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-02 19:36:15, null, null, null, WM-A001-0020, 杭州市西湖区 WM-A001-0020, 西湖区(示范A), A001, 吴桐, DEMO-AN-LEAK-12, night_usage, critical
+<==        Row: 41, DEMO-WO-68, emergency, 68, 13, 24, 1, 处置-night_usage, <<BLOB>>, null, 巡检一组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-02 18:36:15, null, null, null, WM-A001-0024, 杭州市西湖区 WM-A001-0024, 西湖区(示范A), A001, 徐悦, DEMO-AN-LEAK-13, night_usage, critical
+<==      Total: 10
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@85fb29c]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@114b6501] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1999420692 wrapping com.mysql.cj.jdbc.ConnectionImpl@242a099] will not be managed by Spring
+==>  Preparing: SELECT COUNT(*) FROM work_order wo LEFT JOIN water_meter m ON m.id = wo.meter_id WHERE wo.deleted = 0
+==> Parameters: 
+<==    Columns: COUNT(*)
+<==        Row: 18
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@114b6501]
+2026-08-21 17:09:31.934 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-08-21 17:09:31.934 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [ApiResult(success=true, message=ok, data={total=18, records=[{severity=critical, orderType=emergency (truncated)...]
+2026-08-21 17:09:31.935 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-08-21 17:09:32.535 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/user/list?pageNum=1&pageSize=10", parameters={masked}
+2026-08-21 17:09:32.536 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.water.ai.meter.controller.UserController#list(int, int, String, String, String, String, String, Integer)
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@8e0fb4b] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1120400771 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT COUNT(*) AS total FROM sys_user WHERE deleted = 0 AND (deleted = ?)
+==> Parameters: 0(Integer)
+<==    Columns: total
+<==        Row: 10056
+<==      Total: 1
+==>  Preparing: SELECT id,username,password,real_name,phone,email,user_type,status,area_id,address,balance,credit_level,last_login_time,create_time,update_time,deleted,remark FROM sys_user WHERE deleted=0 AND (deleted = ?) ORDER BY update_time DESC LIMIT ?
+==> Parameters: 0(Integer), 10(Long)
+<==    Columns: id, username, password, real_name, phone, email, user_type, status, area_id, address, balance, credit_level, last_login_time, create_time, update_time, deleted, remark
+<==        Row: 8665, HZ008609, 123456, 文新社区, 13898538281, null, residential, 0, 13, 杭州市西湖区文新社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8659, HZ008603, 123456, 仓前家园, 13829265512, null, residential, 0, 9, 杭州市余杭区仓前家园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8663, HZ008607, 123456, 江东家园, 13813687643, null, residential, 0, 14, 杭州市钱塘区江东家园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8661, HZ008605, 123456, 采荷小区, 13881040292, null, residential, 0, 7, 杭州市上城区采荷小区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8657, HZ008601, 123456, 文新社区, 13841449454, null, residential, 0, 13, 杭州市西湖区文新社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 10056, HZ010000, 123456, 南苑小区, 13812412656, null, residential, 0, 8, 杭州市临平区南苑小区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8660, HZ008604, 123456, 半山家园, 13843271857, null, residential, 0, 10, 杭州市拱墅区半山家园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8662, HZ008606, 123456, 北干社区, 13865244579, null, residential, 0, 12, 杭州市萧山区北干社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8664, HZ008608, 123456, 星桥社区, 13878144500, null, residential, 0, 8, 杭州市临平区星桥社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8658, HZ008602, 123456, 钱塘春晓, 13874752131, null, residential, 0, 11, 杭州市滨江区钱塘春晓, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==      Total: 10
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@8e0fb4b]
+2026-08-21 17:09:32.555 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-08-21 17:09:32.555 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [ApiResult(success=true, message=ok, data={total=10056, records=[SysUser(id=8665, username=HZ008609,  (truncated)...]
+2026-08-21 17:09:32.556 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-08-21 17:09:34.109 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/user/list?pageNum=2&pageSize=10", parameters={masked}
+2026-08-21 17:09:34.110 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.water.ai.meter.controller.UserController#list(int, int, String, String, String, String, String, Integer)
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@48acaade] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@975831883 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT COUNT(*) AS total FROM sys_user WHERE deleted = 0 AND (deleted = ?)
+==> Parameters: 0(Integer)
+<==    Columns: total
+<==        Row: 10056
+<==      Total: 1
+==>  Preparing: SELECT id,username,password,real_name,phone,email,user_type,status,area_id,address,balance,credit_level,last_login_time,create_time,update_time,deleted,remark FROM sys_user WHERE deleted=0 AND (deleted = ?) ORDER BY update_time DESC LIMIT ?,?
+==> Parameters: 0(Integer), 10(Long), 10(Long)
+<==    Columns: id, username, password, real_name, phone, email, user_type, status, area_id, address, balance, credit_level, last_login_time, create_time, update_time, deleted, remark
+<==        Row: 8676, HZ008620, 123456, 大关小区, 13896910947, null, residential, 0, 10, 杭州市拱墅区大关小区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8672, HZ008616, 123456, 南苑小区, 13898681167, null, residential, 0, 8, 杭州市临平区南苑小区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8666, HZ008610, 123456, 白马湖社区, 13851270160, null, residential, 0, 11, 杭州市滨江区白马湖社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8668, HZ008612, 123456, 湖墅家园, 13859319176, null, residential, 0, 10, 杭州市拱墅区湖墅家园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8667, HZ008611, 123456, 仓前家园, 13895796032, null, residential, 0, 9, 杭州市余杭区仓前家园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8661, HZ008605, 123456, 采荷小区, 13881040292, null, residential, 0, 7, 杭州市上城区采荷小区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8674, HZ008618, 123456, 江南花园, 13824339269, null, residential, 0, 11, 杭州市滨江区江南花园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8675, HZ008619, 123456, 良渚文化村, 13816651876, null, residential, 0, 9, 杭州市余杭区良渚文化村, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8662, HZ008606, 123456, 北干社区, 13865244579, null, residential, 0, 12, 杭州市萧山区北干社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8664, HZ008608, 123456, 星桥社区, 13878144500, null, residential, 0, 8, 杭州市临平区星桥社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==      Total: 10
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@48acaade]
+2026-08-21 17:09:34.130 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-08-21 17:09:34.130 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [ApiResult(success=true, message=ok, data={total=10056, records=[SysUser(id=8676, username=HZ008620,  (truncated)...]
+2026-08-21 17:09:34.131 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-08-21 17:09:34.370 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/user/list?pageNum=3&pageSize=10", parameters={masked}
+2026-08-21 17:09:34.371 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.water.ai.meter.controller.UserController#list(int, int, String, String, String, String, String, Integer)
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@11361ebb] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1691402162 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT COUNT(*) AS total FROM sys_user WHERE deleted = 0 AND (deleted = ?)
+==> Parameters: 0(Integer)
+<==    Columns: total
+<==        Row: 10056
+<==      Total: 1
+==>  Preparing: SELECT id,username,password,real_name,phone,email,user_type,status,area_id,address,balance,credit_level,last_login_time,create_time,update_time,deleted,remark FROM sys_user WHERE deleted=0 AND (deleted = ?) ORDER BY update_time DESC LIMIT ?,?
+==> Parameters: 0(Integer), 20(Long), 10(Long)
+<==    Columns: id, username, password, real_name, phone, email, user_type, status, area_id, address, balance, credit_level, last_login_time, create_time, update_time, deleted, remark
+<==        Row: 8680, HZ008624, 123456, 星桥社区, 13823008700, null, residential, 0, 8, 杭州市临平区星桥社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8658, HZ008602, 123456, 钱塘春晓, 13874752131, null, residential, 0, 11, 杭州市滨江区钱塘春晓, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8672, HZ008616, 123456, 南苑小区, 13898681167, null, residential, 0, 8, 杭州市临平区南苑小区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8668, HZ008612, 123456, 湖墅家园, 13859319176, null, residential, 0, 10, 杭州市拱墅区湖墅家园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8667, HZ008611, 123456, 仓前家园, 13895796032, null, residential, 0, 9, 杭州市余杭区仓前家园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8661, HZ008605, 123456, 采荷小区, 13881040292, null, residential, 0, 7, 杭州市上城区采荷小区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8677, HZ008621, 123456, 近江家园, 13853295323, null, residential, 0, 7, 杭州市上城区近江家园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8682, HZ008626, 123456, 江南花园, 13891208131, null, residential, 0, 11, 杭州市滨江区江南花园, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8662, HZ008606, 123456, 北干社区, 13865244579, null, residential, 0, 12, 杭州市萧山区北干社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==        Row: 8664, HZ008608, 123456, 星桥社区, 13878144500, null, residential, 0, 8, 杭州市临平区星桥社区, 0.00, A, null, 2026-08-05 14:15:32, 2026-08-05 14:15:32, 0, null
+<==      Total: 10
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@11361ebb]
+2026-08-21 17:09:34.390 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-08-21 17:09:34.390 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [ApiResult(success=true, message=ok, data={total=10056, records=[SysUser(id=8680, username=HZ008624,  (truncated)...]
+2026-08-21 17:09:34.391 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-08-21 17:09:38.599 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/ops/billing-insights", parameters={}
+2026-08-21 17:09:38.600 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.water.ai.meter.controller.OpsController#billingInsights()
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2de36cac] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1136836512 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT b.id, b.bill_no, b.user_id, u.real_name AS user_name, m.meter_no, b.bill_period, b.usage_amount, b.total_amount, b.paid_amount, b.status, b.due_date, (SELECT AVG(b2.usage_amount) FROM bill b2 WHERE b2.user_id = b.user_id AND b2.deleted = 0 AND b2.id <> b.id AND b2.usage_amount IS NOT NULL) AS avg_usage FROM bill b JOIN sys_user u ON u.id = b.user_id LEFT JOIN water_meter m ON m.id = b.meter_id WHERE b.deleted = 0 AND b.bill_period = DATE_FORMAT(NOW(), '%Y-%m') ORDER BY b.usage_amount DESC
+==> Parameters: 
+<==    Columns: id, bill_no, user_id, user_name, meter_no, bill_period, usage_amount, total_amount, paid_amount, status, due_date, avg_usage
+<==        Row: 334, DEMO-BILL-202608-16, 36, 高翔, WM-A001-0036, 2026-08, 96.00, 415.00, 32.80, 1, 2026-07-31 07:36:15, 20.000000
+<==        Row: 322, DEMO-BILL-202608-12, 20, 吴桐, WM-A001-0020, 2026-08, 92.00, 411.00, 0.00, 0, 2026-07-27 07:36:15, 16.000000
+<==        Row: 298, DEMO-BILL-202608-4, 1, ?????‰, WM-A001-0312, 2026-08, 84.00, 403.00, 28.00, 1, 2026-07-27 07:36:15, 19.250000
+<==        Row: 346, DEMO-BILL-202608-20, 52, 林岚, WM-A001-0052, 2026-08, 80.00, 419.00, 26.40, 2, 2026-07-27 07:36:15, 24.000000
+<==        Row: 391, DEMO-BILL-202608-35, 14, 黄海, WM-C001-0014, 2026-08, 27.00, 81.00, 32.40, 2, 2026-07-28 07:36:15, 27.000000
+<==        Row: 355, DEMO-BILL-202608-23, 15, 黄海, WM-B001-0015, 2026-08, 27.00, 69.00, 27.60, 1, 2026-07-24 07:36:15, 27.000000
+<==        Row: 319, DEMO-BILL-202608-11, 16, 黄海, WM-A001-0016, 2026-08, 27.00, 77.00, 30.80, 1, 2026-07-28 07:36:15, 27.000000
+<==        Row: 427, DEMO-BILL-202608-47, 13, 黄海, WM-D001-0013, 2026-08, 27.00, 73.00, 29.20, 1, 2026-07-24 07:36:15, 27.000000
+<==        Row: 388, DEMO-BILL-202608-34, 10, 林岚, WM-C001-0010, 2026-08, 26.00, 80.00, 32.00, 1, 2026-07-29 07:36:15, 26.000000
+<==        Row: 352, DEMO-BILL-202608-22, 11, 林岚, WM-B001-0011, 2026-08, 26.00, 68.00, 27.20, 1, 2026-07-25 07:36:15, 26.000000
+<==        Row: 316, DEMO-BILL-202608-10, 12, 林岚, WM-A001-0012, 2026-08, 26.00, 76.00, 30.40, 2, 2026-07-29 07:36:15, 26.000000
+<==        Row: 424, DEMO-BILL-202608-46, 9, 林岚, WM-D001-0009, 2026-08, 26.00, 72.00, 28.80, 1, 2026-07-25 07:36:15, 26.000000
+<==        Row: 457, DEMO-BILL-202608-57, 53, 黄海, WM-D001-0053, 2026-08, 25.00, 83.00, 0.00, 0, 2026-07-30 07:36:15, 25.000000
+<==        Row: 385, DEMO-BILL-202608-33, 55, 黄海, WM-B001-0055, 2026-08, 25.00, 79.00, 0.00, 0, 2026-07-30 07:36:15, 25.000000
+<==        Row: 421, DEMO-BILL-202608-45, 54, 黄海, WM-C001-0054, 2026-08, 25.00, 71.00, 0.00, 2, 2026-07-26 07:36:15, 25.000000
+<==        Row: 349, DEMO-BILL-202608-21, 56, 黄海, WM-A001-0056, 2026-08, 25.00, 67.00, 0.00, 0, 2026-07-26 07:36:15, 25.000000
+<==        Row: 313, DEMO-BILL-202608-9, 8, ??, WM-D004-0007, 2026-08, 25.00, 75.00, 0.00, 0, 2026-07-30 07:36:15, 25.000000
+<==        Row: 454, DEMO-BILL-202608-56, 49, 林岚, WM-D001-0049, 2026-08, 24.00, 82.00, 32.80, 1, 2026-07-31 07:36:15, 24.000000
+<==        Row: 382, DEMO-BILL-202608-32, 51, 林岚, WM-B001-0051, 2026-08, 24.00, 78.00, 31.20, 1, 2026-07-31 07:36:15, 24.000000
+<==        Row: 310, DEMO-BILL-202608-8, 7, ??, WM-C003-0042, 2026-08, 24.00, 74.00, 29.60, 1, 2026-07-31 07:36:15, 24.000000
+<==        Row: 418, DEMO-BILL-202608-44, 50, 林岚, WM-C001-0050, 2026-08, 24.00, 70.00, 28.00, 1, 2026-07-27 07:36:15, 24.000000
+<==        Row: 343, DEMO-BILL-202608-19, 48, 陈晨, WM-A001-0048, 2026-08, 23.00, 85.00, 34.00, 1, 2026-07-28 07:36:15, 23.000000
+<==        Row: 307, DEMO-BILL-202608-7, 5, ??, WM-B002-0188, 2026-08, 23.00, 73.00, 29.20, 1, 2026-07-24 07:36:15, 23.000000
+<==        Row: 379, DEMO-BILL-202608-31, 47, 陈晨, WM-B001-0047, 2026-08, 23.00, 77.00, 30.80, 1, 2026-07-24 07:36:15, 23.000000
+<==        Row: 415, DEMO-BILL-202608-43, 46, 陈晨, WM-C001-0046, 2026-08, 23.00, 69.00, 27.60, 1, 2026-07-28 07:36:15, 23.000000
+<==        Row: 451, DEMO-BILL-202608-55, 45, 陈晨, WM-D001-0045, 2026-08, 23.00, 81.00, 32.40, 2, 2026-07-24 07:36:15, 23.000000
+<==        Row: 340, DEMO-BILL-202608-18, 44, 宋宇, WM-A001-0044, 2026-08, 22.00, 84.00, 0.00, 0, 2026-07-29 07:36:15, 22.000000
+<==        Row: 376, DEMO-BILL-202608-30, 43, 宋宇, WM-B001-0043, 2026-08, 22.00, 76.00, 0.00, 2, 2026-07-25 07:36:15, 22.000000
+<==        Row: 412, DEMO-BILL-202608-42, 42, 宋宇, WM-C001-0042, 2026-08, 22.00, 68.00, 0.00, 0, 2026-07-29 07:36:15, 22.000000
+<==        Row: 304, DEMO-BILL-202608-6, 2, ??????, WM-A001-0320, 2026-08, 22.00, 72.00, 0.00, 0, 2026-07-25 07:36:15, 19.600000
+<==        Row: 448, DEMO-BILL-202608-54, 41, 宋宇, WM-D001-0041, 2026-08, 22.00, 80.00, 0.00, 0, 2026-07-25 07:36:15, 22.000000
+<==        Row: 409, DEMO-BILL-202608-41, 38, 梁静, WM-C001-0038, 2026-08, 21.00, 67.00, 26.80, 1, 2026-07-30 07:36:15, 21.000000
+<==        Row: 445, DEMO-BILL-202608-53, 37, 梁静, WM-D001-0037, 2026-08, 21.00, 79.00, 31.60, 1, 2026-07-26 07:36:15, 21.000000
+<==        Row: 373, DEMO-BILL-202608-29, 39, 梁静, WM-B001-0039, 2026-08, 21.00, 75.00, 30.00, 1, 2026-07-26 07:36:15, 21.000000
+<==        Row: 301, DEMO-BILL-202608-5, 1, ?????‰, WM-A001-0315, 2026-08, 21.00, 71.00, 28.40, 2, 2026-07-26 07:36:15, 27.125000
+<==        Row: 337, DEMO-BILL-202608-17, 40, 梁静, WM-A001-0040, 2026-08, 21.00, 83.00, 33.20, 1, 2026-07-30 07:36:15, 21.000000
+<==        Row: 406, DEMO-BILL-202608-40, 34, 高翔, WM-C001-0034, 2026-08, 20.00, 66.00, 26.40, 2, 2026-07-31 07:36:15, 20.000000
+<==        Row: 370, DEMO-BILL-202608-28, 35, 高翔, WM-B001-0035, 2026-08, 20.00, 74.00, 29.60, 1, 2026-07-27 07:36:15, 20.000000
+<==        Row: 442, DEMO-BILL-202608-52, 33, 高翔, WM-D001-0033, 2026-08, 20.00, 78.00, 31.20, 1, 2026-07-27 07:36:15, 20.000000
+<==        Row: 295, DEMO-BILL-202608-3, 3, ?????”, WM-A001-0003, 2026-08, 19.00, 69.00, 0.00, 0, 2026-07-28 07:36:15, 19.000000
+<==        Row: 403, DEMO-BILL-202608-39, 30, 罗阳, WM-C001-0030, 2026-08, 19.00, 85.00, 0.00, 0, 2026-07-24 07:36:15, 19.000000
+<==        Row: 367, DEMO-BILL-202608-27, 31, 罗阳, WM-B001-0031, 2026-08, 19.00, 73.00, 0.00, 0, 2026-07-28 07:36:15, 19.000000
+<==        Row: 439, DEMO-BILL-202608-51, 29, 罗阳, WM-D001-0029, 2026-08, 19.00, 77.00, 0.00, 0, 2026-07-28 07:36:15, 19.000000
+<==        Row: 331, DEMO-BILL-202608-15, 32, 罗阳, WM-A001-0032, 2026-08, 19.00, 81.00, 0.00, 2, 2026-07-24 07:36:15, 19.000000
+<==        Row: 292, DEMO-BILL-202608-2, 2, ??????, WM-A001-0002, 2026-08, 18.00, 68.00, 27.20, 1, 2026-07-29 07:36:15, 20.400000
+<==        Row: 328, DEMO-BILL-202608-14, 28, 何宁, WM-A001-0028, 2026-08, 18.00, 80.00, 32.00, 1, 2026-07-25 07:36:15, 18.000000
+<==        Row: 436, DEMO-BILL-202608-50, 25, 何宁, WM-D001-0025, 2026-08, 18.00, 76.00, 30.40, 2, 2026-07-29 07:36:15, 18.000000
+<==        Row: 364, DEMO-BILL-202608-26, 27, 何宁, WM-B001-0027, 2026-08, 18.00, 72.00, 28.80, 1, 2026-07-29 07:36:15, 18.000000
+<==        Row: 400, DEMO-BILL-202608-38, 26, 何宁, WM-C001-0026, 2026-08, 18.00, 84.00, 33.60, 1, 2026-07-25 07:36:15, 18.000000
+<==        Row: 433, DEMO-BILL-202608-49, 21, 徐悦, WM-D001-0021, 2026-08, 17.00, 75.00, 30.00, 1, 2026-07-30 07:36:15, 17.000000
+<==        Row: 361, DEMO-BILL-202608-25, 23, 徐悦, WM-B001-0023, 2026-08, 17.00, 71.00, 28.40, 2, 2026-07-30 07:36:15, 17.000000
+<==        Row: 325, DEMO-BILL-202608-13, 24, 徐悦, WM-A001-0024, 2026-08, 17.00, 79.00, 31.60, 1, 2026-07-26 07:36:15, 17.000000
+<==        Row: 397, DEMO-BILL-202608-37, 22, 徐悦, WM-C001-0022, 2026-08, 17.00, 83.00, 33.20, 1, 2026-07-26 07:36:15, 17.000000
+<==        Row: 289, DEMO-BILL-202608-1, 1, ?????‰, WM-A001-0001, 2026-08, 17.00, 67.00, 26.80, 1, 2026-07-30 07:36:15, 27.625000
+<==        Row: 430, DEMO-BILL-202608-48, 17, 吴桐, WM-D001-0017, 2026-08, 16.00, 74.00, 0.00, 0, 2026-07-31 07:36:15, 16.000000
+<==        Row: 358, DEMO-BILL-202608-24, 19, 吴桐, WM-B001-0019, 2026-08, 16.00, 70.00, 0.00, 0, 2026-07-31 07:36:15, 16.000000
+<==        Row: 394, DEMO-BILL-202608-36, 18, 吴桐, WM-C001-0018, 2026-08, 16.00, 82.00, 0.00, 0, 2026-07-27 07:36:15, 16.000000
+<==      Total: 57
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2de36cac]
+2026-08-21 17:09:38.621 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-08-21 17:09:38.621 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [ApiResult(success=true, message=ok, data=[{billId=334, user=楂樼繑, meterNo=WM-A001-0036, avg12=20.0, cu (truncated)...]
+2026-08-21 17:09:38.625 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-08-21 17:09:39.237 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/bill/list?pageNum=1&pageSize=10", parameters={masked}
+2026-08-21 17:09:39.239 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.water.ai.meter.controller.BillingController#list(int, int, String, String, Integer, String)
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@13251c90] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1042902733 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT b.id, b.bill_no AS billNo, b.user_id AS userId, b.meter_id AS meterId, b.bill_period AS billPeriod, b.usage_amount AS usageAmount, b.water_fee AS waterFee, b.sewage_fee AS sewageFee, b.total_amount AS totalAmount, b.paid_amount AS paidAmount, b.status, b.due_date AS dueDate, b.paid_time AS paidTime, b.pay_method AS payMethod, COALESCE(NULLIF(u.real_name, ''), u.username) AS userName, u.phone FROM bill b LEFT JOIN sys_user u ON u.id = b.user_id AND u.deleted = 0 WHERE b.deleted = 0 ORDER BY b.create_time DESC, b.id DESC LIMIT ?, ?
+==> Parameters: 0(Long), 10(Integer)
+<==    Columns: id, billNo, userId, meterId, billPeriod, usageAmount, waterFee, sewageFee, totalAmount, paidAmount, status, dueDate, paidTime, payMethod, userName, phone
+<==        Row: 457, DEMO-BILL-202608-57, 53, 57, 2026-08, 25.00, 47.00, 38.00, 83.00, 0.00, 0, 2026-07-30 07:36:15, null, null, 黄海, 13900000612
+<==        Row: 456, DEMO-BILL-202607-57, 53, 57, 2026-07, 25.00, 47.00, 38.00, 83.00, 83.00, 1, 2026-08-15 07:36:15, 2026-07-12 07:36:15, wechat, 黄海, 13900000612
+<==        Row: 455, DEMO-BILL-202606-57, 53, 57, 2026-06, 25.00, 47.00, 38.00, 83.00, 83.00, 1, 2026-08-15 07:36:15, 2026-06-22 07:36:15, wechat, 黄海, 13900000612
+<==        Row: 454, DEMO-BILL-202608-56, 49, 56, 2026-08, 24.00, 46.00, 37.00, 82.00, 32.80, 1, 2026-07-31 07:36:15, 2026-08-02 07:36:15, bank, 林岚, 13900000611
+<==        Row: 453, DEMO-BILL-202607-56, 49, 56, 2026-07, 24.00, 46.00, 37.00, 82.00, 82.00, 1, 2026-08-15 07:36:15, 2026-07-13 07:36:15, bank, 林岚, 13900000611
+<==        Row: 452, DEMO-BILL-202606-56, 49, 56, 2026-06, 24.00, 46.00, 37.00, 82.00, 82.00, 1, 2026-08-15 07:36:15, 2026-06-23 07:36:15, bank, 林岚, 13900000611
+<==        Row: 451, DEMO-BILL-202608-55, 45, 55, 2026-08, 23.00, 45.00, 36.00, 81.00, 32.40, 2, 2026-07-24 07:36:15, 2026-08-03 07:36:15, alipay, 陈晨, 13900000610
+<==        Row: 450, DEMO-BILL-202607-55, 45, 55, 2026-07, 23.00, 45.00, 36.00, 81.00, 81.00, 1, 2026-08-15 07:36:15, 2026-07-14 07:36:15, alipay, 陈晨, 13900000610
+<==        Row: 449, DEMO-BILL-202606-55, 45, 55, 2026-06, 23.00, 45.00, 36.00, 81.00, 81.00, 1, 2026-08-15 07:36:15, 2026-06-24 07:36:15, alipay, 陈晨, 13900000610
+<==        Row: 448, DEMO-BILL-202608-54, 41, 54, 2026-08, 22.00, 44.00, 35.00, 80.00, 0.00, 0, 2026-07-25 07:36:15, null, null, 宋宇, 13900000609
+<==      Total: 10
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@13251c90]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@37556340] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@204417190 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT COUNT(*) FROM bill b LEFT JOIN sys_user u ON u.id = b.user_id AND u.deleted = 0 WHERE b.deleted = 0
+==> Parameters: 
+<==    Columns: COUNT(*)
+<==        Row: 171
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@37556340]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@685987ad] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1946859141 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT COALESCE(SUM(b.total_amount), 0) AS totalAmount, COALESCE(SUM(b.paid_amount), 0) AS paidAmount, COALESCE(SUM(CASE WHEN b.status IN (0,2,3) THEN b.total_amount - COALESCE(b.paid_amount,0) ELSE 0 END), 0) AS overdueAmount, CASE WHEN COALESCE(SUM(b.total_amount),0) = 0 THEN 0 ELSE ROUND(COALESCE(SUM(b.paid_amount),0) / SUM(b.total_amount) * 100, 1) END AS collectionRate FROM bill b LEFT JOIN sys_user u ON u.id = b.user_id AND u.deleted = 0 WHERE b.deleted = 0
+==> Parameters: 
+<==    Columns: totalAmount, paidAmount, overdueAmount, collectionRate
+<==        Row: 14237.00, 9730.40, 2482.80, 68.3
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@685987ad]
+2026-08-21 17:09:39.252 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-08-21 17:09:39.253 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [ApiResult(success=true, message=ok, data={total=171, records=[{usageAmount=25.00, dueDate=2026-07-30 (truncated)...]
+2026-08-21 17:09:39.253 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-08-21 17:09:45.529 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/work-order/list?pageNum=1&pageSize=10", parameters={masked}
+2026-08-21 17:09:45.535 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.water.ai.meter.controller.WorkOrderController#list(int, int, String, String, Integer, Integer, String, String)
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1596e8ca] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@444326691 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT wo.id, wo.order_no AS orderNo, wo.order_type AS orderType, wo.anomaly_id AS anomalyId, wo.meter_id AS meterId, wo.user_id AS userId, wo.area_id AS areaId, wo.title, wo.description, wo.handler_id AS handlerId, wo.handler_name AS handlerName, wo.priority, wo.status, wo.result, wo.rating, wo.feedback, wo.remark, wo.create_time AS createTime, wo.dispatch_time AS dispatchTime, wo.accept_time AS acceptTime, wo.complete_time AS completeTime, m.meter_no AS meterNo, m.install_address AS installAddress, a.area_name AS areaName, a.area_code AS areaCode, u.real_name AS userName, an.anomaly_no AS anomalyNo, an.anomaly_type AS anomalyType, an.severity FROM work_order wo LEFT JOIN water_meter m ON m.id = wo.meter_id LEFT JOIN area a ON a.id = wo.area_id LEFT JOIN sys_user u ON u.id = wo.user_id LEFT JOIN anomaly_record an ON an.id = wo.anomaly_id WHERE wo.deleted = 0 ORDER BY wo.priority ASC, wo.create_time DESC LIMIT ?, ?
+==> Parameters: 0(Long), 10(Long)
+<==    Columns: id, orderNo, orderType, anomalyId, meterId, userId, areaId, title, description, handlerId, handlerName, priority, status, result, rating, feedback, remark, createTime, dispatchTime, acceptTime, completeTime, meterNo, installAddress, areaName, areaCode, userName, anomalyNo, anomalyType, severity
+<==        Row: 32, DEMO-WO-59, emergency, 59, 1, 1, 1, 处置-night_usage, <<BLOB>>, null, 巡检二组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 06:36:15, null, null, null, WM-A001-0001, 杭州市西湖区 WM-A001-0001, 西湖区(示范A), A001, ?????‰, DEMO-AN-LEAK-1, night_usage, critical
+<==        Row: 33, DEMO-WO-60, emergency, 60, 2, 2, 1, 处置-night_usage, <<BLOB>>, null, 巡检一组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 05:36:15, null, null, null, WM-A001-0002, 杭州市西湖区 WM-A001-0002, 西湖区(示范A), A001, ??????, DEMO-AN-LEAK-2, night_usage, critical
+<==        Row: 34, DEMO-WO-61, emergency, 61, 3, 3, 1, 处置-night_usage, <<BLOB>>, null, 巡检二组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 04:36:15, null, null, null, WM-A001-0003, 杭州市西湖区 WM-A001-0003, 西湖区(示范A), A001, ?????”, DEMO-AN-LEAK-3, night_usage, critical
+<==        Row: 35, DEMO-WO-62, emergency, 62, 4, 1, 1, 处置-night_usage, <<BLOB>>, null, 巡检一组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 03:36:15, null, null, null, WM-A001-0312, 杭州市西湖区 WM-A001-0312, 西湖区(示范A), A001, ?????‰, DEMO-AN-LEAK-4, night_usage, critical
+<==        Row: 36, DEMO-WO-63, emergency, 63, 5, 1, 1, 处置-night_usage, <<BLOB>>, null, 巡检二组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 02:36:15, null, null, null, WM-A001-0315, 杭州市西湖区 WM-A001-0315, 西湖区(示范A), A001, ?????‰, DEMO-AN-LEAK-5, night_usage, critical
+<==        Row: 37, DEMO-WO-64, emergency, 64, 6, 2, 1, 处置-night_usage, <<BLOB>>, null, 巡检一组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 01:36:15, null, null, null, WM-A001-0320, 杭州市西湖区 WM-A001-0320, 西湖区(示范A), A001, ??????, DEMO-AN-LEAK-6, night_usage, critical
+<==        Row: 38, DEMO-WO-65, emergency, 65, 10, 12, 1, 处置-night_usage, <<BLOB>>, null, 巡检二组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-02 21:36:15, null, null, null, WM-A001-0012, 杭州市西湖区 WM-A001-0012, 西湖区(示范A), A001, 林岚, DEMO-AN-LEAK-10, night_usage, critical
+<==        Row: 39, DEMO-WO-66, emergency, 66, 11, 16, 1, 处置-night_usage, <<BLOB>>, null, 巡检一组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-02 20:36:15, null, null, null, WM-A001-0016, 杭州市西湖区 WM-A001-0016, 西湖区(示范A), A001, 黄海, DEMO-AN-LEAK-11, night_usage, critical
+<==        Row: 40, DEMO-WO-67, emergency, 67, 12, 20, 1, 处置-night_usage, <<BLOB>>, null, 巡检二组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-02 19:36:15, null, null, null, WM-A001-0020, 杭州市西湖区 WM-A001-0020, 西湖区(示范A), A001, 吴桐, DEMO-AN-LEAK-12, night_usage, critical
+<==        Row: 41, DEMO-WO-68, emergency, 68, 13, 24, 1, 处置-night_usage, <<BLOB>>, null, 巡检一组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-02 18:36:15, null, null, null, WM-A001-0024, 杭州市西湖区 WM-A001-0024, 西湖区(示范A), A001, 徐悦, DEMO-AN-LEAK-13, night_usage, critical
+<==      Total: 10
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1596e8ca]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@24cc67b6] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@104733533 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT COUNT(*) FROM work_order wo LEFT JOIN water_meter m ON m.id = wo.meter_id WHERE wo.deleted = 0
+==> Parameters: 
+<==    Columns: COUNT(*)
+<==        Row: 18
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@24cc67b6]
+2026-08-21 17:09:45.548 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-08-21 17:09:45.549 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [ApiResult(success=true, message=ok, data={total=18, records=[{severity=critical, orderType=emergency (truncated)...]
+2026-08-21 17:09:45.549 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-08-21 17:09:45.833 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/work-order/stats", parameters={}
+2026-08-21 17:09:45.834 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.water.ai.meter.controller.WorkOrderController#stats()
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@59720664] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@46963311 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+==>  Preparing: SELECT status, COUNT(*) AS cnt FROM work_order WHERE deleted = 0 GROUP BY status
+==> Parameters: 
+<==    Columns: status, cnt
+<==        Row: 0, 18
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@59720664]
+2026-08-21 17:09:45.839 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-08-21 17:09:45.839 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [ApiResult(success=true, message=ok, data={total=18, pending=18, processing=0, done=0})]
+2026-08-21 17:09:45.839 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-08-21 17:09:48.427 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/work-order/list?pageNum=1&pageSize=50", parameters={masked}
+2026-08-21 17:09:48.427 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/work-order/stats", parameters={}
+2026-08-21 17:09:48.428 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.water.ai.meter.controller.WorkOrderController#list(int, int, String, String, Integer, Integer, String, String)
+2026-08-21 17:09:48.429 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.water.ai.meter.controller.WorkOrderController#stats()
+Creating a new SqlSession
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@383395ac] was not registered for synchronization because synchronization is not active
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@33d64c81] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1246028432 wrapping com.mysql.cj.jdbc.ConnectionImpl@7f74c3f7] will not be managed by Spring
+JDBC Connection [HikariProxyConnection@433769178 wrapping com.mysql.cj.jdbc.ConnectionImpl@242a099] will not be managed by Spring
+==>  Preparing: SELECT status, COUNT(*) AS cnt FROM work_order WHERE deleted = 0 GROUP BY status
+==>  Preparing: SELECT wo.id, wo.order_no AS orderNo, wo.order_type AS orderType, wo.anomaly_id AS anomalyId, wo.meter_id AS meterId, wo.user_id AS userId, wo.area_id AS areaId, wo.title, wo.description, wo.handler_id AS handlerId, wo.handler_name AS handlerName, wo.priority, wo.status, wo.result, wo.rating, wo.feedback, wo.remark, wo.create_time AS createTime, wo.dispatch_time AS dispatchTime, wo.accept_time AS acceptTime, wo.complete_time AS completeTime, m.meter_no AS meterNo, m.install_address AS installAddress, a.area_name AS areaName, a.area_code AS areaCode, u.real_name AS userName, an.anomaly_no AS anomalyNo, an.anomaly_type AS anomalyType, an.severity FROM work_order wo LEFT JOIN water_meter m ON m.id = wo.meter_id LEFT JOIN area a ON a.id = wo.area_id LEFT JOIN sys_user u ON u.id = wo.user_id LEFT JOIN anomaly_record an ON an.id = wo.anomaly_id WHERE wo.deleted = 0 ORDER BY wo.priority ASC, wo.create_time DESC LIMIT ?, ?
+==> Parameters: 
+==> Parameters: 0(Long), 50(Long)
+<==    Columns: status, cnt
+<==        Row: 0, 18
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@383395ac]
+<==    Columns: id, orderNo, orderType, anomalyId, meterId, userId, areaId, title, description, handlerId, handlerName, priority, status, result, rating, feedback, remark, createTime, dispatchTime, acceptTime, completeTime, meterNo, installAddress, areaName, areaCode, userName, anomalyNo, anomalyType, severity
+<==        Row: 32, DEMO-WO-59, emergency, 59, 1, 1, 1, 处置-night_usage, <<BLOB>>, null, 巡检二组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 06:36:15, null, null, null, WM-A001-0001, 杭州市西湖区 WM-A001-0001, 西湖区(示范A), A001, ?????‰, DEMO-AN-LEAK-1, night_usage, critical
+2026-08-21 17:09:48.434 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+<==        Row: 33, DEMO-WO-60, emergency, 60, 2, 2, 1, 处置-night_usage, <<BLOB>>, null, 巡检一组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 05:36:15, null, null, null, WM-A001-0002, 杭州市西湖区 WM-A001-0002, 西湖区(示范A), A001, ??????, DEMO-AN-LEAK-2, night_usage, critical
+2026-08-21 17:09:48.434 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [ApiResult(success=true, message=ok, data={total=18, pending=18, processing=0, done=0})]
+<==        Row: 34, DEMO-WO-61, emergency, 61, 3, 3, 1, 处置-night_usage, <<BLOB>>, null, 巡检二组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 04:36:15, null, null, null, WM-A001-0003, 杭州市西湖区 WM-A001-0003, 西湖区(示范A), A001, ?????”, DEMO-AN-LEAK-3, night_usage, critical
+<==        Row: 35, DEMO-WO-62, emergency, 62, 4, 1, 1, 处置-night_usage, <<BLOB>>, null, 巡检一组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 03:36:15, null, null, null, WM-A001-0312, 杭州市西湖区 WM-A001-0312, 西湖区(示范A), A001, ?????‰, DEMO-AN-LEAK-4, night_usage, critical
+<==        Row: 36, DEMO-WO-63, emergency, 63, 5, 1, 1, 处置-night_usage, <<BLOB>>, null, 巡检二组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 02:36:15, null, null, null, WM-A001-0315, 杭州市西湖区 WM-A001-0315, 西湖区(示范A), A001, ?????‰, DEMO-AN-LEAK-5, night_usage, critical
+2026-08-21 17:09:48.435 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+<==        Row: 37, DEMO-WO-64, emergency, 64, 6, 2, 1, 处置-night_usage, <<BLOB>>, null, 巡检一组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 01:36:15, null, null, null, WM-A001-0320, 杭州市西湖区 WM-A001-0320, 西湖区(示范A), A001, ??????, DEMO-AN-LEAK-6, night_usage, critical
+<==        Row: 38, DEMO-WO-65, emergency, 65, 10, 12, 1, 处置-night_usage, <<BLOB>>, null, 巡检二组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-02 21:36:15, null, null, null, WM-A001-0012, 杭州市西湖区 WM-A001-0012, 西湖区(示范A), A001, 林岚, DEMO-AN-LEAK-10, night_usage, critical
+<==        Row: 39, DEMO-WO-66, emergency, 66, 11, 16, 1, 处置-night_usage, <<BLOB>>, null, 巡检一组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-02 20:36:15, null, null, null, WM-A001-0016, 杭州市西湖区 WM-A001-0016, 西湖区(示范A), A001, 黄海, DEMO-AN-LEAK-11, night_usage, critical
+<==        Row: 40, DEMO-WO-67, emergency, 67, 12, 20, 1, 处置-night_usage, <<BLOB>>, null, 巡检二组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-02 19:36:15, null, null, null, WM-A001-0020, 杭州市西湖区 WM-A001-0020, 西湖区(示范A), A001, 吴桐, DEMO-AN-LEAK-12, night_usage, critical
+<==        Row: 41, DEMO-WO-68, emergency, 68, 13, 24, 1, 处置-night_usage, <<BLOB>>, null, 巡检一组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-02 18:36:15, null, null, null, WM-A001-0024, 杭州市西湖区 WM-A001-0024, 西湖区(示范A), A001, 徐悦, DEMO-AN-LEAK-13, night_usage, critical
+<==        Row: 42, DEMO-WO-69, emergency, 69, 14, 28, 1, 处置-night_usage, <<BLOB>>, null, 巡检二组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-02 17:36:15, null, null, null, WM-A001-0028, 杭州市西湖区 WM-A001-0028, 西湖区(示范A), A001, 何宁, DEMO-AN-LEAK-14, night_usage, critical
+<==        Row: 43, DEMO-WO-70, emergency, 70, 15, 32, 1, 处置-night_usage, <<BLOB>>, null, 巡检一组, 1, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-02 16:36:15, null, null, null, WM-A001-0032, 杭州市西湖区 WM-A001-0032, 西湖区(示范A), A001, 罗阳, DEMO-AN-LEAK-15, night_usage, critical
+<==        Row: 45, DEMO-WO-89, normal, 89, 5, 1, 1, 处置-zero_usage, <<BLOB>>, null, 巡检二组, 2, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 07:36:15, null, null, null, WM-A001-0315, 杭州市西湖区 WM-A001-0315, 西湖区(示范A), A001, ?????‰, DEMO-AN-STOP-5, zero_usage, high
+<==        Row: 46, DEMO-WO-90, normal, 90, 11, 16, 1, 处置-zero_usage, <<BLOB>>, null, 巡检一组, 2, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 07:36:15, null, null, null, WM-A001-0016, 杭州市西湖区 WM-A001-0016, 西湖区(示范A), A001, 黄海, DEMO-AN-STOP-11, zero_usage, high
+<==        Row: 47, DEMO-WO-91, normal, 91, 14, 28, 1, 处置-zero_usage, <<BLOB>>, null, 巡检二组, 2, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 07:36:15, null, null, null, WM-A001-0028, 杭州市西湖区 WM-A001-0028, 西湖区(示范A), A001, 何宁, DEMO-AN-STOP-14, zero_usage, high
+<==        Row: 48, DEMO-WO-92, normal, 92, 17, 40, 1, 处置-zero_usage, <<BLOB>>, null, 巡检一组, 2, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 07:36:15, null, null, null, WM-A001-0040, 杭州市西湖区 WM-A001-0040, 西湖区(示范A), A001, 梁静, DEMO-AN-STOP-17, zero_usage, high
+<==        Row: 49, DEMO-WO-93, normal, 93, 20, 52, 1, 处置-zero_usage, <<BLOB>>, null, 巡检二组, 2, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 07:36:15, null, null, null, WM-A001-0052, 杭州市西湖区 WM-A001-0052, 西湖区(示范A), A001, 林岚, DEMO-AN-STOP-20, zero_usage, high
+<==        Row: 44, DEMO-WO-75, normal, 75, 5, 1, 1, 处置-meter_fault, <<BLOB>>, null, 巡检二组, 2, 0, <<BLOB>>, null, null, DEMO_SHOW, 2026-08-03 02:36:15, null, null, null, WM-A001-0315, 杭州市西湖区 WM-A001-0315, 西湖区(示范A), A001, ?????‰, DEMO-AN-BAT-5, meter_fault, high
+<==      Total: 18
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@33d64c81]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6f720137] was not registered for synchronization because synchronization is not active
+JDBC Connection [HikariProxyConnection@1858206236 wrapping com.mysql.cj.jdbc.ConnectionImpl@242a099] will not be managed by Spring
+==>  Preparing: SELECT COUNT(*) FROM work_order wo LEFT JOIN water_meter m ON m.id = wo.meter_id WHERE wo.deleted = 0
+==> Parameters: 
+<==    Columns: COUNT(*)
+<==        Row: 18
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6f720137]
+2026-08-21 17:09:48.442 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2026-08-21 17:09:48.443 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [ApiResult(success=true, message=ok, data={total=18, records=[{severity=critical, orderType=emergency (truncated)...]
+2026-08-21 17:09:48.444 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK

@@ -1,0 +1,7 @@
+{"sessionId": "5fa7f8", "runId": "post-fix", "hypothesisId": "C", "location": "pip_install", "message": "after_install_probe", "data": {"missing": [], "ok": ["flask", "flask_cors", "loguru", "dotenv", "numpy", "requests"]}, "timestamp": 1785909695205}
+{"sessionId": "5fa7f8", "runId": "post-fix", "hypothesisId": "C", "location": "main.py:main", "message": "main_enter", "data": {"python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]"}, "timestamp": 1785909706653}
+{"sessionId": "5fa7f8", "runId": "post-fix", "hypothesisId": "C", "location": "main.py:main", "message": "core_imports_ok", "data": {"flask": "3.1.3", "numpy": "2.5.1"}, "timestamp": 1785909706658}
+{"sessionId": "5fa7f8", "runId": "post-fix", "hypothesisId": "D", "location": "main.py:main", "message": "system_initialized", "data": {"agents": 5}, "timestamp": 1785909706663}
+{"sessionId": "5fa7f8", "runId": "post-fix", "hypothesisId": "D", "location": "main.py:main", "message": "api_ready", "data": {"host": "0.0.0.0", "port": 8087}, "timestamp": 1785909706672}
+{"sessionId": "5fa7f8", "runId": "post-fix", "hypothesisId": "D", "location": "health_test", "message": "api_probe", "data": {"ok": true}, "timestamp": 1785909724559}
+{"sessionId": "5fa7f8", "runId": "post-fix", "hypothesisId": "D", "location": "stop", "message": "stopped", "data": {"port": 8087}, "timestamp": 1785909742283}

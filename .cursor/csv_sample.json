@@ -1,0 +1,67 @@
+[
+  {
+    "meter_id": "HZ000001",
+    "city": "杭州",
+    "district": "西湖区",
+    "community": "转塘家园",
+    "timestamp": "2026-08-01 00:00",
+    "water_usage": "0.024",
+    "flow_rate": "1.8",
+    "pressure": "0.37",
+    "temperature": "30.1",
+    "status": "正常",
+    "alarm": "0"
+  },
+  {
+    "meter_id": "HZ000002",
+    "city": "杭州",
+    "district": "滨江区",
+    "community": "白马湖社区",
+    "timestamp": "2026-08-06 04:00",
+    "water_usage": "0.022",
+    "flow_rate": "1.9",
+    "pressure": "0.36",
+    "temperature": "28.9",
+    "status": "正常",
+    "alarm": "0"
+  },
+  {
+    "meter_id": "HZ000003",
+    "city": "杭州",
+    "district": "余杭区",
+    "community": "仓前家园",
+    "timestamp": "2026-08-07 02:00",
+    "water_usage": "0.017",
+    "flow_rate": "1.3",
+    "pressure": "0.35",
+    "temperature": "30.1",
+    "status": "正常",
+    "alarm": "0"
+  },
+  {
+    "meter_id": "HZ000004",
+    "city": "杭州",
+    "district": "拱墅区",
+    "community": "湖墅家园",
+    "timestamp": "2026-08-03 05:00",
+    "water_usage": "0.006",
+    "flow_rate": "0.6",
+    "pressure": "0.29",
+    "temperature": "29.6",
+    "status": "正常",
+    "alarm": "0"
+  },
+  {
+    "meter_id": "HZ000005",
+    "city": "杭州",
+    "district": "上城区",
+    "community": "近江家园",
+    "timestamp": "2026-08-04 01:00",
+    "water_usage": "0.012",
+    "flow_rate": "0.8",
+    "pressure": "0.34",
+    "temperature": "29.3",
+    "status": "正常",
+    "alarm": "0"
+  }
+]
