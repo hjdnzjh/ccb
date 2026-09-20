@@ -35,9 +35,8 @@ export default defineConfig({
         changeOrigin: true
       },
       '/agent-api': {
-        target: 'http://localhost:8087',
-        changeOrigin: true,
-        rewrite: (p) => p.replace(/^\/agent-api/, '/api')
+        target: 'http://localhost:8080',
+        changeOrigin: true
       }
     }
   }

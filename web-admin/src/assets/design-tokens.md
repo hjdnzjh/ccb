@@ -1,8 +1,10 @@
-# AquaMind Design Tokens
+# 水慧云 Design Tokens
 # 水务AI智能运营决策平台 — web-admin
 
 ## Brand
-- Name: AquaMind
+- Name: 水慧云
+- Logo: 用户提供的透明 PNG 原图，位于 `public/brand/shuihuiyun-original.png`。
+- Usage: `BrandLogo.vue` 通过 SVG 视窗展示完整字标或左侧图形，保持原图比例和颜色；直接使用透明背景融入页面，不添加底框。
 - Positioning: 面向智慧水务场景的 AI 智能运营决策平台（非传统 CRUD 后台）
 
 ## Primitive

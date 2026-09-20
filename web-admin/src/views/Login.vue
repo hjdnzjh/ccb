@@ -3,13 +3,14 @@
     <div class="login-atmosphere" aria-hidden="true" />
     <div class="login-shell">
       <section class="brand-pane">
-        <p class="eyebrow">AquaMind Decision OS</p>
+        <div class="login-brand"><BrandLogo /></div>
+        <p class="eyebrow">水慧云 · 智慧水务服务平台</p>
         <h1>面向智慧水务的<br />AI智能运营决策平台</h1>
         <p class="lead">
           不只是增删改查后台——系统主动发现漏损、解释抄表可信度，并给出可执行运营方案。
         </p>
         <ul class="bullets">
-          <li>AI主动研判 · 漏水概率与处置优先级</li>
+          <li>异常主动预警 · 数据依据与处置优先级</li>
           <li>数字孪生地图 · 分区健康态势一目了然</li>
           <li>人机协同 · 低置信度抄表自动转入审核</li>
         </ul>
@@ -17,8 +18,8 @@
 
       <section class="form-pane">
         <div class="form-card">
-          <h2>进入运营中心</h2>
-          <p class="hint">演示账号 admin / admin123</p>
+          <h2>登录水慧云</h2>
+          <p class="hint">管理员：admin / admin123<br />普通用户：U004 或 U006 / pass123</p>
           <el-form ref="loginFormRef" :model="loginForm" :rules="loginRules" class="login-form" @submit.prevent>
             <el-form-item prop="username">
               <el-input v-model="loginForm.username" placeholder="用户名" prefix-icon="User" size="large" />
@@ -34,11 +35,8 @@
                 @keyup.enter="handleLogin"
               />
             </el-form-item>
-            <el-form-item>
-              <el-checkbox v-model="loginForm.remember">记住登录状态</el-checkbox>
-            </el-form-item>
             <el-button type="primary" class="login-btn" :loading="loading" @click="handleLogin">
-              进入 AI 决策平台
+              登录
             </el-button>
           </el-form>
         </div>
@@ -51,6 +49,8 @@
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
+import { saveSession } from '@/utils/session.js'
+import BrandLogo from '@/components/BrandLogo.vue'
 
 const router = useRouter()
 const loginFormRef = ref()
@@ -58,8 +58,7 @@ const loading = ref(false)
 
 const loginForm = reactive({
   username: 'admin',
-  password: 'admin123',
-  remember: true
+  password: 'admin123'
 })
 
 const loginRules = {
@@ -71,6 +70,7 @@ const loginRules = {
 }
 
 const handleLogin = async () => {
+  if (loading.value) return
   const valid = await loginFormRef.value.validate().catch(() => false)
   if (!valid) return
   loading.value = true
@@ -81,10 +81,9 @@ const handleLogin = async () => {
       password: loginForm.password
     })
     const data = res.data || {}
-    localStorage.setItem('token', data.token)
-    localStorage.setItem('userInfo', JSON.stringify(data.userInfo || {}))
+    saveSession(data)
     ElMessage.success(res.message || '登录成功')
-    router.push('/')
+    await router.replace(data.userInfo.role === 'user' ? '/portal' : '/dashboard')
   } catch (error) {
     ElMessage.error(error.message || '登录失败')
   } finally {
@@ -130,6 +129,11 @@ const handleLogin = async () => {
 .brand-pane {
   color: #e8f7f8;
   max-width: 560px;
+
+  .login-brand {
+    width: min(320px, 100%);
+    margin-bottom: 30px;
+  }
 
   .eyebrow {
     font-size: 13px;

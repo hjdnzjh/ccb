@@ -27,6 +27,7 @@ public class UserController {
 
     private final SysUserMapper sysUserMapper;
     private final WaterMeterMapper waterMeterMapper;
+    private final org.springframework.jdbc.core.JdbcTemplate jdbc;
 
     @Operation(summary = "用户分页列表")
     @GetMapping("/list")
@@ -80,7 +81,7 @@ public class UserController {
         }
         SysUser user = SysUser.builder()
                 .username(body.getUsername().trim())
-                .password(StringUtils.hasText(body.getPassword()) ? body.getPassword() : "123456")
+                .password(com.water.ai.meter.security.Passwords.hash(body.getPassword()))
                 .realName(body.getRealName())
                 .phone(body.getPhone())
                 .email(body.getEmail())
@@ -114,8 +115,10 @@ public class UserController {
         if (body.getBalance() != null) user.setBalance(body.getBalance());
         if (StringUtils.hasText(body.getCreditLevel())) user.setCreditLevel(body.getCreditLevel());
         if (body.getRemark() != null) user.setRemark(body.getRemark());
-        if (StringUtils.hasText(body.getPassword())) user.setPassword(body.getPassword());
+        boolean credentialChanged=StringUtils.hasText(body.getPassword());
+        if (credentialChanged) user.setPassword(com.water.ai.meter.security.Passwords.hash(body.getPassword()));
         sysUserMapper.updateById(user);
+        if(credentialChanged || (body.getStatus()!=null && body.getStatus()!=0)) jdbc.update("DELETE FROM auth_session WHERE user_id=?",id);
         return ApiResult.ok("更新成功", maskSecret(user));
     }
 

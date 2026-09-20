@@ -92,7 +92,7 @@
           <el-input v-model="form.username" :disabled="!!form.id" placeholder="如 HZ000001" />
         </el-form-item>
         <el-form-item v-if="!form.id" label="密码">
-          <el-input v-model="form.password" placeholder="默认 123456" show-password />
+          <el-input v-model="form.password" placeholder="新增必填，至少8字符；编辑留空保留原密码" show-password />
         </el-form-item>
         <el-form-item label="姓名">
           <el-input v-model="form.realName" />

@@ -21,6 +21,8 @@ import java.util.Map;
 public class WorkOrderController {
 
     private final WorkOrderMapper workOrderMapper;
+    private final org.springframework.jdbc.core.JdbcTemplate jdbc;
+    private final com.water.ai.meter.diagnosis.WorkOrderVerificationService verification;
 
     @Operation(summary = "工单分页列表")
     @GetMapping("/list")
@@ -83,8 +85,9 @@ public class WorkOrderController {
 
     @Operation(summary = "派单")
     @PostMapping("/{id}/dispatch")
+    @org.springframework.transaction.annotation.Transactional
     public ApiResult<Void> dispatch(@PathVariable Long id, @RequestBody Map<String, String> body) {
-        WorkOrder order = workOrderMapper.selectById(id);
+        WorkOrder order = workOrderMapper.selectForUpdate(id);
         if (order == null) {
             return ApiResult.fail("工单不存在");
         }
@@ -104,8 +107,9 @@ public class WorkOrderController {
 
     @Operation(summary = "接单处理中")
     @PostMapping("/{id}/accept")
+    @org.springframework.transaction.annotation.Transactional
     public ApiResult<Void> accept(@PathVariable Long id) {
-        WorkOrder order = workOrderMapper.selectById(id);
+        WorkOrder order = workOrderMapper.selectForUpdate(id);
         if (order == null) {
             return ApiResult.fail("工单不存在");
         }
@@ -123,38 +127,46 @@ public class WorkOrderController {
 
     @Operation(summary = "完成工单")
     @PostMapping("/{id}/complete")
+    @org.springframework.transaction.annotation.Transactional
     public ApiResult<Void> complete(@PathVariable Long id, @RequestBody(required = false) Map<String, String> body) {
-        WorkOrder order = workOrderMapper.selectById(id);
+        WorkOrder order = workOrderMapper.selectForUpdate(id);
         if (order == null) {
             return ApiResult.fail("工单不存在");
         }
-        if (order.getStatus() == null || order.getStatus() >= 3) {
+        if (order.getStatus() == null || order.getStatus() != 2) {
             return ApiResult.fail("当前状态不可完成");
         }
         String result = body == null ? null : body.get("result");
+        if(result==null || result.isBlank() || result.length()>500) return ApiResult.fail("请填写1至500字处置结论后完成工单");
         order.setStatus(3);
         order.setCompleteTime(LocalDateTime.now());
         if (StringUtils.hasText(result)) {
             order.setResult(result);
         }
         workOrderMapper.updateById(order);
+        if(order.getAnomalyId()!=null) jdbc.update("UPDATE anomaly_record SET status=2,handled_time=NOW(),handle_result=?,handler=? WHERE id=? AND deleted=0 AND status IN (0,1) AND work_order_id=?",result,order.getHandlerName(),order.getAnomalyId(),id);
+        verification.startForOrder(id);
         return ApiResult.ok("工单已完成", null);
     }
 
     @Operation(summary = "关闭工单")
     @PostMapping("/{id}/close")
+    @org.springframework.transaction.annotation.Transactional
     public ApiResult<Void> close(@PathVariable Long id, @RequestBody(required = false) Map<String, String> body) {
-        WorkOrder order = workOrderMapper.selectById(id);
+        WorkOrder order = workOrderMapper.selectForUpdate(id);
         if (order == null) {
             return ApiResult.fail("工单不存在");
         }
         String remark = body == null ? null : body.get("remark");
+        if(order.getStatus()==null || order.getStatus()==4)return ApiResult.fail("工单已关闭或状态无效");
+        if(remark==null || remark.isBlank() || remark.length()>500)return ApiResult.fail("请填写1至500字关闭原因");
         order.setStatus(4);
         order.setCloseTime(LocalDateTime.now());
         if (StringUtils.hasText(remark)) {
             order.setRemark(remark);
         }
         workOrderMapper.updateById(order);
+        if(order.getAnomalyId()!=null) jdbc.update("UPDATE anomaly_record SET status=0,work_order_id=NULL WHERE id=? AND deleted=0 AND status IN (0,1) AND work_order_id=?",order.getAnomalyId(),id);
         return ApiResult.ok("工单已关闭", null);
     }
 

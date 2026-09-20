@@ -2,7 +2,7 @@
   <div class="home">
     <header class="hero">
       <div>
-        <p class="eyebrow">AquaMind · Home</p>
+        <p class="eyebrow">水慧云 · 运营首页</p>
         <h1>主页</h1>
         <p class="sub">上方为 AI 运营态势，下方为用水 / 收费 / 异常等经营图表与明细。</p>
       </div>
@@ -86,7 +86,7 @@
             <button v-for="z in zones" :key="z.id" class="zone" :class="z.status" @click="$router.push(`/twin/zone/${z.id}`)">
               <strong>{{ z.name }}</strong>
               <span>{{ statusLabel(z.status) }}</span>
-              <small>漏损指数 {{ z.leakRate }}%</small>
+              <small>待处理异常 {{ z.anomaly }} 条</small>
             </button>
           </div>
         </div>
@@ -259,14 +259,14 @@ const renderCharts = (data) => {
   revenueChart?.setOption({
     color: ['#088395', '#2a9d8f', '#e07a5f'],
     tooltip: { trigger: 'axis' },
-    legend: { data: ['应收', '实收', '欠费'] },
+    legend: { data: ['当月出账应收', '当月登记收入', '当月账单剩余'] },
     grid: { left: 48, right: 16, top: 40, bottom: 28 },
     xAxis: { type: 'category', data: revenue.map((x) => x.label) },
     yAxis: { type: 'value', name: '元' },
     series: [
-      { name: '应收', type: 'bar', data: revenue.map((x) => Number(x.receivable || 0)) },
-      { name: '实收', type: 'bar', data: revenue.map((x) => Number(x.received || 0)) },
-      { name: '欠费', type: 'bar', data: revenue.map((x) => Number(x.unpaid || 0)) }
+      { name: '当月出账应收', type: 'bar', data: revenue.map((x) => Number(x.receivable || 0)) },
+      { name: '当月登记收入', type: 'bar', data: revenue.map((x) => Number(x.received || 0)) },
+      { name: '当月账单剩余', type: 'bar', data: revenue.map((x) => Number(x.unpaid || 0)) }
     ]
   })
 

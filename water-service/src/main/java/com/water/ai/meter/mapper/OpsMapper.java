@@ -15,21 +15,29 @@ public interface OpsMapper {
     @Select("SELECT COUNT(*) FROM water_meter WHERE deleted = 0 AND status = 0")
     long countOnlineMeters();
 
-    @Select("SELECT MAX(DATE(reading_time)) FROM meter_reading WHERE deleted = 0")
+    @Select("""
+SELECT MAX(DATE(reading_time)) FROM meter_reading WHERE deleted=0 AND status=1 AND reading_time<=NOW()
+        """)
     java.sql.Date lastReadingDate();
 
-    @Select("SELECT MAX(DATE(paid_time)) FROM bill WHERE deleted = 0 AND paid_time IS NOT NULL")
+    @Select("""
+SELECT MAX(DATE(paid_time)) FROM bill_payment WHERE paid_time<=NOW()
+        """)
     java.sql.Date lastPaidDate();
 
-    @Select("SELECT COALESCE(SUM(usage_amount),0) FROM meter_reading WHERE deleted = 0 " +
-            "AND DATE(reading_time) = (SELECT MAX(DATE(reading_time)) FROM meter_reading WHERE deleted = 0)")
+    @Select("""
+SELECT COALESCE(SUM(usage_amount),0) FROM meter_reading WHERE deleted=0 AND status=1 AND reading_time>=CURDATE() AND reading_time<=NOW()
+        """)
     java.math.BigDecimal todayUsage();
 
-    @Select("SELECT COALESCE(SUM(paid_amount),0) FROM bill WHERE deleted = 0 " +
-            "AND DATE(paid_time) = (SELECT MAX(DATE(paid_time)) FROM bill WHERE deleted = 0 AND paid_time IS NOT NULL)")
+    @Select("""
+SELECT COALESCE(SUM(amount),0) FROM bill_payment WHERE paid_time>=CURDATE() AND paid_time<=NOW()
+        """)
     java.math.BigDecimal todayPaid();
 
-    @Select("SELECT COALESCE(SUM(paid_amount),0) FROM bill WHERE deleted = 0 AND paid_time >= DATE_FORMAT(NOW(), '%Y-%m-01')")
+    @Select("""
+SELECT COALESCE(SUM(amount),0) FROM bill_payment WHERE paid_time>=DATE_FORMAT(NOW(),'%Y-%m-01') AND paid_time<=NOW()
+        """)
     java.math.BigDecimal monthPaid();
 
     @Select("SELECT COUNT(*) FROM bill WHERE deleted = 0 AND create_time >= DATE_FORMAT(NOW(), '%Y-%m-01')")
@@ -44,21 +52,20 @@ public interface OpsMapper {
     @Select("SELECT COUNT(*) FROM meter_reading WHERE deleted = 0 AND reading_type = 'ai_image' AND confidence < 0.70 AND status = 0")
     long lowConfidencePending();
 
-    @Select("SELECT COUNT(*) FROM meter_reading WHERE deleted = 0 AND reading_type = 'ai_image' " +
-            "AND DATE(reading_time) = (SELECT MAX(DATE(reading_time)) FROM meter_reading WHERE deleted = 0)")
+    @Select("""
+SELECT COUNT(*) FROM meter_reading WHERE deleted=0 AND reading_type='ai_image' AND reading_time>=CURDATE() AND reading_time<=NOW()
+        """)
     long todayAiReadingCount();
 
-    @Select("SELECT a.id, a.area_code, a.area_name, " +
-            "COUNT(DISTINCT m.id) AS meters, " +
-            "COALESCE(SUM(CASE WHEN DATE(r.reading_time) = (SELECT MAX(DATE(reading_time)) FROM meter_reading WHERE deleted = 0) THEN r.usage_amount ELSE 0 END),0) AS today_usage, " +
-            "COUNT(DISTINCT CASE WHEN an.status IN (0,1) THEN an.id END) AS anomaly_count, " +
-            "AVG(CASE WHEN m.battery_level IS NULL THEN 100 ELSE m.battery_level END) AS avg_battery " +
-            "FROM area a " +
-            "LEFT JOIN water_meter m ON m.area_id = a.id AND m.deleted = 0 " +
-            "LEFT JOIN meter_reading r ON r.meter_id = m.id AND r.deleted = 0 " +
-            "LEFT JOIN anomaly_record an ON an.meter_id = m.id AND an.deleted = 0 " +
-            "WHERE a.deleted = 0 AND a.level = 3 " +
-            "GROUP BY a.id, a.area_code, a.area_name ORDER BY a.id")
+    @Select("""
+SELECT a.id,a.area_code,a.area_name,COUNT(m.id) meters,
+ COALESCE(SUM(r.usage_amount),0) today_usage,COALESCE(SUM(n.anomaly_count),0) anomaly_count,AVG(m.battery_level) avg_battery
+ FROM area a LEFT JOIN water_meter m ON m.area_id=a.id AND m.deleted=0
+ LEFT JOIN (SELECT meter_id,SUM(usage_amount) usage_amount FROM meter_reading
+ WHERE deleted=0 AND status=1 AND reading_time>=CURDATE() AND reading_time<=NOW() GROUP BY meter_id) r ON r.meter_id=m.id
+ LEFT JOIN (SELECT meter_id,COUNT(*) anomaly_count FROM anomaly_record WHERE deleted=0 AND status IN (0,1) GROUP BY meter_id) n ON n.meter_id=m.id
+ WHERE a.deleted=0 AND a.level=3 GROUP BY a.id,a.area_code,a.area_name ORDER BY a.id
+        """)
     List<Map<String, Object>> zoneOverview();
 
     @Select("SELECT m.id, m.meter_no, m.area_id, a.area_name, m.status, m.battery_level, m.signal_strength, " +
@@ -101,14 +108,17 @@ public interface OpsMapper {
             "ORDER BY FIELD(an.severity,'critical','high','medium','low'), an.detected_time DESC LIMIT #{limit}")
     List<Map<String, Object>> openSignals(int limit);
 
-    @Select("SELECT COALESCE(SUM(CASE WHEN HOUR(reading_time) BETWEEN 0 AND 5 THEN usage_amount ELSE 0 END),0) AS night_usage, " +
-            "COALESCE(SUM(CASE WHEN HOUR(reading_time) BETWEEN 8 AND 20 THEN usage_amount ELSE 0 END),0) AS day_usage " +
-            "FROM meter_reading WHERE deleted = 0 AND reading_time >= DATE_SUB(NOW(), INTERVAL 7 DAY) " +
-            "AND meter_id IN (SELECT id FROM water_meter WHERE area_id = #{areaId} AND deleted = 0)")
+    @Select("""
+SELECT COALESCE(SUM(CASE WHEN HOUR(reading_time) BETWEEN 0 AND 5 THEN usage_amount ELSE 0 END),0) night_usage,
+ COALESCE(SUM(CASE WHEN HOUR(reading_time) BETWEEN 6 AND 23 THEN usage_amount ELSE 0 END),0) day_usage
+ FROM meter_reading WHERE deleted=0 AND status=1 AND reading_time>=DATE_SUB(NOW(),INTERVAL 7 DAY) AND reading_time<=NOW()
+ AND meter_id IN (SELECT id FROM water_meter WHERE area_id=#{areaId} AND deleted=0)
+        """)
     Map<String, Object> areaNightDayUsage(Long areaId);
 
-    @Select("SELECT COUNT(*) AS unpaid_count, COALESCE(SUM(total_amount - IFNULL(paid_amount,0)),0) AS unpaid_amount " +
-            "FROM bill WHERE deleted = 0 AND status IN (0,2)")
+    @Select("""
+SELECT COUNT(*) unpaid_count,COALESCE(SUM(total_amount-COALESCE(paid_amount,0)),0) unpaid_amount FROM bill WHERE deleted=0 AND total_amount>COALESCE(paid_amount,0)
+        """)
     Map<String, Object> unpaidSummary();
 
     @Select("SELECT id, area_code, area_name, parent_id, level FROM area WHERE deleted = 0 AND area_code = #{areaCode} LIMIT 1")
@@ -144,37 +154,27 @@ public interface OpsMapper {
             "FROM water_meter WHERE deleted = 0 AND area_id = #{areaId}")
     Map<String, Object> meterStatsByArea(Long areaId);
 
-    @Select("SELECT COUNT(*) FROM meter_reading WHERE deleted = 0 " +
-            "AND DATE(reading_time) = (SELECT MAX(DATE(reading_time)) FROM meter_reading WHERE deleted = 0)")
+    @Select("""
+SELECT COUNT(*) FROM meter_reading WHERE deleted=0 AND reading_time>=CURDATE() AND reading_time<=NOW()
+        """)
     long todayReadingCount();
 
-    @Select("SELECT DATE_FORMAT(d.dt, '%m-%d') AS label, " +
-            "COALESCE(SUM(r.usage_amount),0) AS usage_amount " +
-            "FROM ( " +
-            "  SELECT DATE_SUB(anchor.dt, INTERVAL seq.n DAY) AS dt " +
-            "  FROM ( " +
-            "    SELECT CASE " +
-            "      WHEN EXISTS (SELECT 1 FROM meter_reading WHERE deleted = 0 " +
-            "        AND reading_time >= DATE_SUB(CURDATE(), INTERVAL 13 DAY)) THEN CURDATE() " +
-            "      ELSE COALESCE((SELECT MAX(DATE(reading_time)) FROM meter_reading WHERE deleted = 0), CURDATE()) " +
-            "    END AS dt " +
-            "  ) anchor " +
-            "  JOIN ( " +
-            "    SELECT 0 AS n UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 " +
-            "    UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9 " +
-            "    UNION ALL SELECT 10 UNION ALL SELECT 11 UNION ALL SELECT 12 UNION ALL SELECT 13 " +
-            "  ) seq " +
-            ") d " +
-            "LEFT JOIN meter_reading r ON r.deleted = 0 AND DATE(r.reading_time) = d.dt " +
-            "GROUP BY d.dt ORDER BY d.dt")
+    @Select("""
+WITH RECURSIVE dates AS (SELECT DATE_SUB(CURDATE(),INTERVAL 13 DAY) dt UNION ALL SELECT DATE_ADD(dt,INTERVAL 1 DAY) FROM dates WHERE dt<CURDATE())
+ SELECT DATE_FORMAT(d.dt,'%m-%d') label,COALESCE(SUM(r.usage_amount),0) usage_amount FROM dates d
+ LEFT JOIN meter_reading r ON r.deleted=0 AND r.status=1 AND r.reading_time>=d.dt AND r.reading_time<DATE_ADD(d.dt,INTERVAL 1 DAY) AND r.reading_time<=NOW()
+ GROUP BY d.dt ORDER BY d.dt
+        """)
     List<Map<String, Object>> usageTrend14d();
 
-    @Select("SELECT DATE_FORMAT(IFNULL(paid_time, create_time), '%Y-%m') AS label, " +
-            "COALESCE(SUM(total_amount),0) AS receivable, " +
-            "COALESCE(SUM(IFNULL(paid_amount,0)),0) AS received, " +
-            "COALESCE(SUM(CASE WHEN status IN (0,2) THEN total_amount - IFNULL(paid_amount,0) ELSE 0 END),0) AS unpaid " +
-            "FROM bill WHERE deleted = 0 AND create_time >= DATE_SUB(CURDATE(), INTERVAL 5 MONTH) " +
-            "GROUP BY DATE_FORMAT(IFNULL(paid_time, create_time), '%Y-%m') ORDER BY label")
+    @Select("""
+WITH RECURSIVE months AS (SELECT DATE_SUB(CAST(DATE_FORMAT(CURDATE(),'%Y-%m-01') AS DATE),INTERVAL 5 MONTH) dt UNION ALL SELECT DATE_ADD(dt,INTERVAL 1 MONTH) FROM months WHERE dt<CAST(DATE_FORMAT(CURDATE(),'%Y-%m-01') AS DATE))
+ SELECT DATE_FORMAT(m.dt,'%Y-%m') label,
+ (SELECT COALESCE(SUM(total_amount),0) FROM bill WHERE deleted=0 AND create_time>=m.dt AND create_time<DATE_ADD(m.dt,INTERVAL 1 MONTH) AND create_time<=NOW()) receivable,
+ (SELECT COALESCE(SUM(amount),0) FROM bill_payment WHERE paid_time>=m.dt AND paid_time<DATE_ADD(m.dt,INTERVAL 1 MONTH) AND paid_time<=NOW()) received,
+ (SELECT COALESCE(SUM(GREATEST(total_amount-COALESCE(paid_amount,0),0)),0) FROM bill WHERE deleted=0 AND create_time>=m.dt AND create_time<DATE_ADD(m.dt,INTERVAL 1 MONTH) AND create_time<=NOW()) unpaid
+ FROM months m ORDER BY m.dt
+        """)
     List<Map<String, Object>> revenueTrend6m();
 
     @Select("SELECT anomaly_type AS name, COUNT(*) AS value FROM anomaly_record " +

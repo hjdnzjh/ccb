@@ -20,13 +20,13 @@
       <article class="panel kpi"><em>水表</em><strong>{{ overview.meters ?? '-' }}</strong></article>
       <article class="panel kpi"><em>今日用水</em><strong>{{ overview.usage ?? '-' }} <small>m³</small></strong></article>
       <article class="panel kpi"><em>异常</em><strong>{{ overview.anomaly ?? '-' }}</strong></article>
-      <article class="panel kpi"><em>漏损指数</em><strong>{{ overview.leakRate ?? '-' }}%</strong></article>
-      <article class="panel kpi"><em>夜间用水(7日)</em><strong>{{ nightDay.nightUsage ?? '-' }}</strong></article>
-      <article class="panel kpi"><em>日间用水(7日)</em><strong>{{ nightDay.dayUsage ?? '-' }}</strong></article>
+      <article class="panel kpi"><em>夜间抄表用量占比</em><strong>{{ overview.nightReadingShare == null ? '无数据' : overview.nightReadingShare + '%' }}</strong></article>
+      <article class="panel kpi"><em>0—5时抄表用量(7日)</em><strong>{{ nightDay.nightUsage ?? '-' }}</strong></article>
+      <article class="panel kpi"><em>6—23时抄表用量(7日)</em><strong>{{ nightDay.dayUsage ?? '-' }}</strong></article>
     </section>
 
     <section class="panel insight">
-      <em>AI研判</em>
+      <em>数据依据与范围</em>
       <p>{{ overview.insight || '加载中…' }}</p>
     </section>
 

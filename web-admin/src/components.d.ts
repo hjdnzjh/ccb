@@ -7,7 +7,13 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    BillDetailDialog: typeof import('./components/BillDetailDialog.vue')['default']
+    BillPaymentDialog: typeof import('./components/BillPaymentDialog.vue')['default']
+    BillWorkspace: typeof import('./components/BillWorkspace.vue')['default']
+    BrandLogo: typeof import('./components/BrandLogo.vue')['default']
     CommunityRealMap: typeof import('./components/CommunityRealMap.vue')['default']
+    DiagnosisFacts: typeof import('./components/DiagnosisFacts.vue')['default']
+    DiagnosisUpdates: typeof import('./components/DiagnosisUpdates.vue')['default']
     DonutPercent: typeof import('./components/DonutPercent.vue')['default']
     ElAlert: typeof import('element-plus/es')['ElAlert']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
@@ -15,7 +21,7 @@ declare module 'vue' {
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
     ElButton: typeof import('element-plus/es')['ElButton']
-    ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
+    ElCard: typeof import('element-plus/es')['ElCard']
     ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
     ElDescriptions: typeof import('element-plus/es')['ElDescriptions']
     ElDescriptionsItem: typeof import('element-plus/es')['ElDescriptionsItem']
@@ -29,6 +35,7 @@ declare module 'vue' {
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInput: typeof import('element-plus/es')['ElInput']
+    ElInputNumber: typeof import('element-plus/es')['ElInputNumber']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElOption: typeof import('element-plus/es')['ElOption']
@@ -41,11 +48,16 @@ declare module 'vue' {
     ElStep: typeof import('element-plus/es')['ElStep']
     ElSteps: typeof import('element-plus/es')['ElSteps']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
+    ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
+    ElTabPane: typeof import('element-plus/es')['ElTabPane']
+    ElTabs: typeof import('element-plus/es')['ElTabs']
     ElTag: typeof import('element-plus/es')['ElTag']
+    NotificationCenter: typeof import('./components/NotificationCenter.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    WorkOrderVerification: typeof import('./components/WorkOrderVerification.vue')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']

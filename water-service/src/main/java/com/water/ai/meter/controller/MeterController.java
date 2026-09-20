@@ -21,6 +21,11 @@ import java.util.Map;
 public class MeterController {
 
     private final WaterMeterMapper waterMeterMapper;
+    private final com.water.ai.meter.operations.MeterAssetService assets;
+
+    @GetMapping("/options") public ApiResult<Map<String,Object>> options(){return ApiResult.ok(assets.options());}
+    @PostMapping public ApiResult<Long> create(@RequestBody com.water.ai.meter.operations.MeterAssetService.Input input){return ApiResult.ok(assets.save(null,input));}
+    @PutMapping("/{id}") public ApiResult<Long> update(@PathVariable Long id,@RequestBody com.water.ai.meter.operations.MeterAssetService.Input input){return ApiResult.ok(assets.save(id,input));}
 
     @Operation(summary = "水表分页列表")
     @GetMapping("/list")
@@ -28,11 +33,14 @@ public class MeterController {
             @RequestParam(defaultValue = "1") int pageNum,
             @RequestParam(defaultValue = "10") int pageSize,
             @RequestParam(required = false) String meterNo,
-            @RequestParam(required = false) Integer status) {
+            @RequestParam(required = false) Integer status,
+            @RequestParam(required = false) String commType) {
+        if(pageNum<1 || pageSize<1 || pageSize>100)throw new IllegalArgumentException("分页范围无效");
         LambdaQueryWrapper<WaterMeter> qw = new LambdaQueryWrapper<WaterMeter>()
                 .eq(WaterMeter::getDeleted, 0)
                 .like(StringUtils.hasText(meterNo), WaterMeter::getMeterNo, meterNo)
                 .eq(status != null, WaterMeter::getStatus, status)
+                .eq(StringUtils.hasText(commType),WaterMeter::getCommType,commType)
                 .orderByDesc(WaterMeter::getUpdateTime);
         Page<WaterMeter> page = waterMeterMapper.selectPage(new Page<>(pageNum, pageSize), qw);
         Map<String, Object> data = new HashMap<>();

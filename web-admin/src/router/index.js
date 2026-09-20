@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
+import { authApi } from '@/api/index.js'
+import { clearSession, routeForRole } from '@/utils/session.js'
 
 NProgress.configure({ showSpinner: false })
 
@@ -16,6 +18,23 @@ const routes = [
     component: () => import('@/views/Layout.vue'),
     redirect: '/dashboard',
     children: [
+      { path: 'diagnosis', name: 'Diagnosis', component: () => import('@/views/diagnosis/Index.vue'), meta: { title: '诊断中心' } },
+      { path: 'lab/replay', name: 'InnovationLab', component: () => import('@/views/lab/Replay.vue'), meta: { title: '创新演练' } },
+      {
+        path: 'portal', name: 'Portal',
+        component: () => import('@/views/portal/Index.vue'),
+        meta: { title: '我的用水工作台' }
+      },
+      {
+        path: 'feedback', name: 'Feedback',
+        component: () => import('@/views/feedback/Index.vue'),
+        meta: { title: '用户反馈' }
+      },
+      {
+        path: 'automation', name: 'Automation',
+        component: () => import('@/views/automation/Index.vue'),
+        meta: { title: '自动采集与计费' }
+      },
       {
         path: 'dashboard',
         name: 'Dashboard',
@@ -72,6 +91,11 @@ const routes = [
         redirect: '/bill/insight',
         meta: { title: '智能收费', icon: 'Tickets' },
         children: [
+          {
+            path: 'tariff', name: 'ResidentialTariff',
+            component: () => import('@/views/bill/Tariff.vue'),
+            meta: { title: '居民年度计费' }
+          },
           {
             path: 'insight',
             name: 'BillInsight',
@@ -133,7 +157,8 @@ const routes = [
         meta: { title: '统计报表', icon: 'Document' }
       }
     ]
-  }
+  },
+  { path: '/:pathMatch(.*)*', redirect: '/' }
 ]
 
 const router = createRouter({
@@ -141,22 +166,29 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to) => {
   NProgress.start()
   document.title = to.meta.title
-    ? `${to.meta.title} - 水务AI智能运营决策平台`
-    : '水务AI智能运营决策平台'
+    ? `${to.meta.title} - 水慧云`
+    : '水慧云 · 智慧水务服务平台'
 
-  const token = localStorage.getItem('token')
-  if (to.path !== '/login' && !token) {
-    next('/login')
-  } else {
-    next()
+  if (to.path === '/login') return true
+  if (!localStorage.getItem('token')) { clearSession(); return '/login' }
+  try {
+    const response = await authApi.me()
+    const user = response.data
+    if (!['admin', 'user'].includes(user?.role)) { clearSession(); return '/login' }
+    localStorage.setItem('userInfo', JSON.stringify(user))
+    return routeForRole(to.path, user.role) || true
+  } catch (error) {
+    if (error.response?.status === 401) clearSession()
+    return '/login'
   }
 })
 
 router.afterEach(() => {
   NProgress.done()
 })
+router.onError(() => NProgress.done())
 
 export default router

@@ -1,0 +1,49 @@
+{
+  "verifiedAt": "2026-09-20T10:06:58.495229+00:00",
+  "javaTests": 140,
+  "pythonTests": 18,
+  "frontendTests": 12,
+  "backendPackage": "passed",
+  "frontendBuild": "passed_with_existing_bundle_and_sass_warnings",
+  "browserFlows": "passed",
+  "policy": "off",
+  "modelAcceptance": "not_passed",
+  "repeatReportSha256": "d2de86eaf74c98070e916586d417f0755c43d1efc63718f1297202126482caf5",
+  "hardware": {
+    "cpu": "AMD Ryzen 7 8845H",
+    "logicalProcessors": 16,
+    "physicalMemoryBytes": 33601986560
+  },
+  "performance": {
+    "java": {
+      "meters": 1000,
+      "observations": 96000,
+      "samplingMinutes": 15,
+      "importSeconds": 1.0393372,
+      "concurrentReaders": 10,
+      "requests": 200,
+      "listDurationSeconds": 0.2448038,
+      "listP95Millis": 15.8336,
+      "targetMet": true,
+      "measurement": "JdbcTemplate import and service-layer event list; excludes HTTP, browser, inference and real devices"
+    },
+    "python": {
+      "platform": "Windows-11-10.0.26100-SP0",
+      "python": "3.12.7 | packaged by Anaconda, Inc. | (main, Oct  4 2024, 13:17:27) [MSC v.1929 64 bit (AMD64)]",
+      "cpu": "",
+      "logicalProcessors": 16,
+      "measurement": "five sequential batches: 100 full-history feature/baseline calls plus one real forest batch score; excludes HTTP and database",
+      "historyRows": 1537,
+      "batchSeconds": [
+        1.4354583999956958,
+        1.4010344000416808,
+        1.4401176999672316,
+        1.490704800002277,
+        1.561692499963101
+      ],
+      "p95BatchSeconds": 1.561692499963101,
+      "targetSeconds": 2,
+      "targetMet": true
+    }
+  }
+}

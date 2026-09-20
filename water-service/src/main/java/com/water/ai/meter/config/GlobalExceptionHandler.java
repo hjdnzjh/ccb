@@ -19,6 +19,26 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler({org.springframework.http.converter.HttpMessageNotReadableException.class,
+            org.springframework.web.method.annotation.MethodArgumentTypeMismatchException.class,
+            org.springframework.web.bind.MissingServletRequestParameterException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String,Object> malformedInput(Exception e) {
+        return Map.of("success",false,"code",400,"message","请求参数或日期格式无效");
+    }
+
+    @ExceptionHandler(org.springframework.web.server.ResponseStatusException.class)
+    public org.springframework.http.ResponseEntity<Map<String,Object>> handleStatus(org.springframework.web.server.ResponseStatusException e) {
+        return org.springframework.http.ResponseEntity.status(e.getStatusCode()).body(Map.of("success",false,"code",e.getStatusCode().value(),"message",e.getReason()==null?"请求失败":e.getReason()));
+    }
+
+    @ExceptionHandler(org.springframework.dao.DuplicateKeyException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public Map<String, Object> handleDuplicateKey(org.springframework.dao.DuplicateKeyException e) {
+        return Map.of("success", false, "code", 409,
+                "message", "请求号或业务编号已存在，请核对内容；重试原登记时使用相同金额和渠道");
+    }
+
     /**
      * 处理参数校验异常
      */
@@ -83,7 +103,7 @@ public class GlobalExceptionHandler {
         return Map.of(
                 "success", false,
                 "code", 500,
-                "message", "系统内部错误: " + e.getMessage()
+                "message", "系统内部错误，请稍后重试"
         );
     }
 

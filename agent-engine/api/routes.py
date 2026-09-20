@@ -6,6 +6,8 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from datetime import datetime
 import logging
+import os
+import hmac
 
 # 配置日志
 logging.basicConfig(level=logging.INFO)
@@ -14,10 +16,28 @@ logging.basicConfig(level=logging.INFO)
 def create_app(orchestrator=None):
     """创建Flask应用"""
     app = Flask(__name__)
-    CORS(app)
+    # Only the authenticated Java gateway may invoke the internal engine.
+    @app.before_request
+    def require_gateway_token():
+        if request.path == '/api/health' and request.method == 'GET':
+            return None
+        expected = os.getenv('AGENT_INTERNAL_TOKEN', '')
+        if not expected:
+            return jsonify({'success': False, 'message': '内部服务密钥未配置'}), 503
+        if not hmac.compare_digest(request.headers.get('X-Agent-Token', ''), expected):
+            return jsonify({'success': False, 'message': '禁止直接访问智能体接口'}), 401
+        return None
     
     # 存储协调器引用
     app.orchestrator = orchestrator
+
+    @app.route('/api/internal/diagnosis/score', methods=['POST'])
+    def diagnosis_score():
+        from innovation.model import diagnose, configured_scorer
+        try:
+            return jsonify(diagnose(request.get_json(silent=True), configured_scorer()))
+        except ValueError as exc:
+            return jsonify({'error': str(exc)}), 400
     
     @app.route('/api/health', methods=['GET'])
     def health_check():
