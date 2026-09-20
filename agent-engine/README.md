@@ -1,5 +1,8 @@
 # 智能体引擎 (Agent Engine)
 
+> 2026-09-18：权限、用户工作台、自动采集/补抄、违约金及数据库报表已接入，具体启动与演示边界以 [根目录指南](../README.md) 为准。智能体业务接口现在只接受 Java 网关的内部密钥，手动启动须设置同一个 `AGENT_INTERNAL_TOKEN`；不再允许前端绕过后端直接调用。
+
+
 基于AI的水表抄表收费管理系统的多智能体核心引擎。
 
 ## 架构设计
@@ -54,18 +57,32 @@
 
 ## 快速开始
 
-### 安装依赖
+完整的中间件、后端、前端启动顺序和管理员初始化见 [项目启动指南](../README.md)。引擎默认端口为 `8087`，使用 Python 3.10–3.12；默认 CSV 演示无需 OCR 依赖。
 
-```bash
-cd agent-engine
-pip install -r requirements.txt
+### 安装依赖（PowerShell，从项目根目录执行）
+
+```powershell
+$env:PYTHONUTF8 = '1'
+python -m venv .venv-local
+& ./.venv-local/Scripts/python.exe -m pip install -r ./agent-engine/requirements.txt
 ```
 
-### 运行系统
+如旧 `.venv` 提示 `No Python at ...`，使用本机有效 Python 创建上面的新环境；不要复制其他电脑的虚拟环境。
 
-```bash
-python main.py
+### 运行系统（独立终端）
+
+```powershell
+Set-Location ./agent-engine
+$env:PYTHONUTF8 = '1'
+$env:FLASK_HOST = '127.0.0.1'
+$env:FLASK_PORT = '8087'
+# 先按根 README 生成密钥文件；Java 端也加载同一个值。
+$env:AGENT_INTERNAL_TOKEN = [IO.File]::ReadAllText((Join-Path (Split-Path (Get-Location) -Parent) 'logs/agent-internal-token.txt')).Trim()
+$env:FLASK_DEBUG = 'False'
+& ../.venv-local/Scripts/python.exe -u main.py
 ```
+
+启动会先执行内置演示，再提供 Flask API。健康检查：`Invoke-RestMethod http://127.0.0.1:8087/api/health`，预期 `status=healthy`。按 `Ctrl+C` 停止。应用滚动日志位于当前工作目录的 `logs/`。
 
 ### API 接口
 
@@ -89,16 +106,20 @@ python main.py
 
 ```python
 import requests
+import os
+
+# 仅限本机服务联调；前端使用带管理员会话的 Java 网关。
+internal_headers = {"X-Agent-Token": os.environ["AGENT_INTERNAL_TOKEN"]}
 
 # 单表远程抄表
-response = requests.post('http://localhost:8087/api/meter-reading', json={
+response = requests.post('http://localhost:8087/api/meter-reading', headers=internal_headers, json={
     'mode': 'remote',
     'meter_id': 'HZ000001'
 })
 print(response.json())
 
 # 按区批量
-response = requests.post('http://localhost:8087/api/meter-reading', json={
+response = requests.post('http://localhost:8087/api/meter-reading', headers=internal_headers, json={
     'mode': 'schedule',
     'district': '西湖区',
     'meter_count': 5
@@ -108,7 +129,7 @@ response = requests.post('http://localhost:8087/api/meter-reading', json={
 ### 2. 异常检测
 
 ```python
-response = requests.post('http://localhost:8087/api/anomaly/detect', json={
+response = requests.post('http://localhost:8087/api/anomaly/detect', headers=internal_headers, json={
     'meter_id': 'WM-A001-0001',
     'current_usage': 150,
     'usage_history': [10, 12, 11, 10, 13, 11],
@@ -121,14 +142,14 @@ print(response.json())
 
 ```python
 # 创建抄表→计费工作流
-response = requests.post('http://localhost:8087/api/workflow/create', json={
+response = requests.post('http://localhost:8087/api/workflow/create', headers=internal_headers, json={
     'template': 'reading_billing_workflow',
     'context': {'meter_id': 'WM-A001-0001'}
 })
 workflow_id = response.json()['data']['workflow_id']
 
 # 执行工作流
-response = requests.post(f'http://localhost:8087/api/workflow/{workflow_id}/execute')
+response = requests.post(f'http://localhost:8087/api/workflow/{workflow_id}/execute', headers=internal_headers)
 print(response.json())
 ```
 
@@ -159,26 +180,16 @@ result = agent.run_cycle({
 
 ## 配置说明
 
-编辑 `.env` 文件:
+当前 `main.py` 读取以下 Flask 环境变量，也可在本目录自行创建 `.env` 设置（文件不是启动前置条件）：
 
 ```env
-# 数据库
-DB_HOST=localhost
-DB_PORT=3306
-DB_NAME=water_meter_db
-
-# Redis
-REDIS_HOST=localhost
-REDIS_PORT=6379
-
-# 智能体配置
-AGENT_CONFIDENCE_THRESHOLD=0.95
-ANOMALY_ALERT_THRESHOLD=0.8
-
 # API服务
-FLASK_HOST=0.0.0.0
+FLASK_HOST=127.0.0.1
 FLASK_PORT=8087
+FLASK_DEBUG=False
 ```
+
+默认引擎使用内存状态与 CSV 样例，代码没有读取此前文档列出的 `DB_*`、`REDIS_*`、`AGENT_CONFIDENCE_THRESHOLD` 和 `ANOMALY_ALERT_THRESHOLD` 环境变量。MySQL / Redis 由 Java 后端连接，分别使用宿主机 `3308` / `16379`。
 
 ## 目录结构
 

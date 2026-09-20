@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # ==================== 基础设施 ====================
 
@@ -18,7 +16,7 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
-    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-time-zone=+08:00
     networks:
       - water-network
 
@@ -28,7 +26,8 @@ services:
     container_name: water-redis
     restart: always
     ports:
-      - "6379:6379"
+      # 避开 Windows 保留端口范围；容器内部仍使用 6379
+      - "16379:6379"
     volumes:
       - redis_data:/data
     command: redis-server --appendonly yes
@@ -56,7 +55,7 @@ services:
 
   # MinIO对象存储
   minio:
-    image: minio/minio:latest
+    image: quay.io/minio/minio:RELEASE.2025-09-07T16-13-09Z
     container_name: water-minio
     restart: always
     environment:
@@ -83,8 +82,9 @@ services:
       JVM_XMS: 256m
       JVM_XMX: 256m
     ports:
-      - "8848:8848"
-      - "9848:9848"
+      # 客户端 gRPC 端口必须是 HTTP 端口 + 1000
+      - "18848:8848"
+      - "19848:9848"
     networks:
       - water-network
 

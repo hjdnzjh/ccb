@@ -3,6 +3,8 @@ package com.water.ai.meter.controller;
 import com.water.ai.meter.common.ApiResult;
 import com.water.ai.meter.entity.Bill;
 import com.water.ai.meter.mapper.BillMapper;
+import com.water.ai.meter.mapper.BillPaymentMapper;
+import com.water.ai.meter.entity.BillPayment;
 import com.water.ai.meter.service.BillService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -27,6 +29,7 @@ public class BillingController {
 
     private final BillService billService;
     private final BillMapper billMapper;
+    private final BillPaymentMapper billPaymentMapper;
 
     @Operation(summary = "管理端账单分页列表")
     @GetMapping("/list")
@@ -89,18 +92,26 @@ public class BillingController {
 
     @Operation(summary = "账单详情", description = "查询账单详情")
     @GetMapping("/{billId}")
-    public Bill getBillDetail(
+    public Object getBillDetail(
             @Parameter(description = "账单ID") @PathVariable Long billId) {
-        return billService.getById(billId);
+        Bill bill = billService.getById(billId);
+        return bill == null ? ApiResult.fail("账单不存在") : bill;
     }
 
-    @Operation(summary = "缴费", description = "账单缴费")
+    @Operation(summary = "账单收款登记流水")
+    @GetMapping("/{billId}/payments")
+    public ApiResult<List<BillPayment>> paymentHistory(@PathVariable Long billId) {
+        if (billService.getById(billId) == null) return ApiResult.fail("账单不存在");
+        return ApiResult.ok(billPaymentMapper.selectByBillId(billId));
+    }
+
+    @Operation(summary = "收款登记", description = "本地演示/线下收款登记；不调用真实支付网关")
     @PostMapping("/pay/{billId}")
     public Map<String, Object> payBill(
             @Parameter(description = "账单ID") @PathVariable Long billId,
             @Parameter(description = "支付金额") @RequestParam BigDecimal amount,
             @Parameter(description = "支付方式") @RequestParam String payMethod,
-            @Parameter(description = "交易号") @RequestParam(required = false) String tradeNo) {
+            @Parameter(description = "唯一请求号；重试必须复用原值") @RequestParam(required = false) String tradeNo) {
         return billService.payBill(billId, amount, payMethod, tradeNo);
     }
 

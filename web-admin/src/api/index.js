@@ -1,42 +1,72 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
+import { clearSession } from '@/utils/session.js'
 
-const request = axios.create({
+export const request = axios.create({
   baseURL: '/api/v1',
   timeout: 30000
 })
 
-request.interceptors.request.use(
-  config => {
-    const token = localStorage.getItem('token')
-    if (token) config.headers.Authorization = `Bearer ${token}`
-    return config
-  },
-  error => Promise.reject(error)
-)
+const attachToken = config => {
+  const token = localStorage.getItem('token')
+  if (token) config.headers.Authorization = `Bearer ${token}`
+  return config
+}
+const rejectResponse = error => {
+  if (error.response?.status === 401) {
+    clearSession()
+    if (window.location.pathname !== '/login') window.location.replace('/login')
+  }
+  if (!error.config?.silentError) ElMessage.error(error.response?.data?.message || error.message || '网络错误')
+  return Promise.reject(error)
+}
+request.interceptors.request.use(attachToken)
 
 request.interceptors.response.use(
   response => {
     const res = response.data
     if (res && typeof res.success === 'boolean' && !res.success) {
       ElMessage.error(res.message || '请求失败')
-      return Promise.reject(new Error(res.message || '请求失败'))
+      const error = new Error(res.message || '请求失败')
+      error.businessFailure = true
+      return Promise.reject(error)
     }
     return res
   },
-  error => {
-    ElMessage.error(error.response?.data?.message || error.message || '网络错误')
-    return Promise.reject(error)
-  }
+  rejectResponse
 )
 
 const agentRequest = axios.create({
   baseURL: '/agent-api',
   timeout: 60000
 })
+agentRequest.interceptors.request.use(attachToken)
+agentRequest.interceptors.response.use(response => response, rejectResponse)
 
 export const authApi = {
-  login: (data) => request.post('/auth/login', data)
+  login: (data) => request.post('/auth/login', data),
+  me: () => request.get('/auth/me'),
+  logout: () => request.post('/auth/logout')
+}
+
+export const meApi = {
+  overview: () => request.get('/me/overview'),
+  getDetail: (id) => request.get(`/me/bills/${id}`),
+  getPayments: (id) => request.get(`/me/bills/${id}/payments`),
+  pay: (id, params) => request.post(`/me/bills/${id}/pay`, null, { params }),
+  feedback: () => request.get('/me/feedback'),
+  submitFeedback: (data) => request.post('/me/feedback', data)
+}
+
+export const feedbackApi = {
+  list: () => request.get('/feedback'),
+  detail: (id) => request.get(`/feedback/${id}`),
+  reply: (id, data) => request.post(`/feedback/${id}/reply`, data)
+}
+
+export const notificationApi = {
+  inbox: () => request.get('/me/notifications', { silentError: true }),
+  mark: (keys, read) => request.post('/me/notifications/read', { keys, read }, { silentError: true })
 }
 
 export const opsApi = {
@@ -72,6 +102,7 @@ export const billApi = {
     request.post('/bill/generate', null, { params: { meterId, readingId } }),
   getUserBills: (userId) => request.get(`/bill/user/${userId}`),
   getDetail: (billId) => request.get(`/bill/${billId}`),
+  getPayments: (billId) => request.get(`/bill/${billId}/payments`),
   pay: (billId, params) => request.post(`/bill/pay/${billId}`, null, { params }),
   getOverdueRank: (limit = 10) => request.get('/bill/overdue-rank', { params: { limit } }),
   getStatistics: (startDate) => request.get('/bill/statistics', { params: { startDate } })

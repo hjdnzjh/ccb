@@ -46,7 +46,7 @@ public class MeterReadingServiceImpl extends ServiceImpl<MeterReadingMapper, Met
         log.info("AI图像抄表: meterId={}", meterId);
 
         // 获取水表信息
-        WaterMeter meter = waterMeterMapper.selectById(meterId);
+        WaterMeter meter = waterMeterMapper.selectForUpdate(meterId);
         if (meter == null) {
             return errorResult("水表不存在");
         }
@@ -68,19 +68,21 @@ public class MeterReadingServiceImpl extends ServiceImpl<MeterReadingMapper, Met
         BigDecimal reading = new BigDecimal(data.get("reading").toString());
         BigDecimal confidence = new BigDecimal(data.get("confidence").toString());
 
+        if (!canAdvance(meter,reading,LocalDateTime.now(java.time.ZoneId.of("Asia/Shanghai")))) return errorResult("累计读数无效或采集时间已过期");
+
         // 保存抄表记录
         MeterReading record = MeterReading.builder()
                 .meterId(meterId)
                 .meterNo(meter.getMeterNo())
                 .userId(meter.getUserId())
                 .readingValue(reading)
-                .usageAmount(reading.subtract(meter.getCurrentReading()))
+                .usageAmount(reading.subtract(meter.getCurrentReading()==null?BigDecimal.ZERO:meter.getCurrentReading()))
                 .readingType("ai_image")
                 .confidence(confidence)
                 .imageUrl("")  // 实际应上传MinIO
                 .status(confidence.compareTo(new BigDecimal("0.95")) >= 0 ? 1 : 0)
-                .readingTime(LocalDateTime.now())
-                .readingPeriod(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM")))
+                .readingTime(LocalDateTime.now(java.time.ZoneId.of("Asia/Shanghai")))
+                .readingPeriod(LocalDateTime.now(java.time.ZoneId.of("Asia/Shanghai")).format(DateTimeFormatter.ofPattern("yyyy-MM")))
                 .aiResult(agentResult.toString())
                 .build();
 
@@ -88,7 +90,7 @@ public class MeterReadingServiceImpl extends ServiceImpl<MeterReadingMapper, Met
 
         // 更新水表读数
         if (record.getStatus() == 1) {
-            waterMeterMapper.updateReading(meterId, reading, LocalDateTime.now());
+            waterMeterMapper.updateReading(meterId, reading, LocalDateTime.now(java.time.ZoneId.of("Asia/Shanghai")));
         }
 
         return successResult(Map.of(
@@ -104,7 +106,7 @@ public class MeterReadingServiceImpl extends ServiceImpl<MeterReadingMapper, Met
     public Map<String, Object> remoteReading(Long meterId) {
         log.info("远程抄表: meterId={}", meterId);
 
-        WaterMeter meter = waterMeterMapper.selectById(meterId);
+        WaterMeter meter = waterMeterMapper.selectForUpdate(meterId);
         if (meter == null) {
             return errorResult("水表不存在");
         }
@@ -124,22 +126,24 @@ public class MeterReadingServiceImpl extends ServiceImpl<MeterReadingMapper, Met
         Map<String, Object> data = (Map<String, Object>) agentResult.get("data");
         BigDecimal reading = new BigDecimal(data.get("reading").toString());
 
+        if (!canAdvance(meter,reading,LocalDateTime.now(java.time.ZoneId.of("Asia/Shanghai")))) return errorResult("累计读数无效或采集时间已过期");
+
         // 保存记录
         MeterReading record = MeterReading.builder()
                 .meterId(meterId)
                 .meterNo(meter.getMeterNo())
                 .userId(meter.getUserId())
                 .readingValue(reading)
-                .usageAmount(reading.subtract(meter.getCurrentReading()))
+                .usageAmount(reading.subtract(meter.getCurrentReading()==null?BigDecimal.ZERO:meter.getCurrentReading()))
                 .readingType("remote")
                 .confidence(new BigDecimal("0.99"))
                 .status(1)
-                .readingTime(LocalDateTime.now())
-                .readingPeriod(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM")))
+                .readingTime(LocalDateTime.now(java.time.ZoneId.of("Asia/Shanghai")))
+                .readingPeriod(LocalDateTime.now(java.time.ZoneId.of("Asia/Shanghai")).format(DateTimeFormatter.ofPattern("yyyy-MM")))
                 .build();
 
         this.save(record);
-        waterMeterMapper.updateReading(meterId, reading, LocalDateTime.now());
+        waterMeterMapper.updateReading(meterId, reading, LocalDateTime.now(java.time.ZoneId.of("Asia/Shanghai")));
 
         return successResult(Map.of("readingId", record.getId(), "reading", reading));
     }
@@ -170,10 +174,12 @@ public class MeterReadingServiceImpl extends ServiceImpl<MeterReadingMapper, Met
     public Map<String, Object> manualReading(Long meterId, BigDecimal reading, String operator) {
         log.info("人工抄表: meterId={}, reading={}, operator={}", meterId, reading, operator);
 
-        WaterMeter meter = waterMeterMapper.selectById(meterId);
+        WaterMeter meter = waterMeterMapper.selectForUpdate(meterId);
         if (meter == null) {
             return errorResult("水表不存在");
         }
+
+        if (!canAdvance(meter,reading,LocalDateTime.now(java.time.ZoneId.of("Asia/Shanghai")))) return errorResult("累计读数无效或采集时间已过期");
 
         // 保存记录
         MeterReading record = MeterReading.builder()
@@ -181,17 +187,17 @@ public class MeterReadingServiceImpl extends ServiceImpl<MeterReadingMapper, Met
                 .meterNo(meter.getMeterNo())
                 .userId(meter.getUserId())
                 .readingValue(reading)
-                .usageAmount(reading.subtract(meter.getCurrentReading()))
+                .usageAmount(reading.subtract(meter.getCurrentReading()==null?BigDecimal.ZERO:meter.getCurrentReading()))
                 .readingType("manual")
                 .confidence(new BigDecimal("1.00"))
                 .status(1)
-                .readingTime(LocalDateTime.now())
-                .readingPeriod(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM")))
+                .readingTime(LocalDateTime.now(java.time.ZoneId.of("Asia/Shanghai")))
+                .readingPeriod(LocalDateTime.now(java.time.ZoneId.of("Asia/Shanghai")).format(DateTimeFormatter.ofPattern("yyyy-MM")))
                 .remark("人工录入，操作人：" + operator)
                 .build();
 
         this.save(record);
-        waterMeterMapper.updateReading(meterId, reading, LocalDateTime.now());
+        waterMeterMapper.updateReading(meterId, reading, LocalDateTime.now(java.time.ZoneId.of("Asia/Shanghai")));
 
         return successResult(Map.of("readingId", record.getId(), "reading", reading));
     }
@@ -201,17 +207,24 @@ public class MeterReadingServiceImpl extends ServiceImpl<MeterReadingMapper, Met
     public Map<String, Object> reviewReading(Long readingId, String reviewer, boolean approved, String reason) {
         log.info("审核抄表记录: readingId={}, reviewer={}, approved={}", readingId, reviewer, approved);
 
-        MeterReading record = this.getById(readingId);
+        MeterReading record = baseMapper.selectForUpdate(readingId);
         if (record == null) {
             return errorResult("抄表记录不存在");
         }
 
+        if (!Integer.valueOf(0).equals(record.getStatus())) return errorResult("仅待审核的抄表记录可以审核");
+        WaterMeter meter = waterMeterMapper.selectForUpdate(record.getMeterId());
+        if (meter == null || !Objects.equals(meter.getUserId(),record.getUserId())) return errorResult("水表或用户归属已变化，请重新采集");
+        if (approved && !canAdvance(meter,record.getReadingValue(),record.getReadingTime()))
+            return errorResult("记录已过期或累计读数回退，请重新采集；当前计费基线保持不变");
+
         record.setReviewer(reviewer);
-        record.setReviewTime(LocalDateTime.now());
+        record.setReviewTime(LocalDateTime.now(java.time.ZoneId.of("Asia/Shanghai")));
 
         if (approved) {
             record.setStatus(1);
-            waterMeterMapper.updateReading(record.getMeterId(), record.getReadingValue(), LocalDateTime.now());
+            record.setUsageAmount(record.getReadingValue().subtract(meter.getCurrentReading()==null?BigDecimal.ZERO:meter.getCurrentReading()));
+            waterMeterMapper.updateReading(record.getMeterId(), record.getReadingValue(), record.getReadingTime());
         } else {
             record.setStatus(2);
             record.setRemark(reason);
@@ -267,6 +280,13 @@ public class MeterReadingServiceImpl extends ServiceImpl<MeterReadingMapper, Met
 
     private Map<String, Object> successResult(Object data) {
         return Map.of("success", true, "data", data);
+    }
+
+    private boolean canAdvance(WaterMeter meter,BigDecimal reading,LocalDateTime at) {
+        return reading!=null && reading.signum()>=0 && reading.scale()<=2 && reading.compareTo(new BigDecimal("9999999999.99"))<=0
+                && meter.getUserId()!=null && (meter.getStatus()==null || meter.getStatus()<2)
+                && reading.compareTo(meter.getCurrentReading()==null?BigDecimal.ZERO:meter.getCurrentReading())>=0
+                && at!=null && (meter.getLastReadingTime()==null || at.isAfter(meter.getLastReadingTime()));
     }
 
     private Map<String, Object> errorResult(String message) {

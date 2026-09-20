@@ -2,6 +2,9 @@ package com.water.ai.meter.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.water.ai.meter.entity.Bill;
+import com.water.ai.meter.entity.BillPayment;
+import com.water.ai.meter.mapper.BillPaymentMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.water.ai.meter.entity.MeterReading;
 import com.water.ai.meter.entity.SysUser;
 import com.water.ai.meter.entity.WaterMeter;
@@ -13,10 +16,11 @@ import com.water.ai.meter.service.BillService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -36,10 +40,10 @@ public class BillServiceImpl extends ServiceImpl<BillMapper, Bill> implements Bi
     private final WaterMeterMapper waterMeterMapper;
     private final SysUserMapper sysUserMapper;
     private final MeterReadingMapper meterReadingMapper;
-    private final RestTemplate restTemplate;
-
-    @Value("${agent-engine.url:http://localhost:8087}")
-    private String agentEngineUrl;
+    private final BillPaymentMapper billPaymentMapper;
+    private final PlatformTransactionManager transactionManager;
+    private final ObjectMapper objectMapper;
+    private final com.water.ai.meter.tariff.ResidentialTariffService residentialTariff;
 
     // 阶梯水价配置
     @Value("${water-meter.pricing.residential.ladder1:180}")
@@ -67,33 +71,58 @@ public class BillServiceImpl extends ServiceImpl<BillMapper, Bill> implements Bi
     private BigDecimal sewageRate;
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class, isolation = org.springframework.transaction.annotation.Isolation.READ_COMMITTED)
     public Map<String, Object> generateBill(Long meterId, Long readingId) {
         log.info("生成账单: meterId={}, readingId={}", meterId, readingId);
 
         // 获取水表和抄表信息
+        if (meterId == null || readingId == null) return errorResult("水表和抄表 ID 不能为空");
+        MeterReading reading = meterReadingMapper.selectForUpdate(readingId);
         WaterMeter meter = waterMeterMapper.selectById(meterId);
-        MeterReading reading = meterReadingMapper.selectById(readingId);
         
         if (meter == null || reading == null) {
             return errorResult("水表或抄表记录不存在");
         }
+        if (!Objects.equals(reading.getMeterId(), meterId) || meter.getUserId() == null
+                || !Objects.equals(reading.getUserId(), meter.getUserId())) {
+            return errorResult("抄表记录与水表或用户不匹配");
+        }
+        if (!Integer.valueOf(1).equals(reading.getStatus())) return errorResult("仅已确认的抄表记录可以出账");
+        // Serialize a shared allowance before the bill existence query takes any locks.
+        residentialTariff.lockForBilling(meterId);
+        List<Bill> existing = baseMapper.selectByReadingId(readingId);
+        if (existing.size() > 1) return errorResult("该抄表已有重复账单，请人工核对");
+        if (!existing.isEmpty()) return generatedResult(existing.get(0), true);
 
         // 获取用户信息
         SysUser user = sysUserMapper.selectById(meter.getUserId());
         if (user == null) {
             return errorResult("用户不存在");
         }
+        if (!Set.of("residential", "commercial", "industrial").contains(
+                Objects.toString(user.getUserType(), ""))) return errorResult("不支持的用户费率类型");
 
         // 计算用水量
-        BigDecimal usage = reading.getReadingValue().subtract(
-                reading.getReadingValue() != null ? reading.getReadingValue() : meter.getLastReading());
+        BigDecimal usage = reading.getUsageAmount();
+        if (usage == null || usage.signum() < 0 || reading.getReadingValue() == null
+                || reading.getReadingValue().compareTo(usage) < 0) {
+            return errorResult("抄表用量或累计读数无效");
+        }
+        String period = reading.getReadingPeriod();
+        if (period == null || period.isBlank()) {
+            if (reading.getReadingTime() == null) return errorResult("抄表时间和账期均为空");
+            period = reading.getReadingTime().format(DateTimeFormatter.ofPattern("yyyy-MM"));
+        }
+        if (!period.matches("\\d{4}-(0[1-9]|1[0-2])")) return errorResult("抄表账期格式无效");
 
         // 计算费用
-        Map<String, Object> feeResult = calculateFee(usage, user.getUserType());
+        var annual = residentialTariff.prepare(meterId,user.getId(),user.getUserType(),reading);
+        Map<String, Object> feeResult = annual==null ? calculateFee(usage, user.getUserType()) : Map.of(
+                "waterFee",annual.quote().water(),"sewageFee",annual.quote().sewage(),"ladderDetail",annual.detail());
         BigDecimal waterFee = (BigDecimal) feeResult.get("waterFee");
         BigDecimal sewageFee = (BigDecimal) feeResult.get("sewageFee");
         BigDecimal totalAmount = waterFee.add(sewageFee);
+        if (totalAmount.compareTo(new BigDecimal("9999999999.99")) > 0) return errorResult("账单金额超出范围");
 
         // 生成账单编号
         String billNo = generateBillNo();
@@ -104,45 +133,55 @@ public class BillServiceImpl extends ServiceImpl<BillMapper, Bill> implements Bi
                 .userId(user.getId())
                 .meterId(meterId)
                 .readingId(readingId)
-                .billPeriod(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM")))
-                .startReading(reading.getReadingValue())
+                .billPeriod(period)
+                .startReading(reading.getReadingValue().subtract(usage))
                 .endReading(reading.getReadingValue())
                 .usageAmount(usage)
                 .waterFee(waterFee)
                 .sewageFee(sewageFee)
                 .totalAmount(totalAmount)
                 .priceType(user.getUserType())
-                .ladderDetail(feeResult.get("ladderDetail").toString())
-                .status(0)
-                .dueDate(LocalDateTime.now().plusDays(15))
+                .ladderDetail(toJson(feeResult.get("ladderDetail")))
+                .paidAmount(BigDecimal.ZERO)
+                .penalty(BigDecimal.ZERO)
+                .discount(BigDecimal.ZERO)
+                .status(totalAmount.signum() == 0 ? 1 : 0)
+                .deleted(0)
+                .dueDate(LocalDateTime.now(java.time.ZoneId.of("Asia/Shanghai")).plusDays(15))
                 .build();
 
-        this.save(bill);
+        if (!this.save(bill)) throw new IllegalStateException("账单保存失败");
+        if(annual!=null)residentialTariff.record(annual,bill.getId(),readingId);
 
         log.info("账单生成成功: billNo={}, amount={}", billNo, totalAmount);
 
-        return successResult(Map.of(
-                "billId", bill.getId(),
-                "billNo", billNo,
-                "usage", usage,
-                "totalAmount", totalAmount
-        ));
+        return generatedResult(bill, false);
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public Map<String, Object> batchGenerateBills(List<Long> readingIds) {
-        log.info("批量生成账单: count={}", readingIds.size());
-
-        int successCount = 0;
+        if (readingIds == null || readingIds.isEmpty() || readingIds.size() > 200) {
+            return errorResult("每次批量出账需包含 1 至 200 条抄表记录");
+        }
+        TransactionTemplate transaction = new TransactionTemplate(transactionManager);
+        transaction.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
+        transaction.setIsolationLevel(TransactionDefinition.ISOLATION_READ_COMMITTED);
+        int createdCount = 0;
+        int existingCount = 0;
         List<String> errors = new ArrayList<>();
 
         for (Long readingId : readingIds) {
             try {
-                MeterReading reading = meterReadingMapper.selectById(readingId);
-                if (reading != null) {
-                    generateBill(reading.getMeterId(), readingId);
-                    successCount++;
+                Map<String, Object> result = transaction.execute(status -> {
+                    MeterReading reading = readingId == null ? null : meterReadingMapper.selectForUpdate(readingId);
+                    return reading == null ? errorResult("抄表记录不存在") : generateBill(reading.getMeterId(), readingId);
+                });
+                if (result != null && Boolean.TRUE.equals(result.get("success"))) {
+                    Map<?, ?> data = (Map<?, ?>) result.get("data");
+                    if (Boolean.TRUE.equals(data.get("existing"))) existingCount++;
+                    else createdCount++;
+                } else {
+                    errors.add("readingId=" + readingId + ": " + (result == null ? "出账失败" : result.get("message")));
                 }
             } catch (Exception e) {
                 errors.add("readingId=" + readingId + ": " + e.getMessage());
@@ -151,7 +190,10 @@ public class BillServiceImpl extends ServiceImpl<BillMapper, Bill> implements Bi
 
         return successResult(Map.of(
                 "total", readingIds.size(),
-                "success", successCount,
+                "success", createdCount + existingCount,
+                "created", createdCount,
+                "existing", existingCount,
+                "failed", errors.size(),
                 "errors", errors
         ));
     }
@@ -171,31 +213,49 @@ public class BillServiceImpl extends ServiceImpl<BillMapper, Bill> implements Bi
     public Map<String, Object> payBill(Long billId, BigDecimal amount, String payMethod, String tradeNo) {
         log.info("账单缴费: billId={}, amount={}, payMethod={}", billId, amount, payMethod);
 
-        Bill bill = this.getById(billId);
+        if (billId == null || amount == null || amount.signum() <= 0 || amount.scale() > 2) {
+            return errorResult("缴费金额必须为正数且最多两位小数");
+        }
+        if (payMethod == null || !Set.of("wechat", "alipay", "bank", "cash").contains(payMethod)) {
+            return errorResult("支付方式无效");
+        }
+        if (tradeNo == null || !tradeNo.matches("[A-Za-z0-9_:-]{1,100}")) {
+            return errorResult("请提供有效的收款请求号");
+        }
+        Bill bill = baseMapper.selectForUpdate(billId);
         if (bill == null) {
             return errorResult("账单不存在");
         }
 
-        if (bill.getStatus() == 1) {
-            return errorResult("账单已支付");
+        BillPayment existing = billPaymentMapper.selectByTradeNo(tradeNo);
+        if (existing != null) {
+            if (!Objects.equals(existing.getBillId(), billId) || existing.getAmount().compareTo(amount) != 0
+                    || !existing.getPayMethod().equals(payMethod)) return errorResult("收款请求号已被其他登记使用");
+            return paymentResult(bill, existing, true);
         }
+        BigDecimal paid = bill.getPaidAmount() == null ? BigDecimal.ZERO : bill.getPaidAmount();
+        BigDecimal total = bill.getTotalAmount();
+        if (total == null || total.signum() < 0 || paid.signum() < 0 || paid.compareTo(total) > 0) {
+            return errorResult("账单金额数据异常，请人工核对");
+        }
+        if (bill.getStatus() == null || !Set.of(0, 2, 3).contains(bill.getStatus())
+                || total.compareTo(paid) == 0) return errorResult("账单不可继续缴费");
+        if (amount.compareTo(total.subtract(paid)) > 0) return errorResult("缴费金额不能超过剩余应付");
 
-        // 更新账单状态
-        bill.setStatus(1);
-        bill.setPaidAmount(amount);
-        bill.setPaidTime(LocalDateTime.now());
+        BillPayment payment = BillPayment.builder().billId(billId).amount(amount.setScale(2))
+                .payMethod(payMethod).tradeNo(tradeNo).paidTime(LocalDateTime.now(java.time.ZoneId.of("Asia/Shanghai"))).build();
+        // Unique request key is enforced by MySQL as well, including concurrent requests on different bills.
+        if (billPaymentMapper.insert(payment) != 1) throw new IllegalStateException("收款流水保存失败");
+        bill.setPaidAmount(paid.add(amount).setScale(2));
+        bill.setStatus(bill.getPaidAmount().compareTo(total) == 0 ? 1 : 3);
+        bill.setPaidTime(payment.getPaidTime());
         bill.setPayMethod(payMethod);
-        bill.setTradeNo(tradeNo != null ? tradeNo : generateTradeNo());
-
-        this.updateById(bill);
-
-        log.info("账单支付成功: billId={}", billId);
-
-        return successResult(Map.of(
-                "billId", billId,
-                "paidAmount", amount,
-                "paidTime", bill.getPaidTime()
-        ));
+        bill.setTradeNo(tradeNo);
+        if (baseMapper.updatePayment(billId, bill.getStatus(), bill.getPaidAmount(), bill.getPaidTime(),
+                payMethod, tradeNo) != 1) {
+            throw new IllegalStateException("账单收款更新失败");
+        }
+        return paymentResult(bill, payment, false);
     }
 
     @Override
@@ -224,15 +284,14 @@ public class BillServiceImpl extends ServiceImpl<BillMapper, Bill> implements Bi
     @Override
     public Map<String, Object> getRevenueStatistics(String startDate, String endDate) {
         LocalDateTime start = LocalDateTime.parse(startDate + "T00:00:00");
-        LocalDateTime end = LocalDateTime.parse(endDate + "T23:59:59");
-        
-        Map<String, BigDecimal> sumAmount = baseMapper.sumAmount(start);
-        Map<String, Object> collectionRate = baseMapper.calculateCollectionRate(start);
-        
+        LocalDateTime end = java.time.LocalDate.parse(endDate).plusDays(1).atStartOfDay();
+        if (!start.isBefore(end)) throw new IllegalArgumentException("结束日期不得早于开始日期");
+        Map<String,Object> created = baseMapper.createdBetween(start,end);
         return Map.of(
-                "totalAmount", sumAmount == null ? BigDecimal.ZERO : sumAmount.getOrDefault("total", BigDecimal.ZERO),
-                "paidAmount", sumAmount == null ? BigDecimal.ZERO : sumAmount.getOrDefault("paid", BigDecimal.ZERO),
-                "collectionRate", collectionRate
+                "totalAmount", created.get("amount"),
+                "paidAmount", baseMapper.receiptsBetween(start,end),
+                "collectionRate", Map.of("total",created.get("total"),"paid",created.get("paid")),
+                "definition", "应收及结清笔数按账单创建日期；登记收入按收款流水日期，含部分付款。起止日期均包含。"
         );
     }
 
@@ -298,12 +357,26 @@ public class BillServiceImpl extends ServiceImpl<BillMapper, Bill> implements Bi
     }
 
     private String generateBillNo() {
-        return "BILL-" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")) 
-                + String.format("%04d", new Random().nextInt(10000));
+        return "BILL-" + UUID.randomUUID().toString().replace("-", "");
     }
 
-    private String generateTradeNo() {
-        return "TRD-" + UUID.randomUUID().toString().replace("-", "").substring(0, 16).toUpperCase();
+    private Map<String, Object> generatedResult(Bill bill, boolean existing) {
+        return successResult(Map.of("billId", bill.getId(), "billNo", bill.getBillNo(),
+                "usage", bill.getUsageAmount(), "totalAmount", bill.getTotalAmount(), "existing", existing));
+    }
+
+    private String toJson(Object value) {
+        try { return objectMapper.writeValueAsString(value); }
+        catch (com.fasterxml.jackson.core.JsonProcessingException e) {
+            throw new IllegalStateException("费用明细序列化失败", e);
+        }
+    }
+
+    private Map<String, Object> paymentResult(Bill bill, BillPayment payment, boolean replayed) {
+        BigDecimal paid = bill.getPaidAmount() == null ? BigDecimal.ZERO : bill.getPaidAmount();
+        return successResult(Map.of("billId", bill.getId(), "paidAmount", paid,
+                "remainingAmount", bill.getTotalAmount().subtract(paid), "status", bill.getStatus(),
+                "payment", payment, "replayed", replayed));
     }
 
     private Map<String, Object> successResult(Object data) {

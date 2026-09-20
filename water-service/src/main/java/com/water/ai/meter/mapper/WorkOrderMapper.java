@@ -12,6 +12,9 @@ import java.util.Map;
 @Mapper
 public interface WorkOrderMapper extends BaseMapper<WorkOrder> {
 
+    @Select("SELECT * FROM work_order WHERE id=#{id} AND deleted=0 FOR UPDATE")
+    WorkOrder selectForUpdate(Long id);
+
     @Select("SELECT status, COUNT(*) AS cnt FROM work_order WHERE deleted = 0 GROUP BY status")
     List<Map<String, Object>> countByStatus();
 

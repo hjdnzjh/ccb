@@ -19,6 +19,9 @@ import java.util.Map;
 @Mapper
 public interface MeterReadingMapper extends BaseMapper<MeterReading> {
 
+    @Select("SELECT * FROM meter_reading WHERE id = #{id} AND deleted = 0 FOR UPDATE")
+    MeterReading selectForUpdate(Long id);
+
     /**
      * 根据水表ID查询最新抄表记录
      */

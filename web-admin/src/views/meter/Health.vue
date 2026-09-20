@@ -19,7 +19,7 @@
         </div>
         <div class="bar-label">健康度</div>
         <div class="bar"><i :style="{ width: m.health + '%' }" :class="scoreTone(m.health)" /></div>
-        <p class="pred">预测：未来30天故障概率 <strong>{{ m.fault30d }}%</strong></p>
+        <p class="pred">规则风险分 <strong>{{ m.riskScore }}/100</strong>，越高越需核查；不是故障概率</p>
         <div class="reasons">
           <em>原因解释</em>
           <ul><li v-for="(r, i) in m.reasons" :key="i">{{ r }}</li></ul>

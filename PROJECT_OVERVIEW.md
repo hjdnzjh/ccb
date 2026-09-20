@@ -1,6 +1,10 @@
 # 基于人工智能的水表抄表收费管理系统
 
+> **2026-09-19 核对说明：** 此文保留早期架构评估；最新实现、76项 Java 测试和剩余缺口以 [赛题对照清单](docs/competition-requirements.md) 为准。它不是已完成的比赛提交材料。
+
 > 可对照代码库的项目说明书：各端技术栈、目录映射、已实现能力与不足清单
+
+> 2026-09-18 已补齐权限与用户端、持久化自动采集/补抄、可配置违约金、数据库智能报表与 XLSX/PDF 导出。55 项 Java、9 项前端、2 项引擎鉴权测试通过；当前状态和操作以 [README.md](README.md) 与 [赛题验收清单](docs/competition-requirements.md) 为准，下方仍含早期能力评估。
 
 ---
 
@@ -13,8 +17,8 @@
 | 能力 | 状态 |
 |------|------|
 | 多智能体框架与 Flask API | 已实现（演示级，AI 多为模拟） |
-| 业务后端（抄表 / 计费） | 部分实现 |
-| Web 管理端 UI | 页面壳 + Mock 数据，未真正联调 |
+| 业务后端（抄表 / 计费） | 已实现事务计费、角色授权、自动采集/补抄、违约金和报表快照 |
+| Web 管理端与用户端 | 用户自有数据、缴费/反馈，管理员采集计划/违约金/报表已接真实 API；设备和支付来源标明模拟 |
 | 数据库 schema / 种子数据 | 较完整 |
 | 基础设施 Docker Compose | 仅中间件，不含应用服务 |
 | 移动 APP / 微信小程序 / API 网关 / 设备接入 | 无代码 |
@@ -27,7 +31,7 @@
 
 | 目录 / 文件 | 对应端 / 职责 | 状态 |
 |-------------|---------------|------|
-| `web-admin/` | Web 管理端（真实产品 UI） | 页面壳 + Mock 数据 |
+| `web-admin/` | Web 管理端（真实产品 UI） | 已接部分业务 API，含演示展示内容 |
 | `admin-web/` | 废弃 Vite 脚手架 | 未使用，可清理 |
 | `water-service/` | Java 业务后端 | 仅抄表 + 计费部分实现 |
 | `agent-engine/` | AI 多智能体引擎 | 框架完整，AI 多为模拟 |
@@ -65,7 +69,7 @@
 
 ### 已落地
 
-- **展示层**：`web-admin`（Mock UI）；无独立大屏应用、无 APP/小程序
+- **展示层**：`web-admin`（Vue 管理端，已接部分业务 API）；无独立大屏应用、无 APP/小程序
 - **业务层**：`water-service` 单体中仅有抄表、计费 Controller（非完整微服务拆分）
 - **AI 层**：`agent-engine` 五智能体 + 协调器 + Flask API
 - **数据层（中间件）**：Compose 中有 MySQL、Redis、InfluxDB、MinIO、Nacos；`database/init.sql` 已建表
@@ -85,7 +89,8 @@
 ```mermaid
 flowchart LR
   WebAdmin["web-admin :3000"] -->|"/api"| WaterSvc["water-service :8080"]
-  WebAdmin -->|"/agent-api"| AgentEng["agent-engine :8087"]
+  WebAdmin -->|"/agent-api · 管理员会话"| Backend
+  Backend -->|"内部密钥"| AgentEng["agent-engine :8087"]
   WaterSvc -->|RestTemplate| AgentEng
   WaterSvc --> MySQL[(MySQL)]
   WaterSvc --> Redis[(Redis)]
@@ -93,7 +98,7 @@ flowchart LR
   AgentEng --> Redis
 ```
 
-> 说明：管理端已配置代理，但多数页面仍使用本地 Mock，实际联调链路尚未打通。
+> 说明：管理端通过 `/api` 代理 Java 后端，通过 `/agent-api` 先进入 Java 鉴权网关，再携内部密钥访问 Flask 引擎。本次启动已验证两条代理链路。
 
 ---
 
@@ -104,7 +109,7 @@ flowchart LR
 | 项 | 内容 |
 |----|------|
 | **技术栈** | Vue 3.4、Vue Router 4、Pinia、Element Plus、Axios、ECharts、Dayjs、NProgress；构建：Vite 5、Sass、unplugin-auto-import / components |
-| **端口** | 开发 `:3000`；代理 `/api` → `:8080`，`/agent-api` → `:8087` |
+| **端口** | 开发 `:3000`；代理 `/api` → `:8080`，`/agent-api` → `:8080` → 内部 `:8087` |
 | **关键目录** | `src/views/`（dashboard、meter、bill、anomaly、user、report、Login、Layout）、`src/api/index.js`、`src/router/`、`vite.config.js` |
 | **实际完成度** | 路由与页面壳齐全；列表/仪表盘多为硬编码；登录为模拟 token；`bill/Payment.vue`、`anomaly/WorkOrder.vue` 为「开发中」；`src/stores/`、`components/`、`utils/` 基本为空；`api/index.js` 未被 views 引用 |
 
@@ -152,11 +157,11 @@ flowchart LR
 
 | 服务 | 镜像 / 端口 | 用途 |
 |------|-------------|------|
-| mysql | mysql:8.0 → `3306` | 业务库（自动执行 `init.sql`） |
-| redis | redis:7-alpine → `6379` | 缓存 |
+| mysql | mysql:8.0 → `3308`（容器内 `3306`） | 业务库（空数据卷首次执行 `init.sql`） |
+| redis | redis:7-alpine → `16379`（容器内 `6379`） | 缓存 |
 | influxdb | influxdb:2.7 → `8086` | 时序用量（业务尚未充分使用） |
 | minio | minio → `9000`/`9001` | 对象存储（上传逻辑未打通） |
-| nacos | nacos-server:v2.3.0 → `8848` | 注册中心（微服务拆分未完成） |
+| nacos | nacos-server:v2.3.0 → `18848` / gRPC `19848` | 注册中心（微服务拆分未完成） |
 
 **Compose 未包含**：`water-service`、`agent-engine`、`web-admin`、Kafka、Elasticsearch。
 
@@ -251,59 +256,21 @@ flowchart LR
 |------|------------|----------|
 | Phase 2 AI 能力 | 未勾选 | 仍成立：真实 OCR / LSTM / Isolation Forest 未接 |
 | Phase 3 业务服务 | 勾选「待做 Spring / MySQL / Redis」 | **部分完成**：有 `water-service` + `init.sql` + Compose 中间件，但业务覆盖不全 |
-| Phase 4 前端 | 勾选「待做 Vue3」 | **部分完成**：`web-admin` 壳已有，未接 API；APP/小程序仍无 |
+| Phase 4 前端 | 勾选「待做 Vue3」 | **部分完成**：`web-admin` 已接部分业务 API；APP/小程序仍无 |
 
 ---
 
 ## 七、快速开始
 
-### 1. 启动中间件
+请按 [项目启动指南](README.md) 操作，完整顺序为：
 
-```bash
-docker compose up -d
-```
+1. Docker Desktop 就绪后，在根目录执行 `docker compose up -d`。
+2. 新演示库在 MySQL 就绪后导入 `database/seed_ops.sql`，再导入 `database/seed_hangzhou_map.sql`；日常重启不重复导入。
+3. 创建本机 Python 虚拟环境、安装 Python / npm 依赖并构建 Java JAR。
+4. 分别启动 AI 引擎 `8087`、业务后端 `8080`、管理端 `3000`。
+5. 访问 [管理端](http://127.0.0.1:3000)，使用 **admin / admin123** 登录。
 
-将拉起 MySQL（自动执行 `database/init.sql`）、Redis、InfluxDB、MinIO、Nacos。
-
-### 2. 启动 AI 引擎（:8087）
-
-```bash
-cd agent-engine
-pip install -r requirements.txt
-python main.py
-```
-
-### 3. 启动业务后端（:8080）
-
-```bash
-cd water-service
-# 需本机 JDK 17+ / Maven；确认 application.yml 中数据库与 agent-engine.url
-mvn spring-boot:run
-```
-
-### 4. 启动管理端（:3000）
-
-```bash
-cd web-admin
-npm install
-npm run dev
-```
-
-浏览器访问 `http://localhost:3000`。在页面改为真实 API 调用之前，多数列表仍显示 Mock 数据。
-
-### API 调用示例（agent-engine）
-
-```bash
-# 图像抄表（演示）
-curl -X POST http://localhost:8087/api/meter-reading \
-  -H "Content-Type: application/json" \
-  -d "{\"mode\": \"image\", \"meter_id\": \"WM-001\"}"
-
-# 异常检测（演示）
-curl -X POST http://localhost:8087/api/anomaly/detect \
-  -H "Content-Type: application/json" \
-  -d "{\"meter_id\": \"WM-001\", \"current_usage\": 150}"
-```
+Compose 只包含中间件，不能代替第 4 步。当前宿主机 MySQL / Redis 端口为 `3308` / `16379`，Nacos HTTP / gRPC 为 `18848` / `19848`。API 文档位于 [doc.html](http://localhost:8080/doc.html)。
 
 ---
 
@@ -319,5 +286,5 @@ curl -X POST http://localhost:8087/api/anomaly/detect \
 
 ---
 
-**结论**：多智能体核心与库表基础已具备，业务后端与管理端处于「可演示、未闭环」阶段；生产级 OCR/预测、完整业务 API、前后端联调、一键应用部署以及移动端/网关/设备层仍待完善。本文件以外层仓库为准，修改后请同步嵌套副本中的同名文档。
+**当前状态**：用户指定的账务、角色与用户端、持久化自动调度、违约金及统计导出已形成可测试的本地流程，一键启动见根 README。真实设备、支付机构、经过评估的 OCR/预测模型和比赛提交材料属于后续工作。
 )

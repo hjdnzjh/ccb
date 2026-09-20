@@ -2,6 +2,10 @@
 node_modules/
 /.m2repository/
 .venv/
+.venv-local/
+
+# Local service logs
+logs/
 
 # Build outputs
 target/
@@ -10,3 +14,6 @@ target/
 # Python bytecode caches
 __pycache__/
 *.py[cod]
+
+# Accidental Windows env-var expansion artifacts
+web-admin/%USERPROFILE%/

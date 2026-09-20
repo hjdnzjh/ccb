@@ -144,6 +144,7 @@
           <el-descriptions-item label="接单时间">{{ formatTime(current.acceptTime) }}</el-descriptions-item>
           <el-descriptions-item label="完成时间">{{ formatTime(current.completeTime) }}</el-descriptions-item>
         </el-descriptions>
+        <WorkOrderVerification :order-id="current.id" />
       </template>
     </el-drawer>
 
@@ -167,12 +168,12 @@
     <el-dialog v-model="completeVisible" title="完成工单" width="460px">
       <el-form label-width="80px">
         <el-form-item label="处理结果">
-          <el-input v-model="completeForm.result" type="textarea" :rows="4" placeholder="填写现场处置结果" />
+          <el-input v-model="completeForm.result" type="textarea" :rows="4" maxlength="500" show-word-limit placeholder="填写现场处置结果" />
         </el-form-item>
       </el-form>
       <template #footer>
         <el-button @click="completeVisible = false">取消</el-button>
-        <el-button type="primary" :loading="acting" @click="doComplete">确认完成</el-button>
+        <el-button type="primary" :loading="acting" :disabled="!completeForm.result.trim()" @click="doComplete">确认完成</el-button>
       </template>
     </el-dialog>
   </div>
@@ -182,6 +183,8 @@
 import { onMounted, reactive, ref } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { workOrderApi } from '@/api'
+import WorkOrderVerification from '@/components/WorkOrderVerification.vue'
+import { useNotificationTarget } from '@/utils/notificationTarget.js'
 
 const loading = ref(false)
 const acting = ref(false)
@@ -319,13 +322,18 @@ const doComplete = async () => {
 }
 
 const doClose = async (row) => {
-  await ElMessageBox.confirm(`确认关闭工单「${row.orderNo}」？`, '关闭', { type: 'warning' })
-  await workOrderApi.close(row.id, { remark: '人工关闭' })
-  ElMessage.success('工单已关闭')
-  await load()
+  try {
+    const { value } = await ElMessageBox.prompt(`填写关闭「${row.orderNo}」的原因。未解决的关联告警将恢复待处理，可重新派单。`, '关闭工单', {
+      inputType: 'textarea', inputValidator: v => !!v?.trim() && v.length <= 500 || '请填写1至500字关闭原因'
+    })
+    await workOrderApi.close(row.id, { remark: value.trim() })
+    ElMessage.success('工单已关闭，未解决的告警已恢复待处理')
+    await load()
+  } catch (error) { if (error !== 'cancel' && error !== 'close') console.error(error) }
 }
 
 onMounted(load)
+useNotificationTarget(openDetail)
 </script>
 
 <style scoped lang="scss">

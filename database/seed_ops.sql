@@ -1,3 +1,5 @@
+SET NAMES utf8mb4;
+
 -- 运营决策平台业务种子（真实入库）
 USE water_meter_db;
 
@@ -121,3 +123,6 @@ SELECT
   JSON_OBJECT('battery', m.battery_level, 'signal', m.signal_strength),
   0, NOW(), 'SEED_OPS'
 FROM water_meter m WHERE m.battery_level < 50 AND m.deleted=0;
+
+-- Identity schema is created by init.sql / 20260918_auth.sql.
+INSERT IGNORE INTO auth_role(user_id,role) SELECT id,'admin' FROM sys_user WHERE username='admin' AND deleted=0;

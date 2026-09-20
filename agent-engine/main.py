@@ -199,9 +199,9 @@ def main():
     run_demo(orchestrator)
     
     # 获取配置
-    host = os.getenv('FLASK_HOST', '0.0.0.0')
+    host = os.getenv('FLASK_HOST', '127.0.0.1')
     port = int(os.getenv('FLASK_PORT', 8087))
-    debug = os.getenv('FLASK_DEBUG', 'True').lower() == 'true'
+    debug = os.getenv('FLASK_DEBUG', 'False').lower() == 'true'
     
     # 创建Flask应用
     app = create_app(orchestrator)

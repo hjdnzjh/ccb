@@ -37,6 +37,7 @@ public class SysUser implements Serializable {
     /**
      * 密码
      */
+    @com.fasterxml.jackson.annotation.JsonProperty(access = com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     /**

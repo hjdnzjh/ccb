@@ -13,6 +13,8 @@ spring:
     username: root
     password: 123456
     hikari:
+      # JDBC 的 serverTimezone 不会改变 MySQL NOW()；显式统一任务与账务会话时区。
+      connection-init-sql: "SET time_zone = '+08:00'"
       minimum-idle: 5
       maximum-pool-size: 20
       idle-timeout: 30000
@@ -24,7 +26,7 @@ spring:
   data:
     redis:
       host: localhost
-      port: 6379
+      port: 16379
       database: 0
       lettuce:
         pool:
@@ -57,7 +59,7 @@ spring:
     nacos:
       discovery:
         enabled: ${NACOS_DISCOVERY_ENABLED:false}
-        server-addr: ${NACOS_SERVER:localhost:8848}
+        server-addr: ${NACOS_SERVER:localhost:18848}
         namespace: ${NACOS_NAMESPACE:}
         group: DEFAULT_GROUP
         fail-fast: false
@@ -68,7 +70,7 @@ mybatis-plus:
   type-aliases-package: com.water.ai.meter.entity
   configuration:
     map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
   global-config:
     db-config:
       id-type: auto
@@ -93,6 +95,7 @@ minio:
 # 智能体引擎配置
 agent-engine:
   url: ${AGENT_ENGINE_URL:http://localhost:8087}
+  internal-token: ${AGENT_INTERNAL_TOKEN:}
   timeout: 30000
 
 # JWT配置
@@ -122,7 +125,7 @@ logging:
   level:
     root: INFO
     com.water.ai.meter: DEBUG
-    org.springframework.web: DEBUG
+    org.springframework.web: INFO
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
   file:
@@ -132,13 +135,17 @@ logging:
 
 # Actuator监控
 management:
+  health:
+    elasticsearch:
+      # 本地 Compose 未部署 Elasticsearch；启用该服务后再开启健康检查
+      enabled: ${ES_HEALTH_ENABLED:false}
   endpoints:
     web:
       exposure:
         include: health,info,metrics,prometheus
   endpoint:
     health:
-      show-details: always
+      show-details: never
 
 # 自定义业务配置
 water-meter:

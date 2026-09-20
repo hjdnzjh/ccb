@@ -20,6 +20,9 @@ import java.util.Map;
 @Mapper
 public interface WaterMeterMapper extends BaseMapper<WaterMeter> {
 
+    @Select("SELECT * FROM water_meter WHERE id=#{id} AND deleted=0 FOR UPDATE")
+    WaterMeter selectForUpdate(Long id);
+
     /**
      * 根据水表编号查询
      */

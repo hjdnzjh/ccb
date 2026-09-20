@@ -1,3 +1,6 @@
+-- SQL file bytes are UTF-8; table charset alone does not set the import charset.
+SET NAMES utf8mb4;
+
 -- =====================================================
 -- 基于AI的水表抄表收费管理系统 数据库初始化脚本
 -- 数据库: MySQL 8.0+
@@ -166,6 +169,21 @@ CREATE TABLE IF NOT EXISTS `bill` (
     KEY `idx_status` (`status`),
     KEY `idx_due_date` (`due_date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='账单表';
+
+-- Additive migration. Run before deploying the billing/payment update.
+-- Uses the database selected by the client; does not delete or synthesize history.
+CREATE TABLE IF NOT EXISTS bill_payment (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    bill_id BIGINT NOT NULL,
+    amount DECIMAL(12,2) NOT NULL,
+    pay_method VARCHAR(20) NOT NULL,
+    trade_no VARCHAR(100) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+    paid_time DATETIME NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE KEY uk_bill_payment_trade (trade_no),
+    KEY idx_bill_payment_bill (bill_id, id),
+    CONSTRAINT chk_bill_payment_positive CHECK (amount > 0)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='线下或演示收款登记流水';
 
 -- =====================================================
 -- 6. 异常记录表
@@ -420,3 +438,217 @@ DELIMITER ;
 -- =====================================================
 -- 结束
 -- =====================================================
+-- Completion feature schemas (2026-09-18)
+
+-- Additive identity and feedback schema. Select the database before execution.
+CREATE TABLE IF NOT EXISTS auth_role (
+ user_id BIGINT PRIMARY KEY,
+ role VARCHAR(20) NOT NULL DEFAULT 'user',
+ CONSTRAINT chk_auth_role CHECK (role IN ('admin','user'))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT IGNORE INTO auth_role(user_id,role) SELECT id,'admin' FROM sys_user WHERE username='admin' AND deleted=0;
+CREATE TABLE IF NOT EXISTS auth_session (
+ token_hash CHAR(64) CHARACTER SET ascii COLLATE ascii_bin PRIMARY KEY,
+ user_id BIGINT NOT NULL,
+ expires_at DATETIME NOT NULL,
+ created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ KEY idx_auth_session_user(user_id), KEY idx_auth_session_expiry(expires_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS user_feedback (
+ id BIGINT PRIMARY KEY AUTO_INCREMENT, user_id BIGINT NOT NULL, meter_id BIGINT NULL,
+ subject VARCHAR(100) NOT NULL, content VARCHAR(2000) NOT NULL,
+ status VARCHAR(20) NOT NULL DEFAULT 'pending', reply VARCHAR(2000) NULL, replied_by BIGINT NULL,
+ created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, replied_at DATETIME NULL,
+ KEY idx_feedback_user(user_id,created_at),
+ CONSTRAINT chk_feedback_status CHECK (status IN ('pending','processing','resolved'))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+-- Additive and repeatable. Uses the database selected by the caller.
+CREATE TABLE IF NOT EXISTS automation_plan (
+ id BIGINT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(100) NOT NULL,
+ enabled BOOLEAN NOT NULL DEFAULT TRUE, interval_minutes INT NOT NULL,
+ adaptive BOOLEAN NOT NULL DEFAULT TRUE, max_attempts INT NOT NULL DEFAULT 3,
+ retry_seconds INT NOT NULL DEFAULT 30, scenario VARCHAR(30) NOT NULL DEFAULT 'normal',
+ increment_amount DECIMAL(12,2) NOT NULL DEFAULT 1.00,
+ next_run_at DATETIME NOT NULL, created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS automation_plan_meter (
+ plan_id BIGINT NOT NULL, meter_id BIGINT NOT NULL, PRIMARY KEY(plan_id,meter_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS automation_run (
+ id BIGINT AUTO_INCREMENT PRIMARY KEY, plan_id BIGINT NOT NULL,
+ request_key VARCHAR(100) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+ created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ UNIQUE KEY uk_automation_run(plan_id,request_key)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS automation_task (
+ id BIGINT AUTO_INCREMENT PRIMARY KEY, run_id BIGINT NOT NULL, meter_id BIGINT NOT NULL,
+ packet VARCHAR(500) NOT NULL, scenario VARCHAR(30) NOT NULL,
+ status VARCHAR(20) NOT NULL DEFAULT 'pending', attempts INT NOT NULL DEFAULT 0,
+ max_attempts INT NOT NULL, retry_seconds INT NOT NULL, next_attempt_at DATETIME NOT NULL,
+ last_error VARCHAR(500), reading_id BIGINT, completed_at DATETIME,
+ UNIQUE KEY uk_automation_task(run_id,meter_id), KEY idx_automation_due(status,next_attempt_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS automation_receipt (
+ id BIGINT AUTO_INCREMENT PRIMARY KEY, meter_id BIGINT NOT NULL, reported_at DATETIME NOT NULL,
+ packet VARCHAR(500) NOT NULL, reading_id BIGINT NOT NULL, source VARCHAR(30) NOT NULL DEFAULT 'simulated',
+ created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ UNIQUE KEY uk_automation_receipt(meter_id,reported_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS penalty_policy (
+ id BIGINT AUTO_INCREMENT PRIMARY KEY, enabled BOOLEAN NOT NULL DEFAULT FALSE,
+ grace_days INT NOT NULL DEFAULT 3, daily_rate DECIMAL(9,6) NOT NULL DEFAULT 0.001000,
+ cap_ratio DECIMAL(9,6) NOT NULL DEFAULT 0.100000, effective_from DATE NOT NULL,
+ created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO penalty_policy(enabled,effective_from)
+ SELECT FALSE,CURRENT_DATE WHERE NOT EXISTS(SELECT 1 FROM penalty_policy);
+CREATE TABLE IF NOT EXISTS penalty_ledger (
+ id BIGINT AUTO_INCREMENT PRIMARY KEY, bill_id BIGINT NOT NULL, accrual_date DATE NOT NULL,
+ policy_id BIGINT NOT NULL, principal_outstanding DECIMAL(12,2) NOT NULL,
+ amount DECIMAL(12,2) NOT NULL, created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ UNIQUE KEY uk_penalty_day(bill_id,accrual_date)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+-- Additive and repeatable. Uses the database selected by the operator.
+CREATE TABLE IF NOT EXISTS report_snapshot (
+    id CHAR(36) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+    generated_at DATETIME NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    granularity VARCHAR(10) NOT NULL,
+    snapshot_json JSON NOT NULL,
+    PRIMARY KEY (id),
+    KEY idx_report_generated (generated_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Immutable report snapshots for screen and export';
+
+-- Autonomous coverage policy (2026-09-19)
+SET NAMES utf8mb4;
+CREATE TABLE IF NOT EXISTS automation_coverage_policy (
+ id TINYINT PRIMARY KEY, enabled BOOLEAN NOT NULL DEFAULT FALSE,
+ interval_minutes INT NOT NULL DEFAULT 1440,
+ increment_amount DECIMAL(12,2) NOT NULL DEFAULT 1.00,
+ updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT IGNORE INTO automation_coverage_policy(id) VALUES(1);
+CREATE TABLE IF NOT EXISTS automation_coverage_meter (
+ meter_id BIGINT PRIMARY KEY, plan_id BIGINT NOT NULL,
+ created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ UNIQUE KEY uk_coverage_plan(plan_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+SET NAMES utf8mb4;
+CREATE TABLE IF NOT EXISTS tariff_meter_guard (
+ meter_id BIGINT PRIMARY KEY
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS tariff_account (
+ id BIGINT AUTO_INCREMENT PRIMARY KEY,
+ name VARCHAR(100) NOT NULL, user_id BIGINT NOT NULL,
+ profile_key VARCHAR(40) NOT NULL, effective_from DATE NOT NULL,
+ opening_usage DECIMAL(14,3) NOT NULL, opening_note VARCHAR(500) NOT NULL,
+ created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS tariff_account_meter (
+ meter_id BIGINT PRIMARY KEY, account_id BIGINT NOT NULL,
+ KEY idx_tariff_account(account_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS tariff_year_balance (
+ account_id BIGINT NOT NULL, billing_year INT NOT NULL,
+ used_amount DECIMAL(14,3) NOT NULL, last_read_at DATETIME NULL,
+ PRIMARY KEY(account_id,billing_year)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS tariff_bill_snapshot (
+ bill_id BIGINT PRIMARY KEY, reading_id BIGINT NOT NULL,
+ account_id BIGINT NOT NULL, billing_year INT NOT NULL,
+ before_usage DECIMAL(14,3) NOT NULL, after_usage DECIMAL(14,3) NOT NULL,
+ profile_key VARCHAR(40) NOT NULL,
+ UNIQUE KEY uk_tariff_reading(reading_id), KEY idx_tariff_bill_account(account_id,billing_year)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Per-account read receipts. Business records remain the source of truth.
+CREATE TABLE IF NOT EXISTS notification_read (
+ user_id BIGINT NOT NULL,
+ message_key CHAR(64) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+ read_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ PRIMARY KEY(user_id,message_key)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Additive diagnostic observations: no changes to financial history.
+CREATE TABLE IF NOT EXISTS diagnosis_policy (
+ id INT PRIMARY KEY, version BIGINT NOT NULL DEFAULT 1, mode VARCHAR(20) NOT NULL DEFAULT 'off',
+ meter_ids TEXT NOT NULL, updated_by BIGINT, updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT IGNORE INTO diagnosis_policy(id,meter_ids) VALUES(1,'[]');
+CREATE TABLE IF NOT EXISTS meter_observation (
+ id BIGINT AUTO_INCREMENT PRIMARY KEY,meter_id BIGINT NOT NULL,source VARCHAR(20) NOT NULL DEFAULT 'simulated',
+ reported_at DATETIME NOT NULL,received_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ flow DECIMAL(15,3) NOT NULL,total DECIMAL(15,2) NOT NULL,temperature DECIMAL(7,2) NOT NULL,
+ valve VARCHAR(10) NOT NULL,alarm VARCHAR(20) NOT NULL,packet_hash CHAR(64) NOT NULL,packet VARCHAR(500) NOT NULL,
+ quality_status VARCHAR(20) NOT NULL DEFAULT 'valid',
+ UNIQUE KEY uk_observation(meter_id,source,reported_at),KEY idx_observation_time(meter_id,reported_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS observation_attempt (
+ id BIGINT AUTO_INCREMENT PRIMARY KEY,request_key VARCHAR(100) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+ meter_id BIGINT,observation_id BIGINT,purpose VARCHAR(20) NOT NULL,packet_hash CHAR(64) NOT NULL,
+ actor_id BIGINT NOT NULL,validation_code VARCHAR(20) NOT NULL DEFAULT 'processing',reason VARCHAR(500),
+ lease_token CHAR(36) NOT NULL,lease_until DATETIME NOT NULL,received_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ UNIQUE KEY uk_observation_request(request_key),KEY idx_attempt_meter(meter_id,received_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS observation_cursor (
+ meter_id BIGINT NOT NULL,source VARCHAR(20) NOT NULL,last_valid_at DATETIME,last_valid_total DECIMAL(15,2),
+ PRIMARY KEY(meter_id,source)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS diagnosis_job (
+ id BIGINT AUTO_INCREMENT PRIMARY KEY,observation_id BIGINT NOT NULL,policy_version BIGINT NOT NULL,
+ mode VARCHAR(20) NOT NULL,state VARCHAR(20) NOT NULL DEFAULT 'pending',attempts INT NOT NULL DEFAULT 0,
+ next_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,lease_until DATETIME,lease_token CHAR(36),last_error VARCHAR(500),
+ UNIQUE KEY uk_diagnosis_job(observation_id,policy_version),KEY idx_diagnosis_due(state,next_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS diagnosis_case (
+ id BIGINT AUTO_INCREMENT PRIMARY KEY,meter_id BIGINT NOT NULL,user_id BIGINT NOT NULL,family VARCHAR(40) NOT NULL,
+ state VARCHAR(40) NOT NULL,severity VARCHAR(20) NOT NULL,summary VARCHAR(500) NOT NULL,mode VARCHAR(20) NOT NULL,
+ policy_version BIGINT NOT NULL,model_version VARCHAR(100),anomaly_id BIGINT,work_order_id BIGINT,
+ opened_at DATETIME NOT NULL,last_evidence_at DATETIME NOT NULL,closed_at DATETIME,
+ KEY idx_case_meter(meter_id,opened_at),KEY idx_case_state(state,last_evidence_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS diagnosis_case_guard (
+ meter_id BIGINT NOT NULL,family VARCHAR(40) NOT NULL,active_case_id BIGINT,PRIMARY KEY(meter_id,family)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS diagnosis_evidence (
+ id BIGINT AUTO_INCREMENT PRIMARY KEY,case_id BIGINT NOT NULL,observation_id BIGINT NOT NULL,window_end DATETIME NOT NULL,
+ reason_codes TEXT NOT NULL,features_json TEXT NOT NULL,baseline_json TEXT NOT NULL,model_version VARCHAR(100),
+ score DECIMAL(14,8),created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ UNIQUE KEY uk_case_evidence(case_id,observation_id),KEY idx_evidence_case(case_id,window_end)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS diagnostic_probe (
+ id BIGINT AUTO_INCREMENT PRIMARY KEY,case_id BIGINT NOT NULL,sequence_no INT NOT NULL,due_at DATETIME NOT NULL,
+ attempts INT NOT NULL DEFAULT 0,state VARCHAR(20) NOT NULL DEFAULT 'pending',lease_until DATETIME,
+ lease_token CHAR(36),observation_id BIGINT,error VARCHAR(500),
+ UNIQUE KEY uk_probe_sequence(case_id,sequence_no),KEY idx_probe_due(state,due_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS diagnostic_budget (
+ meter_id BIGINT NOT NULL,budget_day DATE NOT NULL,requests INT NOT NULL DEFAULT 0,PRIMARY KEY(meter_id,budget_day)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS diagnosis_review (
+ id BIGINT AUTO_INCREMENT PRIMARY KEY,case_id BIGINT NOT NULL,reviewer_id BIGINT NOT NULL,label VARCHAR(40) NOT NULL,
+ note VARCHAR(1000) NOT NULL,request_key VARCHAR(100) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+ created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,UNIQUE KEY uk_diagnosis_review(request_key)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS work_order_verification (
+ id BIGINT AUTO_INCREMENT PRIMARY KEY,case_id BIGINT NOT NULL,work_order_id BIGINT NOT NULL,revision INT NOT NULL DEFAULT 1,
+ state VARCHAR(20) NOT NULL DEFAULT 'observing',started_at DATETIME NOT NULL,deadline_at DATETIME NOT NULL,
+ coverage DECIMAL(8,4) NOT NULL DEFAULT 0,policy_snapshot TEXT NOT NULL,baseline_snapshot TEXT NOT NULL,result_json TEXT,
+ followup_anomaly_id BIGINT,followup_order_id BIGINT,updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ UNIQUE KEY uk_verification(work_order_id,revision),KEY idx_verification_state(state,deadline_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS diagnosis_action (
+ request_key VARCHAR(100) CHARACTER SET ascii COLLATE ascii_bin PRIMARY KEY,actor_id BIGINT NOT NULL,
+ action VARCHAR(40) NOT NULL,case_id BIGINT NOT NULL,payload_hash CHAR(64) NOT NULL,result_json TEXT NOT NULL,
+ created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS diagnosis_policy_audit (
+ version BIGINT PRIMARY KEY,mode VARCHAR(20) NOT NULL,meter_ids TEXT NOT NULL,actor_id BIGINT NOT NULL,
+ created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

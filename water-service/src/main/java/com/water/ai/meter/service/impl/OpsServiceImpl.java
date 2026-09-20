@@ -7,10 +7,7 @@ import com.water.ai.meter.mapper.SysUserMapper;
 import com.water.ai.meter.service.OpsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -23,11 +20,9 @@ public class OpsServiceImpl implements OpsService {
 
     private final OpsMapper opsMapper;
     private final SysUserMapper sysUserMapper;
-    private final RestTemplate restTemplate;
+    private final com.water.ai.meter.assistant.AssistantService assistantService;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    @Value("${agent-engine.url:http://localhost:8087}")
-    private String agentEngineUrl;
 
     @Override
     public Map<String, Object> cockpit() {
@@ -55,10 +50,10 @@ public class OpsServiceImpl implements OpsService {
 
         List<Map<String, Object>> kpis = List.of(
                 kpi("usage", "今日用水量", todayUsage.setScale(1, RoundingMode.HALF_UP).toPlainString(), "吨",
-                        (readStale ? "数据截止 " + readAsOf + " · " : "") + "在线水表 " + online + "/" + meters, "teal"),
-                kpi("revenue", "今日实收", todayPaid.setScale(2, RoundingMode.HALF_UP).toPlainString(), "元",
-                        (paidStale ? "数据截止 " + paidAsOf + " · " : "") +
-                        "本月实收 " + monthPaid.setScale(0, RoundingMode.HALF_UP) + " · 收费率 " + collectionRate + "%", "gold"),
+                        (readStale ? "最近抄表 " + readAsOf + " · " : "") + "正常状态水表 " + online + "/" + meters, "teal"),
+                kpi("revenue", "今日登记收入", todayPaid.setScale(2, RoundingMode.HALF_UP).toPlainString(), "元",
+                        (paidStale ? "最近收款 " + paidAsOf + " · " : "") +
+                        "本月登记 " + monthPaid.setScale(0, RoundingMode.HALF_UP) + " · 本月账单结清率 " + collectionRate + "%", "gold"),
                 kpi("risk", "待处置异常", String.valueOf(openAnomaly), "项",
                         "低置信度待审 " + lowConf, "coral"),
                 kpi("ai", "今日AI抄表", String.valueOf(todayAi), "次",
@@ -169,14 +164,9 @@ public class OpsServiceImpl implements OpsService {
             BigDecimal night = nvl(nd == null ? null : nd.get("night_usage"));
             BigDecimal day = nvl(nd == null ? null : nd.get("day_usage"));
             long anomaly = ((Number) z.getOrDefault("anomaly_count", 0)).longValue();
-            double leakRate;
-            if (day.compareTo(BigDecimal.ZERO) > 0) {
-                leakRate = night.multiply(BigDecimal.valueOf(100))
-                        .divide(day.add(night), 1, RoundingMode.HALF_UP).doubleValue();
-            } else {
-                leakRate = anomaly > 0 ? 12.0 : 3.0;
-            }
-            String status = anomaly >= 3 || leakRate >= 20 ? "danger" : (anomaly >= 1 || leakRate >= 10 ? "warn" : "ok");
+            BigDecimal total = day.add(night);
+            BigDecimal nightShare = total.signum()>0 ? night.multiply(BigDecimal.valueOf(100)).divide(total,1,RoundingMode.HALF_UP) : null;
+            String status = anomaly >= 3 ? "danger" : anomaly >= 1 ? "warn" : "ok";
             Map<String, Object> item = new LinkedHashMap<>();
             item.put("id", z.get("area_code"));
             item.put("areaId", areaId);
@@ -185,7 +175,7 @@ public class OpsServiceImpl implements OpsService {
             item.put("meters", z.get("meters"));
             item.put("usage", nvl(z.get("today_usage")).setScale(1, RoundingMode.HALF_UP));
             item.put("anomaly", anomaly);
-            item.put("leakRate", leakRate);
+            item.put("nightReadingShare", nightShare);
             item.put("insight", buildZoneInsight(status, night, day, anomaly));
             result.add(item);
         }
@@ -281,7 +271,7 @@ public class OpsServiceImpl implements OpsService {
                     fallback.put("meters", 0);
                     fallback.put("usage", BigDecimal.ZERO);
                     fallback.put("anomaly", 0);
-                    fallback.put("leakRate", 0);
+                    fallback.put("nightReadingShare", null);
                     fallback.put("insight", "暂无聚合数据");
                     return fallback;
                 });
@@ -319,13 +309,8 @@ public class OpsServiceImpl implements OpsService {
     }
 
     private String buildZoneInsight(String status, BigDecimal night, BigDecimal day, long anomaly) {
-        if ("danger".equals(status)) {
-            return "近7天夜间用水 " + night + "，日间 " + day + "，开放异常 " + anomaly + "，疑似管网渗漏/表具故障。";
-        }
-        if ("warn".equals(status)) {
-            return "存在风险信号：开放异常 " + anomaly + "，夜间用水占比偏高，建议巡检。";
-        }
-        return "运行平稳，暂无明显漏损迹象。";
+        return "未处理异常 " + anomaly + " 条；近7天按抄表时刻归集的已审用量：0—5时 " + night + " m³，6—23时 " + day
+                + " m³。抄表用量覆盖相邻读数之间的整个区间，不能据此计算实际夜间流量或漏损率；是否漏水需现场核查。";
     }
 
     @Override
@@ -333,8 +318,8 @@ public class OpsServiceImpl implements OpsService {
         List<Map<String, Object>> rows = opsMapper.meterHealthRows();
         List<Map<String, Object>> list = new ArrayList<>();
         for (Map<String, Object> m : rows) {
-            int battery = m.get("battery_level") == null ? 100 : ((Number) m.get("battery_level")).intValue();
-            int signal = m.get("signal_strength") == null ? 100 : ((Number) m.get("signal_strength")).intValue();
+            Integer battery = m.get("battery_level") == null ? null : ((Number) m.get("battery_level")).intValue();
+            Integer signal = m.get("signal_strength") == null ? null : ((Number) m.get("signal_strength")).intValue();
             int status = m.get("status") == null ? 0 : ((Number) m.get("status")).intValue();
             int days = m.get("days_since_read") == null ? 0 : ((Number) m.get("days_since_read")).intValue();
             int health = 100;
@@ -343,11 +328,13 @@ public class OpsServiceImpl implements OpsService {
                 health -= 35;
                 reasons.add("水表状态为故障");
             }
-            if (battery < 50) {
+            if (battery == null) {health-=10;reasons.add("电量数据缺失，需核实");}
+            else if (battery < 50) {
                 health -= (50 - battery) / 2;
                 reasons.add("电量下降至 " + battery + "%");
             }
-            if (signal < 60) {
+            if (signal == null) {health-=10;reasons.add("信号数据缺失，需核实");}
+            else if (signal < 60) {
                 health -= (60 - signal) / 3;
                 reasons.add("信号偏弱 " + signal);
             }
@@ -365,7 +352,6 @@ public class OpsServiceImpl implements OpsService {
                 }
             }
             health = Math.max(5, Math.min(99, health));
-            int fault30d = Math.max(5, Math.min(95, 100 - health + (status == 1 ? 10 : 0)));
             if (reasons.isEmpty()) {
                 reasons.add("运行稳定");
             }
@@ -373,7 +359,7 @@ public class OpsServiceImpl implements OpsService {
             item.put("meterNo", m.get("meter_no"));
             item.put("area", m.get("area_name"));
             item.put("health", health);
-            item.put("fault30d", fault30d);
+            item.put("riskScore", 100-health);
             item.put("reasons", reasons);
             item.put("battery", battery);
             item.put("signal", signal);
@@ -464,87 +450,7 @@ public class OpsServiceImpl implements OpsService {
 
     @Override
     public Map<String, Object> assistant(String question) {
-        Map<String, Object> cockpit = cockpit();
-        Map<String, Object> unpaid = opsMapper.unpaidSummary();
-        List<Map<String, Object>> zones = twinZones();
-        List<Map<String, Object>> health = meterHealth();
-
-        List<String> analysis = new ArrayList<>();
-        List<String> actions = new ArrayList<>();
-
-        // 优先用 agent-engine，失败则基于库内统计给出可解释结论
-        boolean agentOk = false;
-        try {
-            Map<String, Object> body = new HashMap<>();
-            body.put("mode", "report");
-            body.put("report_type", "ops_qa");
-            body.put("period", question);
-            body.put("context", Map.of(
-                    "question", question,
-                    "openAnomaly", opsMapper.openAnomalyCount(),
-                    "unpaid", unpaid,
-                    "zones", zones
-            ));
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            ResponseEntity<Map> resp = restTemplate.exchange(
-                    agentEngineUrl + "/api/analysis/report",
-                    HttpMethod.POST,
-                    new HttpEntity<>(body, headers),
-                    Map.class);
-            if (resp.getStatusCode().is2xxSuccessful() && resp.getBody() != null) {
-                Object data = resp.getBody().get("data");
-                Object message = resp.getBody().get("message");
-                analysis.add("智能体引擎响应：" + (message == null ? "已完成分析" : message));
-                if (data != null) {
-                    analysis.add("引擎明细：" + data);
-                }
-                agentOk = true;
-            }
-        } catch (Exception e) {
-            log.warn("agent-engine unavailable, fallback to DB reasoning: {}", e.getMessage());
-        }
-
-        if (!agentOk) {
-            if (question != null && (question.contains("收入") || question.contains("水费") || question.contains("欠费"))) {
-                analysis.add("欠费账单 " + unpaid.get("unpaid_count") + " 笔，欠费金额 " + unpaid.get("unpaid_amount") + "。");
-                analysis.add("今日实收与开放异常、低置信度抄表共同影响账期闭环。");
-                actions.add("打开智能收费策略，对突增账单先提醒后催缴");
-                actions.add("补齐低置信度抄表审核，避免账单缺口");
-            } else if (question != null && (question.contains("漏") || question.contains("夜间") || question.contains("管网"))) {
-                zones.stream().filter(z -> "danger".equals(z.get("status"))).findFirst().ifPresentOrElse(z -> {
-                    analysis.add(z.get("name") + " 处于异常态势：" + z.get("insight"));
-                    analysis.add("夜间用水占比偏高，漏损风险升高。");
-                    actions.add("优先巡检该区高风险水表");
-                    actions.add("结合异常记录派发工单");
-                }, () -> {
-                    analysis.add("当前分区未出现最高级漏损态势，但仍有预警区需观察。");
-                    actions.add("持续监控夜间流量与异常表");
-                });
-            } else {
-                analysis.add("开放异常 " + opsMapper.openAnomalyCount() + " 项；低置信度待审 "
-                        + opsMapper.lowConfidencePending() + " 条。");
-                health.stream().limit(3).forEach(h ->
-                        analysis.add(h.get("meterNo") + " 健康度 " + h.get("health") + "%，30天故障概率 "
-                                + h.get("fault30d") + "%"));
-                actions.add("进入 AI 运营驾驶舱按优先级处置");
-                actions.add("对健康度最低的水表生成巡检工单");
-            }
-        } else {
-            actions.add("结合驾驶舱信号执行建议动作");
-            actions.add("必要时人工复核 agent 结论");
-        }
-
-        Map<String, Object> result = new LinkedHashMap<>();
-        result.put("question", question);
-        result.put("analysis", analysis);
-        result.put("actions", actions);
-        result.put("source", agentOk ? "agent-engine+db" : "database");
-        result.put("cockpitSnapshot", Map.of(
-                "kpis", cockpit.get("kpis"),
-                "advice", cockpit.get("advice")
-        ));
-        return result;
+        return assistantService.answer(question);
     }
 
     @Override

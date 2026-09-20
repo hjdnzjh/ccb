@@ -20,6 +20,23 @@ import java.util.Map;
 @Mapper
 public interface BillMapper extends BaseMapper<Bill> {
 
+    @Select("SELECT COALESCE(SUM(total_amount),0) amount,COUNT(*) total,COALESCE(SUM(status=1),0) paid FROM bill WHERE deleted=0 AND create_time>=#{start} AND create_time<#{until}")
+    Map<String,Object> createdBetween(@Param("start") LocalDateTime start,@Param("until") LocalDateTime until);
+
+    @Select("SELECT COALESCE(SUM(amount),0) FROM bill_payment WHERE paid_time>=#{start} AND paid_time<#{until}")
+    BigDecimal receiptsBetween(@Param("start") LocalDateTime start,@Param("until") LocalDateTime until);
+
+    @Select("SELECT * FROM bill WHERE id = #{id} AND deleted = 0 FOR UPDATE")
+    Bill selectForUpdate(Long id);
+
+    // Current read: a caller may already have established a REPEATABLE READ snapshot.
+    @Select("SELECT * FROM bill WHERE reading_id = #{readingId} AND deleted = 0 ORDER BY id LIMIT 2 FOR UPDATE")
+    List<Bill> selectByReadingId(Long readingId);
+
+    @Select("SELECT reading_id FROM bill WHERE reading_id IS NOT NULL AND deleted = 0 " +
+            "GROUP BY reading_id HAVING COUNT(*) > 1 LIMIT 10")
+    List<Long> selectDuplicateReadingIds();
+
     /**
      * 根据账单编号查询
      */
@@ -35,13 +52,15 @@ public interface BillMapper extends BaseMapper<Bill> {
     /**
      * 查询用户未支付账单
      */
-    @Select("SELECT * FROM bill WHERE user_id = #{userId} AND status = 0 AND deleted = 0")
+    @Select("SELECT * FROM bill WHERE user_id = #{userId} AND status IN (0,2,3) " +
+            "AND total_amount > COALESCE(paid_amount,0) AND deleted = 0 ORDER BY due_date, id")
     List<Bill> selectUnpaidByUserId(Long userId);
 
     /**
      * 查询逾期账单
      */
-    @Select("SELECT * FROM bill WHERE status = 0 AND due_date < NOW() AND deleted = 0")
+    @Select("SELECT * FROM bill WHERE status IN (0,2,3) AND total_amount > COALESCE(paid_amount,0) " +
+            "AND due_date < NOW() AND deleted = 0 ORDER BY due_date, id")
     List<Bill> selectOverdueBills();
 
     /**
@@ -78,7 +97,7 @@ public interface BillMapper extends BaseMapper<Bill> {
      */
     @Update("UPDATE bill SET status = #{status}, paid_amount = #{paidAmount}, " +
             "paid_time = #{paidTime}, pay_method = #{payMethod}, trade_no = #{tradeNo}, " +
-            "update_time = NOW() WHERE id = #{id}")
+            "update_time = NOW() WHERE id = #{id} AND deleted = 0")
     int updatePayment(@Param("id") Long id, @Param("status") Integer status,
                       @Param("paidAmount") BigDecimal paidAmount,
                       @Param("paidTime") LocalDateTime paidTime,
@@ -98,7 +117,7 @@ public interface BillMapper extends BaseMapper<Bill> {
     @Select("SELECT u.id, u.username, u.real_name, u.phone, " +
             "SUM(b.total_amount - COALESCE(b.paid_amount, 0)) as overdue_amount " +
             "FROM bill b INNER JOIN sys_user u ON b.user_id = u.id " +
-            "WHERE b.status IN (0, 2) AND b.due_date < NOW() " +
+            "WHERE b.status IN (0,2,3) AND b.total_amount > COALESCE(b.paid_amount,0) AND b.due_date < NOW() " +
             "AND b.deleted = 0 AND u.deleted = 0 " +
             "GROUP BY u.id ORDER BY overdue_amount DESC LIMIT #{limit}")
     List<Map<String, Object>> topOverdueUsers(int limit);
@@ -108,6 +127,7 @@ public interface BillMapper extends BaseMapper<Bill> {
             "SELECT b.id, b.bill_no AS billNo, b.user_id AS userId, b.meter_id AS meterId, " +
             "b.bill_period AS billPeriod, b.usage_amount AS usageAmount, b.water_fee AS waterFee, " +
             "b.sewage_fee AS sewageFee, b.total_amount AS totalAmount, b.paid_amount AS paidAmount, " +
+            "GREATEST(b.total_amount - COALESCE(b.paid_amount,0),0) AS remainingAmount, " +
             "b.status, b.due_date AS dueDate, b.paid_time AS paidTime, b.pay_method AS payMethod, " +
             "COALESCE(NULLIF(u.real_name, ''), u.username) AS userName, u.phone " +
             "FROM bill b LEFT JOIN sys_user u ON u.id = b.user_id AND u.deleted = 0 " +
@@ -145,7 +165,8 @@ public interface BillMapper extends BaseMapper<Bill> {
     @Select("<script>" +
             "SELECT COALESCE(SUM(b.total_amount), 0) AS totalAmount, " +
             "COALESCE(SUM(b.paid_amount), 0) AS paidAmount, " +
-            "COALESCE(SUM(CASE WHEN b.status IN (0,2,3) THEN b.total_amount - COALESCE(b.paid_amount,0) ELSE 0 END), 0) AS overdueAmount, " +
+            "COALESCE(SUM(GREATEST(b.total_amount - COALESCE(b.paid_amount,0),0)),0) AS remainingAmount, " +
+            "COALESCE(SUM(CASE WHEN b.status IN (0,2,3) AND b.due_date &lt; NOW() THEN GREATEST(b.total_amount - COALESCE(b.paid_amount,0),0) ELSE 0 END),0) AS overdueAmount, " +
             "CASE WHEN COALESCE(SUM(b.total_amount),0) = 0 THEN 0 " +
             "ELSE ROUND(COALESCE(SUM(b.paid_amount),0) / SUM(b.total_amount) * 100, 1) END AS collectionRate " +
             "FROM bill b LEFT JOIN sys_user u ON u.id = b.user_id AND u.deleted = 0 WHERE b.deleted = 0 " +
